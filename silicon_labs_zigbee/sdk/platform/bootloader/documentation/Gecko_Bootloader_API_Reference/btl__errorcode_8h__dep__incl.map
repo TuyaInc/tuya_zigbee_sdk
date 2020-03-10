@@ -1,0 +1,13 @@
+<map id="/home/buildengineer/jenkins&#45;slave/workspace/super/platform/bootloader/api/btl_errorcode.h" name="/home/buildengineer/jenkins&#45;slave/workspace/super/platform/bootloader/api/btl_errorcode.h">
+<area shape="rect" id="node2" href="$btl__interface_8h.html" title="Application interface to the bootloader. " alt="" coords="81,131,274,202"/>
+<area shape="rect" id="node5" href="$btl__driver__spislave_8h.html" title="Universal SPI slave driver for the Silicon Labs Bootloader. " alt="" coords="299,131,493,202"/>
+<area shape="rect" id="node6" href="$btl__driver__uart_8h.html" title="Universal UART driver for the Silicon Labs Bootloader. " alt="" coords="518,131,711,202"/>
+<area shape="rect" id="node7" href="$btl__communication_8h.html" title="Communication interface for Silicon Labs Bootloader. " alt="" coords="735,124,929,209"/>
+<area shape="rect" id="node9" href="$btl__decompress__lz4_8h.html" title="LZ4 decompression functionality for Gecko Bootloader. " alt="" coords="953,124,1148,209"/>
+<area shape="rect" id="node10" href="$btl__decompress__lzma_8h.html" title="LZMA decompression functionality for Gecko Bootloader. " alt="" coords="1172,124,1367,209"/>
+<area shape="rect" id="node11" href="$btl__security__ecdsa_8h.html" title="ECDSA signing functionality for Silicon Labs bootloader. " alt="" coords="1391,131,1643,202"/>
+<area shape="rect" id="node12" href="$ecc_8h.html" title="ECC API definition. " alt="" coords="1667,131,1861,202"/>
+<area shape="rect" id="node3" href="$btl__storage_8h.html" title="Storage plugin for Silicon Labs Bootloader. " alt="" coords="5,265,211,335"/>
+<area shape="rect" id="node4" href="$btl__storage__internal_8h.html" title="Internal header for the storage plugin of the Silicon Labs Bootloader. " alt="" coords="81,391,274,476"/>
+<area shape="rect" id="node8" href="$btl__ezsp__spi_8h.html" title="XMODEM parser plugin for Silicon Labs Bootloader. " alt="" coords="731,257,933,343"/>
+</map>

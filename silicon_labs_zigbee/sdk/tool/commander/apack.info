@@ -1,0 +1,56 @@
+# Adapter pack file for Studio.
+#
+label=Simplicity Commander
+path=.,deploy/,win32/Simplicity Commander,linux_x86_64/commander,Commander.app/Contents/MacOS,Commander.app/Contents/Frameworks,macosx/Commander.app/Contents/MacOS,macosx/Commander.app/Contents/Frameworks
+featureLevel=3
+requiredFeatureLevel=apack.core:4
+
+executable(commander:linux.x86_64) {
+  exe=commander
+  lib=libemdll.so
+  lib=libjlinkarm.so
+}
+
+executable(commander:linux.x86) {
+  exe=commander
+  lib=libemdll.so
+  lib=libjlinkarm.so
+}
+
+executable(commander:win32.x86) {
+  exe=commander.exe
+  lib=emdll0.dll
+  lib=JLinkARM.dll
+}
+
+executable(commander:win32.x86_64) {
+  exe=commander.exe
+  lib=emdll0.dll
+  lib=JLinkARM.dll
+}
+
+executable(commander:macosx.x86_64) {
+  exe=commander
+  lib=libemdll.dylib
+  lib=libjlinkarm.dylib
+}
+
+function(help) {
+  cmd=$(commander) --help
+}
+
+function(setDebugMode) {
+  cmd=$(commander) --apack adapter dbgmode ${mode} ( --serialno ${sn} | -ip ${addr} )
+}
+
+function(writeFirmware) {
+  cmd=$(commander) --apack adapter fwupgrade ( --serialno ${sn} | --ip ${addr} ) ${file}
+}
+
+function(wstkSimpleApplicationUpload) {
+  cmd=$(commander) --apack flash ( --serialno ${sn} | --ip ${addr} ) [ -d ${part} ] ${file}
+}
+
+function(wstkApplicationUpload) {
+  cmd=$(commander) --apack ${external?extflash:flash} ${external?write:} ( --serialno ${sn} | --ip ${addr} ) [ --tif ${tif} ] [ --address ${start} ] [ ${run?:--halt} ] [ ${erasemode==full?--masserase:} ] [ --speed ${jlinkspeedkhz} ] [ -d ${part} ] ${file} [ ${bootImage} ]
+}

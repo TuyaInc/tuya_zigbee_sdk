@@ -1,0 +1,5 @@
+<map id="Storage" name="Storage">
+<area shape="rect" id="node3" href="$group__BootloadInfo.html" title="Info about what firmware update image should be bootloaded next. " alt="" coords="265,5,372,32"/>
+<area shape="rect" id="node4" href="$group__SpiflashConfigs.html" title="Configuration parameters for SPI flashes. " alt="" coords="235,56,403,83"/>
+<area shape="rect" id="node2" href="$group__Plugin.html" title="Plugin" alt="" coords="5,31,65,57"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="GBL Parser" name="GBL Parser">
+<area shape="rect" id="node1" href="$group__ImageParser.html" title="Image parser plugin. " alt="" coords="5,31,112,57"/>
+<area shape="rect" id="node2" href="$group__CustomTags.html" title="Handle custom GBL tags for added functionality in the GBL parser. " alt="" coords="300,5,435,32"/>
+<area shape="rect" id="node3" href="$group__EblParserFormat.html" title="GBL file specification. " alt="" coords="318,56,417,83"/>
+</map>

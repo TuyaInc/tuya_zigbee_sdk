@@ -1,0 +1,9 @@
+<map id="Plugin" name="Plugin">
+<area shape="rect" id="node1" href="$group__ImageParser.html" title="Image parser plugin. " alt="" coords="121,5,228,32"/>
+<area shape="rect" id="node2" href="$group__Storage.html" title="Storage plugin. " alt="" coords="138,56,211,83"/>
+<area shape="rect" id="node3" href="$group__GpioActivation.html" title="Enter bootloader based on GPIO state . " alt="" coords="115,107,235,133"/>
+<area shape="rect" id="node5" href="$group__Debug.html" title="Debug Plugin. " alt="" coords="143,157,207,184"/>
+<area shape="rect" id="node6" href="$group__Communication.html" title="Host communication interface. " alt="" coords="113,208,236,235"/>
+<area shape="rect" id="node7" href="$group__Security.html" title="Security" alt="" coords="137,259,212,285"/>
+<area shape="rect" id="node8" href="$group__Decompressor.html" title="Decompressors for Gecko Bootloader. " alt="" coords="117,309,233,336"/>
+</map>

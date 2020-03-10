@@ -1,0 +1,9 @@
+<map id="/home/buildengineer/jenkins&#45;slave/workspace/super/platform/bootloader/plugin/parser/compression/btl_decompress_lz4.h" name="/home/buildengineer/jenkins&#45;slave/workspace/super/platform/bootloader/plugin/parser/compression/btl_decompress_lz4.h">
+<area shape="rect" id="node5" href="$btl__ebl__parser_8h.html" title="EBL image file parser. " alt="" coords="559,139,707,180"/>
+<area shape="rect" id="node11" href="$btl__errorcode_8h.html" title="Error codes used and exposed by the bootloader. " alt="" coords="1163,146,1305,173"/>
+<area shape="rect" id="node6" href="$btl__image__parser_8h.html" title="Definition of the interface between the core bootloader and the firmware upgrade image file parser..." alt="" coords="383,228,555,269"/>
+<area shape="rect" id="node9" href="$btl__security__aes_8h.html" title="AES decryption functionality for Silicon Labs bootloader. " alt="" coords="631,317,765,359"/>
+<area shape="rect" id="node10" href="$btl__security__sha256_8h.html" title="SHA&#45;256 digest functionality for Silicon Labs bootloader. " alt="" coords="789,317,935,359"/>
+<area shape="rect" id="node7" href="$application__properties_8h.html" title="Representation of Application Properties. " alt="" coords="48,325,247,351"/>
+<area shape="rect" id="node8" href="$btl__interface__parser_8h.html" title="Application interface to the bootloader parser. " alt="" coords="321,325,504,351"/>
+</map>

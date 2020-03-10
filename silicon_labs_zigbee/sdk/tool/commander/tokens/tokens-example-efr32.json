@@ -1,0 +1,44 @@
+[
+  {
+    "name": "MYAPP_EXAMPLE_BYTE_USERDATA",
+    "page": "USERDATA",
+    "offset": "0x0",
+    "sizeB": 1,
+    "description": "A single byte located at the beginning of the user data page. The user data page is not cleared on a device mass erase."
+  },
+  {
+    "name": "MYAPP_EXAMPLE_BYTE_LOCKBITS",
+    "page": "LOCKBITSDATA",
+    "offset": "0x200",
+    "sizeB": 1,
+    "description": "A single byte in the lock bits page. DO NOT use offsets less than 0x200, as this is used by the chip itself for defining lock features."
+  },
+  {
+    "name": "MYAPP_EXAMPLE_UINT16_USERDATA",
+    "page": "USERDATA",
+    "offset": "0x2",
+    "sizeB": 2,
+    "description": "A 16 bit unsigned integer."
+  },
+  {
+    "name": "MYAPP_EXAMPLE_UINT32_USERDATA",
+    "page": "USERDATA",
+    "offset": "0x4",
+    "sizeB": 4,
+    "description": "A 32 bit unsigned integer."
+  },
+  {
+    "name": "MYAPP_EXAMPLE_BYTE_ARRAY",
+    "page": "LOCKBITSDATA",
+    "offset": "0x202",
+    "sizeB": 6,
+    "description": "A 6-byte array."
+  },
+  {
+    "name": "MYAPP_EXAMPLE_BYTE_ARRAY_2",
+    "page": "LOCKBITSDATA",
+    "offset": "0x208",
+    "sizeB": 3,
+    "description": "A 3-byte byte array."
+  }
+]

@@ -1,0 +1,11 @@
+<map id="/home/buildengineer/jenkins&#45;slave/workspace/super/platform/bootloader/plugin/storage/btl_storage_internal.h" name="/home/buildengineer/jenkins&#45;slave/workspace/super/platform/bootloader/plugin/storage/btl_storage_internal.h">
+<area shape="rect" id="node4" href="$btl__interface_8h.html" title="Application interface to the bootloader. " alt="" coords="626,213,762,240"/>
+<area shape="rect" id="node13" href="$btl__storage_8h.html" title="Storage plugin for Silicon Labs Bootloader. " alt="" coords="686,139,793,165"/>
+<area shape="rect" id="node5" href="$btl__errorcode_8h.html" title="Error codes used and exposed by the bootloader. " alt="" coords="551,295,669,322"/>
+<area shape="rect" id="node6" href="$btl__reset__info_8h.html" title="Reset information for the Silicon Labs Gecko bootloader. " alt="" coords="887,295,1007,322"/>
+<area shape="rect" id="node8" href="$application__properties_8h.html" title="Representation of Application Properties. " alt="" coords="1216,295,1391,322"/>
+<area shape="rect" id="node9" href="$btl__interface__parser_8h.html" title="Application interface to the bootloader parser. " alt="" coords="1031,295,1191,322"/>
+<area shape="rect" id="node10" href="$btl__interface__storage_8h.html" title="Application interface to the storage plugin of the bootloader. " alt="" coords="693,295,863,322"/>
+<area shape="rect" id="node11" href="$btl__util_8h_source.html" title="core/btl_util.h" alt="" coords="292,295,400,322"/>
+<area shape="rect" id="node15" href="$btl__storage__bootloadinfo_8h.html" title="Bootload Info for Silicon Labs Bootloader. " alt="" coords="39,288,216,329"/>
+</map>

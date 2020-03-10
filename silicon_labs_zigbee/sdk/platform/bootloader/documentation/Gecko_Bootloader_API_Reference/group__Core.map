@@ -1,0 +1,6 @@
+<map id="Bootloader Core" name="Bootloader Core">
+<area shape="rect" id="node2" href="$group__Flash.html" title="Interface to internal flash. " alt="" coords="192,5,247,32"/>
+<area shape="rect" id="node3" href="$group__Bootload.html" title="Methods to verify and bootload application images. " alt="" coords="180,56,259,83"/>
+<area shape="rect" id="node4" href="$group__Reset.html" title="Methods to reset from the bootloader to the app. " alt="" coords="191,107,248,133"/>
+<area shape="rect" id="node5" href="$group__Upgrade.html" title="Methods to verify and upgrade the main bootloader. " alt="" coords="181,157,258,184"/>
+</map>

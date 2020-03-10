@@ -1,0 +1,9 @@
+<map id="BootloaderParserContext" name="BootloaderParserContext">
+<area shape="rect" id="node2" href="$unionDecryptContext__t.html" title="Generic decryption context. " alt="" coords="231,333,365,360"/>
+<area shape="rect" id="node3" href="$structAesCtrContext.html" title="Context variable type for AES&#45;CTR (and AES&#45;CCM) " alt="" coords="162,199,277,225"/>
+<area shape="rect" id="node7" href="$structParserContext__t.html" title="Image parser context definition. " alt="" coords="648,199,772,225"/>
+<area shape="rect" id="node14" href="$unionSha256Context.html" title="Context type for SHA algorithm. " alt="" coords="1692,199,1813,225"/>
+<area shape="rect" id="node17" href="$structApplicationData.html" title="Application Data. " alt="" coords="1375,199,1498,225"/>
+<area shape="rect" id="node16" href="$structImageProperties__t.html" title="Structure containing state of the image file processed. " alt="" coords="1367,333,1506,360"/>
+<area shape="rect" id="node13" href="$unionAuthContext__t.html" title="Generic authentication context. " alt="" coords="1666,333,1781,360"/>
+</map>

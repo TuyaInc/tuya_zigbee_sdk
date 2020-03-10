@@ -1,0 +1,5 @@
+<map id="MainBootloaderTable_t" name="MainBootloaderTable_t">
+<area shape="rect" id="node2" href="$structBootloaderHeader__t.html" title="Common header for bootloader tables. " alt="" coords="461,16,612,43"/>
+<area shape="rect" id="node5" href="$structBareBootTable__t.html" title="Bare boot table. Can be mapped on top of vector table to access contents. " alt="" coords="473,271,600,297"/>
+<area shape="rect" id="node8" href="$structBootloaderStorageFunctions.html" title="Storage API accessible from the application. " alt="" coords="435,492,638,519"/>
+</map>

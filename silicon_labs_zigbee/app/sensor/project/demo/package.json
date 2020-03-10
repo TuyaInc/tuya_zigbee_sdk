@@ -1,0 +1,101 @@
+{
+	"fimwareInfo": {
+		"name": "demo",
+		"description": "this is a project demo",
+		"version": "1.0.0",
+		"ic": "efr32mg13p732gm48",
+		"ota_image_type":"0x1602",
+		"manufacture_id":"0x1002",
+		"model_id":"SM0203",
+		"pid": "ys3nkyyk",
+		"manufacture_name": "_TYZB01_",
+		"module_name":"TYZS2R"
+	},
+	"uartConfig": {
+		"uart_enable": "true",
+		"uart_num": 1,
+		"uart": [
+			{
+				"uart0_rx_port": "PORT_F",
+				"uart0_rx_pin": "PIN_2",
+				"uart0_rx_loc": "LOC_25",
+				"uart0_tx_port": "PORT_A",
+				"uart0_tx_pin": "PIN_4",
+				"uart0_tx_loc": "LOC_4",
+				"uart0_bandrate": 115200
+		  },
+			{
+			"uart0_rx_port": "PORT_A",
+			"uart0_rx_pin": "PIN_1",
+			"uart0_rx_loc": "LOC_0",
+			"uart0_tx_port": "PORT_A",
+			"uart0_tx_pin": "PIN_0",
+			"uart0_tx_loc": "LOC_0",
+			"uart0_bandrate": 115200
+		  }
+		]
+	},
+  "ioConfig": {
+    "led_enable": "true",
+		"led_num": 1,
+		"key_enable": "true",
+		"key_num": 1,
+		"sensor_enable": "true",
+		"sensor_num": 2,
+		"led": [
+		  {
+			"led0_port": "PORT_A",
+			"led0_pin": "PIN_1",
+			"led0_mode": "GPIO_MODE_OUTPUT_PP",
+			"led0_out": "GPIO_DOUT_HIGH",
+			"led0_driver": "GPIO_DOUT_LOW"
+		  },
+		  {
+			"led1_port": "PORT_xx",
+			"led1_pin": "PIN_xx",
+			"led1_mode": "GPIO_MODE_OUTPUT_PP",
+			"led1_out": "GPIO_DOUT_HIGH",
+			"led1_driver": "GPIO_DOUT_LOW"
+		  }
+	],
+	"key": [
+		  {
+			"key0_port": "PORT_A",
+			"key0_pin": "PIN_3",
+			"key0_mode": "GPIO_MODE_INPUT_PULL",
+			"key0_out": "GPIO_DOUT_HIGH",
+			"key0_driver": "GPIO_DOUT_LOW"
+		  },
+		  {
+			"key1_port": "PORT_xx",
+			"key1_pin": "PIN_xx",
+			"key1_mode": "GPIO_MODE_OUTPUT_OD",
+			"key1_out": "GPIO_DOUT_LOW",
+			"key1_driver": "GPIO_LEVEL_HIGH"
+		  }
+		],
+		"sensor": [
+		  {
+			"alarm1_port": "PORT_F",
+			"alarm1_pin": "PIN_5",
+			"alarm1_mode": "GPIO_MODE_INPUT_PULL",
+			"alarm1_out": "GPIO_DOUT_HIGH",
+			"alarm1_driver": "GPIO_LEVEL_ALL"
+			},
+			{
+				"tamper_port": "PORT_D",
+				"tamper_pin": "PIN_15",
+				"tamper_mode": "GPIO_MODE_INPUT_PULL",
+				"tamper_out": "GPIO_DOUT_HIGH",
+				"tamper_driver": "GPIO_LEVEL_ALL"
+			},
+			{
+				"trouble_port": "PORT_x",
+				"trouble_pin": "PIN_x",
+				"trouble_mode": "GPIO_MODE_INPUT_PULL",
+				"trouble_out": "GPIO_DOUT_LOW",
+				"trouble_driver": "GPIO_LEVEL_ALL"
+			}
+		]
+  }
+}

@@ -1,0 +1,14 @@
+<map id="Error Codes" name="Error Codes">
+<area shape="rect" id="node1" href="$group__StorageError.html" title="Bootloader error codes returned by a storage driver. " alt="" coords="168,5,316,47"/>
+<area shape="rect" id="node2" href="$group__SecurityError.html" title="Bootloader error codes returned by security algorihms. " alt="" coords="167,71,317,98"/>
+<area shape="rect" id="node3" href="$group__ParseErrpr.html" title="Bootloader error codes returned by image parsing. " alt="" coords="175,122,309,149"/>
+<area shape="rect" id="node4" href="$group__XmodemError.html" title="Bootloader error codes returned by the XMODEM parser. " alt="" coords="163,173,321,199"/>
+<area shape="rect" id="node5" href="$group__InitError.html" title="Bootloader error codes returned by initialization code. " alt="" coords="176,224,308,265"/>
+<area shape="rect" id="node6" href="$group__UartError.html" title="Bootloader error codes returned by the UART driver. " alt="" coords="156,290,328,317"/>
+<area shape="rect" id="node8" href="$group__CompressionError.html" title="Bootloader error codes returned by the decompressor. " alt="" coords="151,341,333,367"/>
+<area shape="rect" id="node9" href="$group__ErrorBases.html" title="Bootloader error code base values, per logical function. " alt="" coords="157,391,327,418"/>
+<area shape="rect" id="node10" href="$group__SpiSlaveError.html" title="Bootloader error codes returned by the SPI slave driver. " alt="" coords="165,443,319,484"/>
+<area shape="rect" id="node11" href="$group__ParserError.html" title="Bootloader error codes returned by the image file parser. " alt="" coords="171,508,313,549"/>
+<area shape="rect" id="node12" href="$group__BootloadError.html" title="Bootloader error codes returned by the bootloading process. " alt="" coords="155,574,329,601"/>
+<area shape="rect" id="node13" href="$group__CommunicationError.html" title="Bootloader error codes returned by communication plugins. " alt="" coords="159,625,325,667"/>
+</map>

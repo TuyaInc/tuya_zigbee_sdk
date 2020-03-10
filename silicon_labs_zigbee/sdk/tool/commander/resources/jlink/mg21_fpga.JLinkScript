@@ -1,0 +1,33 @@
+/*********************************************************************
+*              SEGGER MICROCONTROLLER GmbH & Co. K.G.                *
+*        Solutions for real time microcontroller applications        *
+**********************************************************************
+*                                                                    *
+*        (c) 2011-2015 SEGGER Microcontroller GmbH & Co. KG          *
+*                                                                    *
+* Internet: www.segger.com Support: support@segger.com               *
+*                                                                    *
+**********************************************************************
+----------------------------------------------------------------------
+Purpose :
+---------------------------END-OF-HEADER------------------------------
+*/
+
+/*********************************************************************
+*
+*       SetupTarget
+*/
+void InitTarget(void) {
+  Report("******************************************************\n");
+  Report("J-Link script: InitTarget()\n");
+  Report("Enable SE DAP\n");
+  Report("******************************************************\n");
+  JLINK_CORESIGHT_AddAP(0, CORESIGHT_AHB_AP);
+  JLINK_CORESIGHT_AddAP(1, CORESIGHT_CUSTOM_AP);
+  JLINK_CORESIGHT_AddAP(2, CORESIGHT_AHB_AP);
+  //
+  // Use second AP as AHB-AP
+  // for target communication
+  //
+  CORESIGHT_IndexAHBAPToUse = 0;
+}

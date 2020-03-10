@@ -1,0 +1,76 @@
+{
+	"fimwareInfo": {
+		"name": "demo",
+		"description": "this is a project demo",
+		"version": "1.0.0",
+		"ic": "efr32mg13p732gm48",
+		"ota_image_type":"0x1602",
+		"manufacture_id":"0x1002",
+		"model_id":"TS0003",
+		"pid": "vindpw7g",
+		"manufacture_name": "_TYZB01_",
+		"module_name":"TYZS3"
+	},
+	"uartConfig": {
+		"uart_enable": "true",
+		"uart_num": 2,
+		"uart": [
+		  {
+			"uart0_rx_port": "PORT_A",
+			"uart0_rx_pin": "PIN_1",
+			"uart0_rx_loc": "LOC_0",
+			"uart0_tx_port": "PORT_A",
+			"uart0_tx_pin": "PIN_0",
+			"uart0_tx_loc": "LOC_0",
+			"uart0_bandrate": 115200
+		  },
+		  {
+			"uart1_rx_port": "PORT_A",
+			"uart1_rx_pin": "PIN_2",
+			"uart1_rx_loc": "LOC_0",
+			"uart1_tx_port": "PORT_A",
+			"uart1_tx_pin": "PIN_3",
+			"uart1_tx_loc": "LOC_0",
+			"uart1_bandrate": 115200
+		  }
+		]
+	},
+  "ioConfig": {
+    "led_enable": "true",
+	"led_num": 3,
+	"key_enable": "true",
+	"key_num": 1,
+    "led": [
+		  {
+			"led0_port": "PORT_F",
+			"led0_pin": "PIN_1",
+			"led0_mode": "GPIO_MODE_OUTPUT_PP",
+			"led0_out": "GPIO_DOUT_LOW",
+			"led0_driver": "GPIO_LEVEL_HIGH"
+		  },
+		  {
+			"led1_port": "PORT_F",
+			"led1_pin": "PIN_0",
+			"led1_mode": "GPIO_MODE_OUTPUT_PP",
+			"led1_out": "GPIO_DOUT_LOW",
+			"led1_driver": "GPIO_LEVEL_HIGH"
+		  },
+		  {
+			"led2_port": "PORT_F",
+			"led2_pin": "PIN_5",
+			"led2_mode": "GPIO_MODE_OUTPUT_PP",
+			"led2_out": "GPIO_DOUT_LOW",
+			"led2_driver": "GPIO_LEVEL_HIGH"
+		  }
+	],
+	"key": [
+		  {
+			"key0_port": "PORT_A",
+			"key0_pin": "PIN_3",
+			"key0_mode": "GPIO_MODE_INPUT_PULL",
+			"key0_out": "GPIO_DOUT_LOW",
+			"key0_driver": "GPIO_LEVEL_LOW"
+		  }
+	]
+  }
+}

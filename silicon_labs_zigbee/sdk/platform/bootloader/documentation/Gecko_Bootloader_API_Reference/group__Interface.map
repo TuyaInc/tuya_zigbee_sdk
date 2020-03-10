@@ -1,0 +1,6 @@
+<map id="Application Interface" name="Application Interface">
+<area shape="rect" id="node1" href="$group__CommonInterface.html" title="Generic application interface available on all versions of the bootloader, independently of which plu..." alt="" coords="209,5,363,47"/>
+<area shape="rect" id="node2" href="$group__StorageInterface.html" title="Application interface for interfacing with the bootloader storage. " alt="" coords="213,71,359,112"/>
+<area shape="rect" id="node4" href="$group__ApplicationProperties.html" title="Properties of the application that can be accessed by the bootloader. " alt="" coords="205,137,367,163"/>
+<area shape="rect" id="node5" href="$group__ParserInterface.html" title="Application interface for interfacing with the bootloader image parser. " alt="" coords="218,188,354,229"/>
+</map>

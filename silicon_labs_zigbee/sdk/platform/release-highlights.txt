@@ -1,0 +1,3 @@
+* New NVM3 Non-Volatile Memory Management driver for EFM32 and EFR32. This driver is Beta tested only. 
+* EFM32 Tiny Gecko 11 support.  
+* ARM mbed TLS: updated to upstream release v2.6.1.

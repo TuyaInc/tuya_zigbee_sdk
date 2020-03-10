@@ -1,0 +1,10 @@
+<map id="Security" name="Security">
+<area shape="rect" id="node1" href="$group__Decryption.html" title="Generic decryption functionality for bootloader. " alt="" coords="236,5,327,32"/>
+<area shape="rect" id="node2" href="$group__Tokens.html" title="Manufacturing token handling for the bootloader. " alt="" coords="249,56,314,83"/>
+<area shape="rect" id="node3" href="$group__ECDSA.html" title="ECDSA signing functionality for the bootloader. " alt="" coords="248,107,315,133"/>
+<area shape="rect" id="node4" href="$group__CRC16.html" title="CRC16 functionality for the bootloader. " alt="" coords="250,157,313,184"/>
+<area shape="rect" id="node5" href="$group__Plugin.html" title="Plugin" alt="" coords="5,157,65,184"/>
+<area shape="rect" id="node6" href="$group__CRC32.html" title="CRC32 functionality for the bootloader. " alt="" coords="250,208,313,235"/>
+<area shape="rect" id="node7" href="$group__AES.html" title="AES decryption functionality for bootloader. " alt="" coords="257,259,305,285"/>
+<area shape="rect" id="node9" href="$group__SHA-256.html" title="SHA&#45;256 digest functionality for the bootloader. " alt="" coords="242,309,321,336"/>
+</map>
