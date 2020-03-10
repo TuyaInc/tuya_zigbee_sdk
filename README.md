@@ -2,7 +2,7 @@
 # **1. Clone**
 克隆仓库中的zigbee master分支到本地的文件夹下;
 ```
-git clone https://github.com/tuya-Leon/tuya-zigbee-sdk.git
+git clone https://github.com/TuyaInc/tuya_zigbee_sdk.git
 ```
 # **2. 创建新工程**
 进入silicon_labs_zigbee/app，进入对应的产品品类下的project路径，复制一份demo工程， 命名为项目对应的文件名称；比如需要创建一个light的工程：
@@ -29,39 +29,29 @@ chmod -R 777 *
 工程应用框架如下所示， SDK开发文档参考doc下的《涂鸦ZigBee SDK开发入门文档.docx》
 ```
 app
-├── build-all.py
-├── door_lock
-│   ├── common
-│   │   ├── include
-│   │   └── src
-│   └── project
-│       └── demo
 ├── light
 │   ├── common
 │   │   ├── include
 │   │   └── src
 │   └── project
 │       ├── demo
-│       └── Dimmer_Light
 ├── sensor
 │   ├── common
 │   │   ├── include
 │   │   └── src
 │   └── project
 │       ├── demo
-│       ├── dev_sensor_auto_config
 ├── smart_plug
 │   ├── common
 │   │   ├── include
 │   │   └── src
 │   └── project
 │       ├── demo
-│       └── smart_plug
 └── switch
     ├── common
     │   ├── include
     │   └── src
     └── project
         ├── demo
-        ├── oem_si32_zg_magnetic_switch1_hy
+      
 ```
