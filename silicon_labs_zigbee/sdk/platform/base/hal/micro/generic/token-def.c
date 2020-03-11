@@ -1,14 +1,33 @@
-/** @file hal/micro/generic/token-def.c
+/***************************************************************************//**
+ * @file
  * @brief This file is for the code definitions (arrays) needed for the tokens.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * Copyright 2007-2011 by Ember Corporation. All rights reserved.           *80*
- */
-
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 #include PLATFORM_HEADER
 #include "stack/include/ember.h"
 
+#ifdef EFR32MG21
+#define CONST_CONTROL const
+#else
+#define CONST_CONTROL
+#endif
+
+
 //-- Build structure defines (these define all the data types of the tokens).
 #define DEFINETYPES
+// Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+//cstat !MISRAC2012-Dir-4.10
   #include "stack/config/token-stack.h"
 #undef DEFINETYPES
 
@@ -18,8 +37,10 @@
 
 #define TOKEN_DEF(name, creator, iscnt, isidx, type, arraysize, ...) \
   NVM3KEY_##name,
-const uint32_t tokenNvm3Keys[] = {
+CONST_CONTROL uint32_t tokenNvm3Keys[] = {
 #if defined (USE_NVM3)
+  // Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+  //cstat !MISRAC2012-Dir-4.10
   #include "stack/config/token-stack.h"
 #else
   0xFFFFFFFFUL // Dummy
@@ -30,8 +51,10 @@ const uint32_t tokenNvm3Keys[] = {
 
 #define TOKEN_DEF(name, creator, iscnt, isidx, type, arraysize, ...) \
   creator,
-const uint16_t tokenCreators[] = {
-#if !defined (NVM3) || defined (SIMEE2_TO_NVM3_UPGRADE)
+CONST_CONTROL uint16_t tokenCreators[] = {
+#if !defined (USE_NVM3) || defined (SIMEE2_TO_NVM3_UPGRADE)
+  // Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+  //cstat !MISRAC2012-Dir-4.10
   #include "stack/config/token-stack.h"
 #else
   0xFFFFUL   // Dummy
@@ -41,15 +64,19 @@ const uint16_t tokenCreators[] = {
 
 #define TOKEN_DEF(name, creator, iscnt, isidx, type, arraysize, ...) \
   iscnt,
-const bool tokenIsCnt[] = {
+CONST_CONTROL bool tokenIsCnt[] = {
+  // Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+  //cstat !MISRAC2012-Dir-4.10
     #include "stack/config/token-stack.h"
 };
 #undef TOKEN_DEF
 
 #define TOKEN_DEF(name, creator, iscnt, isidx, type, arraysize, ...) \
   isidx,
-const bool tokenIsIdx[] = {
+CONST_CONTROL bool tokenIsIdx[] = {
 #if defined (USE_NVM3)
+  // Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+  //cstat !MISRAC2012-Dir-4.10
     #include "stack/config/token-stack.h"
 #else
   false // Dummy
@@ -59,14 +86,18 @@ const bool tokenIsIdx[] = {
 
 #define TOKEN_DEF(name, creator, iscnt, isidx, type, arraysize, ...) \
   sizeof(type),
-const uint8_t tokenSize[] = {
+CONST_CONTROL uint8_t tokenSize[] = {
+  // Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+  //cstat !MISRAC2012-Dir-4.10
     #include "stack/config/token-stack.h"
 };
 #undef TOKEN_DEF
 
 #define TOKEN_DEF(name, creator, iscnt, isidx, type, arraysize, ...) \
   arraysize,
-const uint8_t tokenArraySize[] = {
+CONST_CONTROL uint8_t tokenArraySize[] = {
+  // Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+  //cstat !MISRAC2012-Dir-4.10
     #include "stack/config/token-stack.h"
 };
 #undef TOKEN_DEF
@@ -81,7 +112,9 @@ const uint8_t tokenArraySize[] = {
 // interfere with any other logic.
 // -------------------------------------------------------------------------
 #define TOKEN_DEF(name, creator, iscnt, isidx, type, arraysize, ...) \
-  const type TOKEN_##name##_DEFAULTS = __VA_ARGS__;
+  CONST_CONTROL type TOKEN_##name##_DEFAULTS = __VA_ARGS__;
+// Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+//cstat !MISRAC2012-Dir-4.10
   #include "stack/config/token-stack.h"
 #undef TOKEN_DEF
 // -------------------------------------------------------------------------
@@ -89,7 +122,9 @@ const uint8_t tokenArraySize[] = {
 
 #define TOKEN_DEF(name, creator, iscnt, isidx, type, arraysize, ...) \
   ((void *)&TOKEN_##name##_DEFAULTS),
-const void * const tokenDefaults[] = {
+CONST_CONTROL void * const tokenDefaults[] = {
+  // Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+  //cstat !MISRAC2012-Dir-4.10
     #include "stack/config/token-stack.h"
 };
 #undef TOKEN_DEF

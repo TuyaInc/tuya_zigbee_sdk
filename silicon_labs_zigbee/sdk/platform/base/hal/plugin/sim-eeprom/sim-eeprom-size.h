@@ -1,8 +1,19 @@
-/** @file hal/plugin/sim-eeprom/sim-eeprom-size.h
+/***************************************************************************//**
+ * @file
  * @brief File to create defines for the size of the sim-eeprom
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * <!-- Copyright 2014 Silicon Laboratories, Inc.                        *80*-->
- */
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 #ifndef __SIM_EEPROM_SIZE_H__
 #define __SIM_EEPROM_SIZE_H__
 
@@ -31,6 +42,14 @@
 //will still use SimEE1, but consume 4kB of flash for the SimEE.
 //Both choices of 8kByte and 4kByte of SimEE size allow for a maximum of
 //2kByte of data+mgmt.
+
+//Verify that the application does not specify a SIMEE1 size when trying to use SIMEE2 or NVM3.
+#if defined(USE_SIMEE2) || defined(USE_NVM3) || defined(SIMEE2_TO_NVM3_UPGRADE)
+  #if defined(EMBER_SIMEE1_2KB) || defined(EMBER_SIM_EEPROM_2KB) \
+  || defined(EMBER_SIMEE1_4KB) || defined(EMBER_SIM_EEPROM_4KB)
+    #error Invalid SimEEPROM configuration. SIMEE1 size specified when using SIMEE2 or NVM3.
+  #endif
+#endif
 
 #if defined(EMBER_SIMEE1_2KB) || defined(EMBER_SIM_EEPROM_2KB)
   #define SIMEE_SIZE_B        2048  //Use a 2k 8bit SimEE1

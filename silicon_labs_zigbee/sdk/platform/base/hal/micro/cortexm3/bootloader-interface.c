@@ -1,10 +1,19 @@
-/*
- * File: bootloader-interface.c
- * Description: EM3XX common bootloader HAL functions
+/***************************************************************************//**
+ * @file
+ * @brief EM3XX common bootloader HAL functions
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * Copyright 2008-2009 by Ember Corporation. All rights reserved.           *80*
- */
-
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 #include PLATFORM_HEADER
 #include "stack/include/ember-types.h"
 #include "hal/micro/bootloader-interface.h"
@@ -62,7 +71,7 @@ uint16_t halGetBootloaderVersion(void)
   return halBootloaderAddressTable.bootloaderVersion;
 }
 
-void halGetExtendedBootloaderVersion(uint32_t* emberVersion, uint32_t* customerVersion)
+void halGetExtendedBootloaderVersion(uint32_t* getEmberVersion, uint32_t* customerVersion)
 {
   uint32_t ember, customer = 0xFFFFFFFFU;
 
@@ -78,8 +87,8 @@ void halGetExtendedBootloaderVersion(uint32_t* emberVersion, uint32_t* customerV
   }
 
   // If the pointers aren't NULL copy the results over
-  if (emberVersion != NULL) {
-    *emberVersion = ember;
+  if (getEmberVersion != NULL) {
+    *getEmberVersion = ember;
   }
   if (customerVersion != NULL) {
     *customerVersion = customer;

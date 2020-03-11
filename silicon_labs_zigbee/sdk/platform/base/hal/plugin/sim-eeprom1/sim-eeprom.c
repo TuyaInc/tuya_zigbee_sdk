@@ -1,3 +1,19 @@
+/***************************************************************************//**
+ * @file
+ * @brief
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
+ *
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 #include PLATFORM_HEADER
 #include "stack/include/ember.h"
 #include "stack/include/error.h"
@@ -62,11 +78,15 @@ const uint16_t ID_COUNT = TOKEN_COUNT;
      : -10000 /*force negative array length compile-time error*/)
 //value of all index counts added together
 const uint16_t PTR_CACHE_SIZE = (0
+                                 // Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+                                 //cstat !MISRAC2012-Dir-4.10
     #include "stack/config/token-stack.h"
                                  );
 //the ptrCache definition - used to provide efficient access, based upon
 //ID and index, to the freshest data in the Simulated EEPROM.
 uint16_t ptrCache[0    //Compiler error here means too many elements in an array token
+                  // Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+                  //cstat !MISRAC2012-Dir-4.10
     #include "stack/config/token-stack.h"
 ];
 #undef TOKEN_DEF
@@ -79,10 +99,14 @@ uint16_t ptrCache[0    //Compiler error here means too many elements in an array
                     + ((!!(iscnt)) * BYTES_TO_WORDS(COUNTER_TOKEN_PAD))))
 const uint32_t totalTokenStorage[(0   //Compiler error here means total token storage exceeds limit
                                   + (TOKEN_COUNT * 2)
+                                  // Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+                                  //cstat !MISRAC2012-Dir-4.10
     #include "stack/config/token-stack.h"
                                   ) <= (SIMEE_BTS_SIZE_B / 2)/*fundamental limit (4)*/
                                  ? 1 : -1/*negative forces compile-time error*/
 ] = { (TOKEN_COUNT * 2)
+      // Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+      //cstat !MISRAC2012-Dir-4.10
     #include "stack/config/token-stack.h"
 };
 #undef TOKEN_DEF
@@ -98,12 +122,16 @@ const uint32_t totalTokenStorage[(0   //Compiler error here means total token st
   + ((sizeof(type) < 255 /*fundamental limit (2)*/)                  \
      ? 1 : -10000 /*large negative will force compile-time error*/)
 const uint8_t sizeCache[0    //Compiler error here means a token's size is too large
+                        // Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+                        //cstat !MISRAC2012-Dir-4.10
     #include "stack/config/token-stack.h"
 ] = {
 #undef TOKEN_DEF
 #define TOKEN_DEF(name, creator, iscnt, isidx, type, arraysize, ...) \
   (BYTES_TO_WORDS(sizeof(type))                                      \
    + ((iscnt) ? BYTES_TO_WORDS(COUNTER_TOKEN_PAD) : 0)),
+  // Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+  //cstat !MISRAC2012-Dir-4.10
     #include "stack/config/token-stack.h"
 };
 #undef TOKEN_DEF

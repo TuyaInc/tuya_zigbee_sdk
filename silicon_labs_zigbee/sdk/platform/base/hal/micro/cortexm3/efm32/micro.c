@@ -1,18 +1,19 @@
-// -----------------------------------------------------------------------------
-// @file
-// @brief EFM micro specific full HAL functions
-//
-// @author Silicon Laboratories Inc.
-// @version 1.0.0
-//
-// @section License
-// <b>(C) Copyright 2014 Silicon Laboratories, www.silabs.com</b>
-//
-// This file is licensed under the Silabs License Agreement. See the file
-// "Silabs_License_Agreement.txt" for details. Before using this software for
-// any purpose, you must agree to the terms of that agreement.
-//
-// -----------------------------------------------------------------------------
+/***************************************************************************//**
+ * @file
+ * @brief EFM micro specific full HAL functions
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
+ *
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 #include PLATFORM_HEADER
 #include "em_device.h"
 #include "em_chip.h"
@@ -40,10 +41,6 @@
 #include "hal/plugin/glib/graphics.h"
 #include "tempdrv.h"
 #include "sleep-efm32.h"
-#endif
-
-#ifdef _EZR_DEVICE
-#include "ezr32.h"
 #endif
 
 #ifdef BSP_STK
@@ -94,47 +91,49 @@ void RAILCb_ConfigFrameTypeLength(RAIL_Handle_t railHandle,
 
 #if defined (_EFR_DEVICE)
 
-#if defined (_SILICON_LABS_32B_SERIES_2)
-// Fake HAL config PA settings on series2
-  #define HAL_PA_2P4_ENABLE
-  #define HAL_PA_2P4_RAMP 10
-
-#include "bsp.h"
-static const RAIL_TxPowerConfig_t paInit2p4 = RAIL_PA_2P4_CONFIG;
-const RAIL_TxPowerConfig_t* halInternalPa2p4GHzInit = &paInit2p4;
-const RAIL_TxPowerConfig_t* halInternalPaSubGHzInit = NULL;   // no subgig on series2
-
-#else //defined (_SILICON_LABS_32B_SERIES_2)
-
 // Provide HAL pointers to board-header-defined PA configuration(s)
 // for use by App, RAIL, or PHY library.
 #ifdef  HAL_PA_ENABLE
 static const RAIL_TxPowerConfig_t paInit2p4 =
 {
+#if defined (_SILICON_LABS_32B_SERIES_1)
 #if HAL_PA_2P4_LOWPOWER
   .mode = RAIL_TX_POWER_MODE_2P4_LP,   /* Power Amplifier mode */
 #else
   .mode = RAIL_TX_POWER_MODE_2P4_HP,   /* Power Amplifier mode */
 #endif
+#else
+#ifdef HAL_PA_SELECTION
+  .mode = HAL_PA_SELECTION,            /* Power Amplifier mode */
+#else
+  .mode = RAIL_TX_POWER_MODE_2P4_HIGHEST,
+#endif
+#endif
   .voltage = BSP_PA_VOLTAGE,         /* Power Amplifier vPA Voltage mode */
   .rampTime = HAL_PA_RAMP,           /* Desired ramp time in us */
 };
 const RAIL_TxPowerConfig_t* halInternalPa2p4GHzInit = &paInit2p4;
+
+#if defined (_SILICON_LABS_32B_SERIES_1)
 static const RAIL_TxPowerConfig_t paInitSub =
 {
   .mode = RAIL_TX_POWER_MODE_SUBGIG, /* Power Amplifier mode */
   .voltage = BSP_PA_VOLTAGE,         /* Power Amplifier vPA Voltage mode */
   .rampTime = HAL_PA_RAMP,           /* Desired ramp time in us */
 };
+
 const RAIL_TxPowerConfig_t* halInternalPaSubGHzInit = &paInitSub;
+#else
+const RAIL_TxPowerConfig_t* halInternalPaSubGHzInit = NULL;
+#endif
+
 #else//!HAL_PA_ENABLE
 const RAIL_TxPowerConfig_t* halInternalPa2p4GHzInit = NULL;
 const RAIL_TxPowerConfig_t* halInternalPaSubGHzInit = NULL;
 #endif//HAL_PA_ENABLE
-#endif //defined (_SILICON_LABS_32B_SERIES_2)
 #endif// _EFR_DEVICE
 
-#if defined(_EZR_DEVICE) || HAL_EZRADIOPRO_ENABLE
+#if HAL_EZRADIOPRO_ENABLE
 #if BSP_EZRADIOPRO_USART == HAL_SPI_PORT_USART0
 #define PRO2_USART USART0
 #elif BSP_EZRADIOPRO_USART == HAL_SPI_PORT_USART1
@@ -186,10 +185,12 @@ void halInit(void)
 
   // Always Configure Interrupt Priorities.  This is necessary for key behavior
   // such as fault Handlers to be serviced at the correct priority levels.
+  #undef FIXED_EXCEPTION
+  #define FIXED_EXCEPTION(vectorNumber, functionName, deviceIrqn, deviceIrqHandler)
   #define EXCEPTION(vectorNumber, functionName, deviceIrqn, deviceIrqHandler, priorityLevel, subpriority) \
   NVIC_SetPriority(deviceIrqn, NVIC_EncodePriority(PRIGROUP_POSITION, priorityLevel, subpriority));
     #include NVIC_CONFIG
-  #undef  EXCEPTION
+  #undef EXCEPTION
 
   //Now that all the individual priority bits are set, we have to set the
   //distinction between preemptive priority and non-preemptive subpriority
@@ -229,14 +230,6 @@ void halInit(void)
     MEMSET(_EMHEAP_SEGMENT_BEGIN, 0, (_EMHEAP_SEGMENT_SIZE & 0xFFFFu));
   }
 
-  // Zero out the APP_RAM segment.
-  {
-    // IAR warns about "integer conversion resulted in truncation" if
-    // _APP_RAM_SEGMENT_SIZE is used directly in MEMSET().  This segment
-    // should always be smaller than a 16bit size.
-    MEMSET(_APP_RAM_SEGMENT_BEGIN, 0, (_APP_RAM_SEGMENT_SIZE & 0xFFFFu));
-  }
-
   __enable_irq();
 
   /* Configure board. Select either EBI or SPI mode. */
@@ -255,8 +248,6 @@ void halInit(void)
   em4Init.em4State = emuEM4Hibernate;
   EMU_EM4Init(&em4Init);
   halInternalEm4Wakeup();
-#elif defined(_EZR_DEVICE)
-  halInternalStartSymbolTimer();      // TODO: move to macInit or emRadioInit
 #endif
 
   halInternalStartSystemTimer();

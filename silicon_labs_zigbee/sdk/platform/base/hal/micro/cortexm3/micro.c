@@ -1,12 +1,19 @@
-/*
- * File: micro.c
- * Description: EM3XX micro specific full HAL functions
+/***************************************************************************//**
+ * @file
+ * @brief EM3XX micro specific full HAL functions
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
  *
- * Copyright 2008, 2009 by Ember Corporation. All rights reserved.          *80*
- */
-
-
+ ******************************************************************************/
 #include PLATFORM_HEADER
 #include "stack/include/ember.h"
 #include "include/error.h"
@@ -50,14 +57,6 @@ void halInit(void)
     // _EMHEAP_SEGMENT_SIZE is used directly in MEMSET().  This segment
     // should always be smaller than a 16bit size.
     MEMSET(_EMHEAP_SEGMENT_BEGIN, 0, (_EMHEAP_SEGMENT_SIZE & 0xFFFFu));
-  }
-
-  // Zero out the APP_RAM segment.
-  {
-    // IAR warns about "integer conversion resulted in truncation" if
-    // _APP_RAM_SEGMENT_SIZE is used directly in MEMSET().  This segment
-    // should always be smaller than a 16bit size.
-    MEMSET(_APP_RAM_SEGMENT_BEGIN, 0, (_APP_RAM_SEGMENT_SIZE & 0xFFFFu));
   }
 
   (void)halCommonStartXtal();
@@ -206,7 +205,7 @@ DEFINE_GPIO_RADIO_POWER_BOARD_MASK_VARIABLE();
 DEFINE_GPIO_RADIO2_POWER_BOARD_MASK_VARIABLE();
 #endif
 
-static void rmwRadioPowerCfgReg(uint32_t gpioRadioPowerBoardMask,
+static void rmwRadioPowerCfgReg(uint32_t radioPowerBoardGpioMask,
                                 uint16_t radioPowerCfg[],
                                 uint32_t volatile * cfgReg,
                                 uint8_t cfgVar)
@@ -215,10 +214,10 @@ static void rmwRadioPowerCfgReg(uint32_t gpioRadioPowerBoardMask,
   uint8_t i;
 
   //don't waste time with a register that doesn't have anything to be done
-  if ((gpioRadioPowerBoardMask & (((GpioMaskType)0xF) << (4U * cfgVar))) != 0U) {
+  if ((radioPowerBoardGpioMask & (((GpioMaskType)0xF) << (4U * cfgVar))) != 0U) {
     //loop over the 4 pins of the cfgReg
     for (i = 0U; i < 4U; i++) {
-      if (((gpioRadioPowerBoardMask >> ((4U * cfgVar) + i)) & 1U) != 0U) {
+      if (((radioPowerBoardGpioMask >> ((4U * cfgVar) + i)) & 1U) != 0U) {
         //read-modify-write the pin's cfg if the mask says it pertains
         //to the radio's power state
         temp &= ~(0xFU << (4U * i));
@@ -230,7 +229,7 @@ static void rmwRadioPowerCfgReg(uint32_t gpioRadioPowerBoardMask,
   *cfgReg = temp;
 }
 
-static void rmwRadioPowerOutReg(uint32_t gpioRadioPowerBoardMask,
+static void rmwRadioPowerOutReg(uint32_t radioPowerBoardGpioMask,
                                 uint8_t radioPowerOut[],
                                 uint32_t volatile * outReg,
                                 uint8_t outVar)
@@ -239,10 +238,10 @@ static void rmwRadioPowerOutReg(uint32_t gpioRadioPowerBoardMask,
   uint8_t i;
 
   //don't waste time with a register that doesn't have anything to be done
-  if ((gpioRadioPowerBoardMask & (((GpioMaskType)0xFFU) << (8U * outVar))) != 0U) {
+  if ((radioPowerBoardGpioMask & (((GpioMaskType)0xFFU) << (8U * outVar))) != 0U) {
     //loop over the 8 pins of the outReg
     for (i = 0U; i < 8U; i++) {
-      if (((gpioRadioPowerBoardMask >> ((8U * outVar) + i)) & 1U) != 0U) {
+      if (((radioPowerBoardGpioMask >> ((8U * outVar) + i)) & 1U) != 0U) {
         //read-modify-write the pin's out if the mask says it pertains
         //to the radio's power state
         temp &= ~(0x1U << (1U * i));

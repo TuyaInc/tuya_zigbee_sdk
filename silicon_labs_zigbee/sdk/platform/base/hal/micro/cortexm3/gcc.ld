@@ -49,6 +49,13 @@ INTERNAL_STORAGE_SIZE = DEFINED(INTERNAL_STORAGE_SIZE) ? INTERNAL_STORAGE_SIZE :
 ======================================================================
 " )
 
+/* LOCKBITS occupy the top flash page on Series2 family which         */
+/* have an 8kB FLASH_PAGE_SIZE. The linker should set                 */
+/* LOCKBITS_IN_MAINFLASH_SIZE to 8kB if compiling/linking             */
+/* for a Series 2 family.  Otherwise LOCKBITS_IN_MAINFLASH_SIZE is 0  */
+/* since LOCKBITS_IN_MAINFLASH_SIZE is not used.                      */
+DEFAULT_LOCKBITS_IN_MAINFLASH_SIZE = 0;
+LOCKBITS_IN_MAINFLASH_SIZE = DEFINED(LOCKBITS_IN_MAINFLASH_SIZE) ? LOCKBITS_IN_MAINFLASH_SIZE : DEFAULT_LOCKBITS_IN_MAINFLASH_SIZE;
 /* Map out all of the regions we use in our applications */
 SECTIONS {
 
@@ -144,14 +151,14 @@ SECTIONS {
   }>flash
   PROVIDE(__DATA_INIT__size = SIZEOF(.data));
 
-  ASSERT ( . < MFB_TOP - SIMEEPROM_SIZE - INTERNAL_STORAGE_SIZE - FLASH_PAGE_SIZE + 1 , "
+  ASSERT ( . < MFB_TOP - SIMEEPROM_SIZE - INTERNAL_STORAGE_SIZE - LOCKBITS_IN_MAINFLASH_SIZE - FLASH_PAGE_SIZE + 1 , "
 
 ======================================================================
 ======== LINKER ERROR: Not enough flash (Application space)
 ======================================================================
 " )
 
-  . = MFB_TOP - SIMEEPROM_SIZE - INTERNAL_STORAGE_SIZE - FLASH_PAGE_SIZE + 1;
+  . = MFB_TOP - SIMEEPROM_SIZE - INTERNAL_STORAGE_SIZE - LOCKBITS_IN_MAINFLASH_SIZE - FLASH_PAGE_SIZE + 1;
   .nvm . (NOLOAD) :
   {
     PROVIDE(__NVM__begin = .);
@@ -167,7 +174,7 @@ SECTIONS {
 ======================================================================
 " )
 
-  . = MFB_TOP - SIMEEPROM_SIZE - INTERNAL_STORAGE_SIZE + 1;
+  . = MFB_TOP - SIMEEPROM_SIZE - INTERNAL_STORAGE_SIZE - LOCKBITS_IN_MAINFLASH_SIZE + 1;
   .simee ALIGN(FLASH_PAGE_SIZE) (NOLOAD) :
   {
     PROVIDE(__SIMEE__begin = .);
@@ -183,6 +190,7 @@ SECTIONS {
 ======================================================================
 " )
 
+  . = MFB_TOP - INTERNAL_STORAGE_SIZE - LOCKBITS_IN_MAINFLASH_SIZE + 1;
   .internal_storage . (NOLOAD) :
   {
     PROVIDE(__INTERNAL_STORAGE__begin = .);
@@ -191,10 +199,26 @@ SECTIONS {
   }>flash
   PROVIDE(__INTERNAL_STORAGE__size = MAX(SIZEOF(.internal_storage), INTERNAL_STORAGE_SIZE));
 
-  ASSERT ( . <= MFB_TOP + 1 , "
+  ASSERT ( . <= MFB_TOP - LOCKBITS_IN_MAINFLASH_SIZE + 1 , "
 
 ======================================================================
 ======== LINKER ERROR: Not enough flash (Internal storage region)
+======================================================================
+" )
+
+  . = MFB_TOP - LOCKBITS_IN_MAINFLASH_SIZE + 1;
+  .lockbits_in_mainflash ALIGN(FLASH_PAGE_SIZE) (NOLOAD) :
+  {
+    PROVIDE(__LOCKBITS_IN_MAINFLASH__begin = .);
+    * (.lockbits_in_mainflash .lockbits_in_mainflash.*);
+    PROVIDE(__LOCKBITS_IN_MAINFLASH__end = __LOCKBITS_IN_MAINFLASH__begin + LOCKBITS_IN_MAINFLASH_SIZE);
+  }>flash
+  PROVIDE(__LOCKBITS_IN_MAINFLASH__size = LOCKBITS_IN_MAINFLASH_SIZE);
+
+  ASSERT ( . <= MFB_TOP + 1 , "
+
+======================================================================
+======== LINKER ERROR: Not enough flash (LOCKBITS)
 ======================================================================
 " )
 
@@ -213,7 +237,6 @@ SECTIONS {
 
   . = RAM_BOTTOM;
 
-  PROVIDE(__EMHEAP_OVERLAY__begin = .);
   .resetinfo RAM_BOTTOM (NOLOAD) :
   {
     PROVIDE(__RESETINFO__begin = .);
@@ -222,17 +245,13 @@ SECTIONS {
   }>ram
   PROVIDE(__RESETINFO__size = SIZEOF(.resetinfo));
 
-  .emheap RAM_BOTTOM (NOLOAD) :
+  .emheap (NOLOAD) :
   {
     PROVIDE(__EMHEAP__begin = .);
     KEEP (* (.emheap .emheap.*) );
     PROVIDE(__EMHEAP__end = .);
   }>ram
   PROVIDE(__EMHEAP__size = SIZEOF(.emheap));
-
-  . = RAM_BOTTOM + MAX(SIZEOF(.resetinfo), SIZEOF(.emheap));
-  PROVIDE(__EMHEAP_OVERLAY__end = .);
-  PROVIDE(__EMHEAP_OVERLAY__size = MAX(SIZEOF(.resetinfo), SIZEOF(.emheap)));
 
   .guard_region ALIGN(0x20) (NOLOAD) :
   {
@@ -315,14 +334,6 @@ SECTIONS {
     PROVIDE(__NO_INIT__end = .);
   }>ram
   PROVIDE(__NO_INIT__size = SIZEOF(.noinit));
-
-  APP_RAM . (NOLOAD) :
-  {
-    PROVIDE(__APP_RAM__begin = .);
-    * (APP_RAM APP_RAM.*);
-    PROVIDE(__APP_RAM__end = .);
-  }>ram
-  PROVIDE(__APP_RAM__size = SIZEOF(APP_RAM));
 
   .heap . (COPY) :
   {

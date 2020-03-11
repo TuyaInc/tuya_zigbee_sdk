@@ -1,10 +1,19 @@
-/**
- * @file hal/micro/cortexm3/spi-protocol-device.h
+/***************************************************************************//**
+ * @file
  * @brief Internal SPI Protocol Device Header for USART and Pin Configuration
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * <!-- Copyright 2015 by Silicon Laboratories. All rights reserved.     *80*-->
- */
-
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 #ifndef __SPI_PROTOCOL_DEVICE_H__
 #define __SPI_PROTOCOL_DEVICE_H__
 
@@ -61,19 +70,22 @@
   #error Invalid USART selected for SPI NCP
 #endif
 
-#define SPI_NCP_MISO_LOC        BSP_SPINCP_MISO_LOC
-#define SPI_NCP_MISO_PORT       BSP_SPINCP_MISO_PORT
-#define SPI_NCP_MISO_PIN        BSP_SPINCP_MISO_PIN
-#define SPI_NCP_MOSI_LOC        BSP_SPINCP_MOSI_LOC
+#if defined(BSP_SPINCP_MOSI_LOC)
+  #define SPI_NCP_MOSI_LOC        BSP_SPINCP_MOSI_LOC
+  #define SPI_NCP_MISO_LOC        BSP_SPINCP_MISO_LOC
+  #define SPI_NCP_CLK_LOC         BSP_SPINCP_CLK_LOC
+  #define SPI_NCP_CS_LOC          BSP_SPINCP_CS_LOC
+#endif
 #define SPI_NCP_MOSI_PORT       BSP_SPINCP_MOSI_PORT
 #define SPI_NCP_MOSI_PIN        BSP_SPINCP_MOSI_PIN
-#define SPI_NCP_CLK_LOC         BSP_SPINCP_CLK_LOC
-#define SPI_NCP_CLK_PIN         BSP_SPINCP_CLK_PIN
+#define SPI_NCP_MISO_PORT       BSP_SPINCP_MISO_PORT
+#define SPI_NCP_MISO_PIN        BSP_SPINCP_MISO_PIN
 #define SPI_NCP_CLK_PORT        BSP_SPINCP_CLK_PORT
-#define SPI_NCP_CS_LOC          BSP_SPINCP_CS_LOC
-#define SPI_NCP_CS_PIN          BSP_SPINCP_CS_PIN
+#define SPI_NCP_CLK_PIN         BSP_SPINCP_CLK_PIN
 #define SPI_NCP_CS_PORT         BSP_SPINCP_CS_PORT
+#define SPI_NCP_CS_PIN          BSP_SPINCP_CS_PIN
 // Configuration data for SPI NCP slave.
+#if defined(SPI_NCP_MOSI_LOC)
 #define SPI_NCP_USART_INIT                                             \
   {                                                                    \
     SPI_NCP_USART,              /* USART port                       */ \
@@ -90,6 +102,28 @@
     spidrvCsControlAuto,        /* CS controlled by the driver      */ \
     spidrvSlaveStartImmediate   /* Slave start transfers immediately*/ \
   }
+#else
+#define SPI_NCP_USART_INIT                                             \
+  {                                                                    \
+    SPI_NCP_USART,              /* USART port                       */ \
+    SPI_NCP_MOSI_PORT,          /* USART Tx/MOSI port               */ \
+    SPI_NCP_MISO_PORT,          /* USART Rx/MISO port               */ \
+    SPI_NCP_CLK_PORT,           /* USART Clk port                   */ \
+    SPI_NCP_CS_PORT,            /* USART CS port                    */ \
+    SPI_NCP_MOSI_PIN,           /* USART Tx/MOSI pin                */ \
+    SPI_NCP_MISO_PIN,           /* USART Rx/MISO pin                */ \
+    SPI_NCP_CLK_PIN,            /* USART Clk pin                    */ \
+    SPI_NCP_CS_PIN,             /* USART CS pin                     */ \
+    0,                          /* Bitrate                          */ \
+    8,                          /* Frame length                     */ \
+    0xFF,                       /* Dummy tx value for rx only funcs */ \
+    spidrvSlave,                /* SPI mode                         */ \
+    spidrvBitOrderMsbFirst,     /* Bit order on bus                 */ \
+    spidrvClockMode0,           /* SPI clock/phase mode             */ \
+    spidrvCsControlAuto,        /* CS controlled by the driver      */ \
+    spidrvSlaveStartImmediate   /* Slave start transfers immediately*/ \
+  }
+#endif
 
 #ifndef SPI_BTL_USART_INIT
 #define SPI_BTL_USART_INIT                                                \

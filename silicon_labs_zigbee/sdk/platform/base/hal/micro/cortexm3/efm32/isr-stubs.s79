@@ -33,7 +33,7 @@ __THUMB__
 
 #define EXCEPTION(vectorNumber, functionName, deviceIrqn, deviceIrqHandler, priorityLevel, subpriority) \
 __WEAK__ functionName
-#define PERM_EXCEPTION(vectorNumber, functionName, deviceIrqn, deviceIrqHandler, priorityLevel, subpriority)
+#define PERM_EXCEPTION(vectorNumber, functionName, deviceIrqn, deviceIrqHandler)
 #include NVIC_CONFIG
 #undef  PERM_EXCEPTION
 #undef  EXCEPTION
@@ -42,7 +42,7 @@ __WEAK__ functionName
 
 #define EXCEPTION(vectorNumber, functionName, deviceIrqn, deviceIrqHandler, priorityLevel, subpriority) \
 functionName:
-#define PERM_EXCEPTION(vectorNumber, functionName, deviceIrqn, deviceIrqHandler, priorityLevel, subpriority)
+#define PERM_EXCEPTION(vectorNumber, functionName, deviceIrqn, deviceIrqHandler)
 #include NVIC_CONFIG
 #undef  PERM_EXCEPTION
 #undef  EXCEPTION

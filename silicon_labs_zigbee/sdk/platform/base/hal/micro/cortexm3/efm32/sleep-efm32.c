@@ -1,16 +1,27 @@
-/** @file hal/micro/cortexm3/efm32/sleep-efm32.c
- *
+/***************************************************************************//**
+ * @file
  * @brief EFM32/EFR32 specific sleep functions.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * <!-- Copyright 2016 Silicon Laboratories, Inc.                       *80* -->
- */
-
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 #include PLATFORM_HEADER
 #include "sleep-efm32.h"
 #include "hal/micro/micro.h"
 #include "em_emu.h"
 #include "em_gpio.h"
 #include "serial/com.h"
+#include "watchdog.h"
+#include "em_wdog.h"
 
 #if defined(RTCC_PRESENT) && (RTCC_COUNT == 1)
 #define SYSTIMER_IRQ_N   RTCC_IRQn
@@ -80,6 +91,8 @@ static void halInternalSleepHelper(SleepModes sleepMode, bool preserveIntState)
 
   if (watchdogDisableInSleep) {
     halInternalDisableWatchDog(MICRO_DISABLE_WATCH_DOG_KEY);
+  } else if (halInternalWatchDogEnabled()) {
+    halInternalWatchDogSleep();
   }
 
   // BASEPRI is set to 0 in order to allow interrupts to wakeup the MCU
@@ -136,7 +149,7 @@ static void halInternalSleepHelper(SleepModes sleepMode, bool preserveIntState)
   // do this before dispatching interrupts while we still have tight
   // control of code execution
   if (watchdogDisableInSleep) {
-    halInternalEnableWatchDog();
+    WDOGn_Enable(DEFAULT_WDOG, true);
   }
 
   COM_InternalPowerUp(sleepMode == SLEEPMODE_IDLE);

@@ -1,9 +1,19 @@
-/** @file hal/micro/cortexm3/ext-device.c
- *  @brief External Device GPIO driver
+/***************************************************************************//**
+ * @file
+ * @brief External Device GPIO driver
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * <!-- Copyright 2013 Silicon Laboratories, Inc.                        *80*-->
- */
-
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 #include PLATFORM_HEADER
 #include "stack/include/ember-types.h"
 #include "stack/include/error.h"
@@ -139,33 +149,6 @@ HalExtDeviceConfig halExtDeviceInit(HalExtDeviceIrqCB deviceIntCB,
   /* Pin PE13 is configured input: nIRQ */
   //GPIO_PinModeSet(BSP_EXTDEV_INT_PORT, BSP_EXTDEV_INT_PIN, gpioModeInput, 0u);
 
-  // EZR32LG and EZR32WG have the GPIO0/1 pins connected to MCU GPIO.
-  // Setup passthrough using PRS.
-#if defined(_EZR32_LEOPARD_FAMILY) || defined(_EZR32_WONDER_FAMILY)
-
-  /* Pin PA15 and PE14 are connected to GPIO0 and GPIO1 respectively. */
-  GPIO_PinModeSet((GPIO_Port_TypeDef) RF_GPIO0_PORT, RF_GPIO0_PIN, gpioModeInput, 0);
-  GPIO_PinModeSet((GPIO_Port_TypeDef) RF_GPIO1_PORT, RF_GPIO1_PIN, gpioModeInput, 0);
-
-  /* Pin PA0 and PA1 are output the GPIO0 and GPIO1 via PRS */
-  GPIO_PinModeSet(gpioPortA, 0, gpioModePushPull, 0);
-  GPIO_PinModeSet(gpioPortA, 1, gpioModePushPull, 0);
-
-  /* Configure INT/PRS channels */
-  GPIO_IntConfig((GPIO_Port_TypeDef) RF_GPIO0_PORT, RF_GPIO0_PIN, false, false, false);
-  GPIO_IntConfig((GPIO_Port_TypeDef) RF_GPIO1_PORT, RF_GPIO1_PIN, false, false, false);
-
-  /* Setup PRS */
-  PRS_SourceAsyncSignalSet(0, PRS_CH_CTRL_SOURCESEL_GPIOH, PRS_CH_CTRL_SIGSEL_GPIOPIN15);
-  PRS_SourceAsyncSignalSet(1, PRS_CH_CTRL_SOURCESEL_GPIOH, PRS_CH_CTRL_SIGSEL_GPIOPIN14);
-  PRS->ROUTE = (PRS_ROUTE_CH0PEN | PRS_ROUTE_CH1PEN);
-
-  /* Make sure PRS sensing is enabled (should be by default) */
-  GPIO_InputSenseSet(GPIO_INSENSE_PRS, GPIO_INSENSE_PRS);
-#endif // defined(_EZR32_LEOPARD_FAMILY) || defined(_EZR32_WONDER_FAMILY)
-
-  /* TODO: Check whether the removed part is required
-   *    for the EZR32 implementation */
   halExtDeviceRdyCfgIrq();
   halExtDeviceIntCfgIrq();
 

@@ -1,13 +1,24 @@
-/** @file ember-base-configuration.c
+/***************************************************************************//**
+ * @file
  * @brief User-configurable stack memory allocation and convenience stubs
  * for little-used callbacks.
  *
  * \b Note: Application developers should \b not modify any portion
  * of this file. Doing so may lead to mysterious bugs. Allocations should be
  * adjusted only with macros in a custom CONFIGURATION_HEADER.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * <!--Copyright 2009 by Ember Corporation. All rights reserved.         *80*-->
- */
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 #include PLATFORM_HEADER
 #include "stack/include/ember.h"
 #include "hal/hal.h"
@@ -34,7 +45,7 @@ void halButtonIsr(uint8_t button, uint8_t state)
 
 #endif
 
-#if defined (CORTEXM3) || defined (EMBER_STACK_COBRA)
+#if defined (CORTEXM3)
 #if !defined (NVM3_SIMEE2) || defined (SIMEE2_TO_NVM3_UPGRADE)
 #ifndef EMBER_APPLICATION_HAS_CUSTOM_SIM_EEPROM_CALLBACK
 #include "hal/plugin/sim-eeprom/sim-eeprom.h"
@@ -44,18 +55,12 @@ void halSimEepromCallback(EmberStatus status)
   switch (status) {
     case EMBER_SIM_EEPROM_ERASE_PAGE_GREEN:
       //SimEE is asking for one page to be erased.
-#ifdef EMBER_STACK_COBRA
-      HalUARTRestrain();    // temporarily hold off serial input from host
-#endif
       (void)halSimEepromErasePage();
       break;
     case EMBER_SIM_EEPROM_ERASE_PAGE_RED:
     case EMBER_SIM_EEPROM_FULL:
     { //SimEE says we're out of room!  Erase all pages now or data
       //currently being written will be dropped.
-#ifdef EMBER_STACK_COBRA
-      HalUARTRestrain();    // temporarily hold off serial input from host
-#endif
       if (halSimEepromPagesRemainingToBeErased() > 0) {
         //If there is at least one HW page to erase, loop over ErasePage until
         //all HW pages are erased.  Without this explicit check before

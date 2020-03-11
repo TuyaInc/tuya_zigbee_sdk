@@ -1,9 +1,19 @@
-/*
- * File: bootloader-interface-standalone.c
- * Description: EM3XX-specific standalone bootloader HAL functions
+/***************************************************************************//**
+ * @file
+ * @brief EM3XX-specific standalone bootloader HAL functions
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * Copyright 2008 by Ember Corporation. All rights reserved.                *80*
- */
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 
 #include PLATFORM_HEADER
 #include "stack/include/ember-types.h"
@@ -18,10 +28,8 @@
 extern uint8_t emGetPhyRadioChannel(void);
 extern int8_t emGetPhyRadioPower(void);
 
-#if defined GECKO_INFO_PAGE_BTL      \
-  || defined APP_GECKO_INFO_PAGE_BTL \
-  || defined STA_GECKO_INFO_PAGE_BTL \
-  || defined LOCAL_STORAGE_GECKO_INFO_PAGE_BTL
+#if !defined _SILICON_LABS_32B_SERIES_1_CONFIG_1
+
 #define NO_BAT
 
 static bool bootloaderIsCommonBootloader(void)
@@ -44,7 +52,6 @@ static bool bootloaderIsCommonBootloader(void)
 
 EmberStatus halLaunchStandaloneBootloader(uint8_t mode)
 {
-#if !defined (_SILICON_LABS_32B_SERIES_2)
   if (bootloaderIsCommonBootloader()) {
     if (!(mainBootloaderTable->capabilities & BOOTLOADER_CAPABILITY_COMMUNICATION)) {
       return EMBER_ERR_FATAL;
@@ -66,13 +73,11 @@ EmberStatus halLaunchStandaloneBootloader(uint8_t mode)
     halInternalSysReset(RESET_BOOTLOADER_BOOTLOAD);
   }
 
-#endif // !defined (_SILICON_LABS_32B_SERIES_2)
   return EMBER_ERR_FATAL;
 }
 
 uint16_t halGetStandaloneBootloaderVersion(void)
 {
-#if !defined (_SILICON_LABS_32B_SERIES_2)
   if (bootloaderIsCommonBootloader()) {
     return mainBootloaderTable->header.version >> 16;
   } else {
@@ -80,14 +85,8 @@ uint16_t halGetStandaloneBootloaderVersion(void)
     if (BOOTLOADER_BASE_TYPE(halBootloaderAddressTable.bootloaderType)
         == BL_TYPE_STANDALONE) {
       return halGetBootloaderVersion();
-    } else {
-      return BOOTLOADER_INVALID_VERSION;
     }
-#else
-    return BOOTLOADER_INVALID_VERSION;
 #endif
+    return BOOTLOADER_INVALID_VERSION;
   }
-#else // !defined (_SILICON_LABS_32B_SERIES_2)
-  return BOOTLOADER_INVALID_VERSION;
-#endif // !defined (_SILICON_LABS_32B_SERIES_2)
 }

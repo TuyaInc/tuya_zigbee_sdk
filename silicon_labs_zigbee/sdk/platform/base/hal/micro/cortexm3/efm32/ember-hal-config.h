@@ -1,15 +1,19 @@
-// -----------------------------------------------------------------------------
-/// @file ember-hal-config.h
-/// @brief HAL configuration legacy ember support header
-///
-/// @section License
-/// <b>(C) Copyright 2017 Silicon Laboratories, http://www.silabs.com</b>
-///
-/// This file is licensed under the Silabs License Agreement. See the file
-/// "Silabs_License_Agreement.txt" for details. Before using this software for
-/// any purpose, you must agree to the terms of that agreement.
-///
-// -----------------------------------------------------------------------------
+/***************************************************************************//**
+ * @file
+ * @brief HAL configuration legacy ember support header
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
+ *
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 #ifndef EMBER_HAL_CONFIG_H
 #define EMBER_HAL_CONFIG_H
 /* BUTTON */
@@ -55,19 +59,6 @@
   #endif
   #ifdef BSP_SERIAL_ASSERT_PORT
   #define EMBER_ASSERT_SERIAL_PORT BSP_SERIAL_ASSERT_PORT
-  #endif
-
-/* ANTDIV */
-  #if HAL_ANTDIV_ENABLE
-  #ifndef ANTENNA_DIVERSITY_DEFAULT_ENABLED
-    #define ANTENNA_DIVERSITY_DEFAULT_ENABLED 1
-  #endif
-  #ifdef BSP_ANTDIV_SEL_PORT
-    #define ANTENNA_SELECT_GPIO   ((BSP_ANTDIV_SEL_PORT << 4) | BSP_ANTDIV_SEL_PIN)
-  #endif
-  #ifdef BSP_ANTDIV_NSEL_PORT
-    #define ANTENNA_nSELECT_GPIO  ((BSP_ANTDIV_NSEL_PORT << 4) | BSP_ANTDIV_NSEL_PIN)
-  #endif
   #endif
 
 /* EXTDEV/EZRADIOPRO */

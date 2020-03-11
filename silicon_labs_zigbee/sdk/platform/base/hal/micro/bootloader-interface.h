@@ -1,9 +1,19 @@
-/** @file hal/micro/bootloader-interface.h
- * See @ref common_bootload for detailed documentation.
+/***************************************************************************//**
+ * @file
+ * @brief See @ref common_bootload for detailed documentation.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * <!-- Copyright 2007-2009 by Ember Corporation. All rights reserved.  *80* -->
- */
-
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 /** @addtogroup common_bootload
  * @brief Common bootloader interface defines and functions.
  *
@@ -17,7 +27,6 @@
 #include "bootloader-interface-app.h"
 #include "bootloader-interface-standalone.h"
 
-// EZR is not yet supported by the Gecko bootloader
 #if defined(CORTEXM3_EFR32_MICRO) && !defined(NULL_BTL)
   #include "api/btl_interface.h"  // for ApplicationProperties_t and other
 // Gecko bootloader related definitions.
@@ -149,13 +158,13 @@ uint16_t halGetBootloaderVersion(void);
  * is not supported for EM2XX chips and only returns extra information on bootloaders
  * built on or after the 4.7 release.
  *
- * @param emberVersion If specified, we will return the full 32bit ember version for
+ * @param getEmberVersion If specified, we will return the full 32bit ember version for
  *  this bootloader. Format is major, minor, patch, doc (4bit nibbles) followed by
  *  a 16bit build number.
  * @param customerVersion This will return the 32bit value specified in
  *  CUSTOMER_BOOTLOADER_VERSION at build time.
  */
-void halGetExtendedBootloaderVersion(uint32_t* emberVersion, uint32_t* customerVersion);
+void halGetExtendedBootloaderVersion(uint32_t* getEmberVersion, uint32_t* customerVersion);
 
 /** @brief Macro defining the customer application version stored in the
  *         ApplicationProperties_t struct.

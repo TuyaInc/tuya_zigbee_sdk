@@ -1,19 +1,19 @@
-// -----------------------------------------------------------------------------
-/// @file
-/// @brief EFM micro specific HAL functions common to full and minimal hal
-///
-/// @author Silicon Laboratories Inc.
-/// @version 1.0.0
-///
-/// @section License
-/// <b>(C) Copyright 2014 Silicon Laboratories, http://www.silabs.com</b>
-///
-/// This file is licensed under the Silabs License Agreement. See the file
-/// "Silabs_License_Agreement.txt" for details. Before using this software for
-/// any purpose, you must agree to the terms of that agreement.
-///
-// -----------------------------------------------------------------------------
-
+/***************************************************************************//**
+ * @file
+ * @brief EFM micro specific HAL functions common to full and minimal hal
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
+ *
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 #include PLATFORM_HEADER
 #include "em_device.h"
 #include "em_wdog.h"
@@ -27,10 +27,7 @@
 #include "hal/micro/cortexm3/efm32/micro-common.h"
 #include "hal/plugin/adc/adc.h"
 #include "ustimer.h"
-
-#if defined(WDOG0)
-#define DEFAULT_WDOG WDOG0
-#endif
+#include "watchdog.h"
 
 #if defined(BOARD_HEADER) && !defined(MINIMAL_HAL)
   #include BOARD_HEADER
@@ -51,6 +48,7 @@ void halInternalEnableWatchDog(void)
   /* Enable LE interface */
 #if !defined(_SILICON_LABS_32B_SERIES_2)
   CMU_ClockEnable(cmuClock_CORELE, true);
+  CMU_OscillatorEnable(cmuOsc_LFRCO, true, true);
 #endif
 
   /* Make sure FULL reset is used on WDOG timeout */
@@ -58,21 +56,18 @@ void halInternalEnableWatchDog(void)
   RMU_ResetControl(rmuResetWdog, rmuResetModeFull);
 #endif
 
-  /* Set PERSEL to 2k ticks,
-   *    Use ULFRCO and set
-   *    WARN interrupt to 75% of timeout. */
+  /* Trigger watchdog reset after 2 seconds (64k / 32k)
+   * warning interrupt is triggered after 1.5 seconds (75% of timeout). */
   WDOG_Init_TypeDef init = WDOG_INIT_DEFAULT;
   init.enable = true;
-  init.perSel = wdogPeriod_2k;
+  init.perSel = wdogPeriod_256k; //dengliang wdogPeriod_64k;
   init.warnSel = wdogWarnTime75pct;
 
 #if defined(_WDOG_CTRL_CLKSEL_MASK)
-  init.clkSel = wdogClkSelULFRCO;
+  init.clkSel = wdogClkSelLFRCO;
 #else
-  #if defined(_SILICON_LABS_32B_SERIES_2)
-  // SERIES_2 devices set watchdog clocking with the CMU.
-  CMU_ClockSelectSet(cmuClock_WDOG0, cmuSelect_ULFRCO);
-  #endif
+  // Series 2 devices select watchdog oscillator with the CMU.
+  CMU_ClockSelectSet(cmuClock_WDOG0, cmuSelect_LFRCO);
 #endif
 
   WDOGn_Init(DEFAULT_WDOG, &init);
@@ -104,7 +99,6 @@ void halInternalDisableWatchDog(uint8_t magicKey)
       BUS_RegBitWrite(&DEFAULT_WDOG->CTRL, _WDOG_CTRL_EN_SHIFT, 0);
     }
 #else
-    // TODO: must wait for SYNCBUSY or we get a busfault. Verify that waiting is ok.
     WDOGn_Enable(DEFAULT_WDOG, false);
 #endif
   }
@@ -113,6 +107,15 @@ void halInternalDisableWatchDog(uint8_t magicKey)
 bool halInternalWatchDogEnabled(void)
 {
   return WDOGn_IsEnabled(DEFAULT_WDOG);
+}
+
+void halInternalWatchDogSleep(void)
+{
+  // Wait for potential watchdog reset commands to finish. Watchdog commands
+  // in progress while entering EM2 will be aborted unless we wait for the
+  // syncbusy flag to clear.
+  while (DEFAULT_WDOG->SYNCBUSY != 0U) {
+  }
 }
 
 //------------------------------------------------------------------------------

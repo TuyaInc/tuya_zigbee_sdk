@@ -1,9 +1,20 @@
-/** @file hal/micro/cortexm3/token.c
+/***************************************************************************//**
+ * @file
  * @brief Token implementation for the Cortex-M3/EM3XX chip.
  * See token.h for details.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * <!-- Copyright 2014 Silicon Laboratories, Inc.                        *80*-->
- */
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 #include PLATFORM_HEADER
 
 #include "stack/include/ember.h"
@@ -30,6 +41,12 @@ bool tokensActive = false;
 
 
 
+
+// This token storage only uses SimEE.
+bool halCommonUsingNvm3(void)
+{
+  return false;
+}
 
 EmberStatus halStackInitTokens(void)
 {
@@ -224,7 +241,11 @@ EmberStatus halStackInitTokens(void)
     #define TOKEN_MFG TOKEN_DEF
     #define TOKEN_DEF(name, creator, iscnt, isidx, type, arraysize, ...) \
   case creator: return TOKEN_##name;
+        // Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+        //cstat !MISRAC2012-Dir-4.10
     #include "hal/micro/cortexm3/token-manufacturing.h"
+        // Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+        //cstat !MISRAC2012-Dir-4.10
     #include "stack/config/token-stack.h"
     #undef TOKEN_MFG
     #undef TOKEN_DEF
@@ -243,7 +264,11 @@ EmberStatus halStackInitTokens(void)
     #define TOKEN_MFG TOKEN_DEF
     #define TOKEN_DEF(name, creator, iscnt, isidx, type, arraysize, ...) \
   case creator: return sizeof(type);
+        // Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+        //cstat !MISRAC2012-Dir-4.10
     #include "hal/micro/cortexm3/token-manufacturing.h"
+        // Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+        //cstat !MISRAC2012-Dir-4.10
     #include "stack/config/token-stack.h"
     #undef TOKEN_MFG
     #undef TOKEN_DEF
@@ -262,7 +287,11 @@ EmberStatus halStackInitTokens(void)
     #define TOKEN_MFG TOKEN_DEF
     #define TOKEN_DEF(name, creator, iscnt, isidx, type, arraysize, ...) \
   case creator: return arraysize;
+        // Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+        //cstat !MISRAC2012-Dir-4.10
     #include "hal/micro/cortexm3/token-manufacturing.h"
+        // Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+        //cstat !MISRAC2012-Dir-4.10
     #include "stack/config/token-stack.h"
     #undef TOKEN_MFG
     #undef TOKEN_DEF

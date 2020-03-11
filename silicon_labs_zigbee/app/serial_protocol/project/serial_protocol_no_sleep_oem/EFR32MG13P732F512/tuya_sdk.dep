@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <fileVersion>4</fileVersion>
+    <fileChecksum>1306685211</fileChecksum>
+    <configuration>
+        <name>Normal</name>
+        <outputs>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\end-device-bind-stub-library.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\multi-network-stub-library.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\gp-stub-library.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\zigbee_attr.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\sim-eeprom2-library.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\cbke-library-dsa-verify-stub.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\cbke-stub-library.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\security-library-link-keys-stub.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\cbke-163k1-stub-library.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\zigbee_modules.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\librail_efr32xg13_iar_release.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\cbke-library-dsa-verify-283k1-stub.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\mfglib-library.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\type_def.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\debug-extended-stub-library.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\cbke-283k1-stub-library.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\zigbee_sdk.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\install-code-library.a</file>
+            <file>$PROJ_DIR$\..\..\..\common\include\serial_protocol_queue.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\packet-validate-library.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\zigbee_dev_template.h</file>
+            <file>$PROJ_DIR$\..\..\..\common\include\serial_protocol.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\security-library-core.a</file>
+            <file>$PROJ_DIR$\..\..\..\common\include\system.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\zigbee_cmd.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\binding-table-library.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\cbke-library-dsa-sign-stub.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\debug-basic-library.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\hal-library.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\sim-eeprom2-1to2-upgrade-stub-library.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\gp-library.a</file>
+            <file>$PROJ_DIR$\..\..\..\common\include\jsmn.h</file>
+            <file>$PROJ_DIR$\..\include\config.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\hal_battery.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\mf_test_callback.h</file>
+            <file>$PROJ_DIR$\..\..\..\common\include\mcu_api.h</file>
+            <file>$PROJ_DIR$\build\obj\no_sleep_process.__cstat.et</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\tools\iar_tools\icf\main_icf\iar-cfg.icf</file>
+            <file>$PROJ_DIR$\build\lst\sdk_route.map</file>
+            <file>$PROJ_DIR$\build\obj\system.xcl</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdio.h</file>
+            <file>$PROJ_DIR$\build\obj\system.o</file>
+            <file>$PROJ_DIR$\..\include\oem_util.h</file>
+            <file>$PROJ_DIR$\build\obj\mcu_api.__cstat.et</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Product_stdlib.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Product_string.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
+            <file>$PROJ_DIR$\build\obj\serial_protocol_queue.__cstat.et</file>
+            <file>$PROJ_DIR$\build\obj\mcu_api.xcl</file>
+            <file>$PROJ_DIR$\build\obj\si32_zg_uart_connect_no_sleep_ty_callback.__cstat.et</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\zigbee-r22-support-stub-library.a</file>
+            <file>$PROJ_DIR$\..\..\..\common\src\mcu_api.c</file>
+            <file>$PROJ_DIR$\build\lst\si32_zg_uart_connect_no_sleep_ty_callback.lst</file>
+            <file>$PROJ_DIR$\build\obj\mcu_api.o</file>
+            <file>$TOOLKIT_DIR$\lib\m7M_tls.a</file>
+            <file>$PROJ_DIR$\..\src\si32_zg_uart_connect_no_sleep_ty_callback.c</file>
+            <file>$PROJ_DIR$\..\..\..\common\src\serial_protocol_queue.c</file>
+            <file>$PROJ_DIR$\build\obj\tuya_sdk.pbd</file>
+            <file>$PROJ_DIR$\build\obj\config.__cstat.et</file>
+            <file>$PROJ_DIR$\..\src\config.c</file>
+            <file>$PROJ_DIR$\build\obj\serial_protocol_queue.o</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\zll-stub-library.a</file>
+            <file>$PROJ_DIR$\build\lst\no_sleep_process.lst</file>
+            <file>$PROJ_DIR$\build\obj\serial_protocol.o</file>
+            <file>$PROJ_DIR$\build\obj\no_sleep_process.o</file>
+            <file>$TOOLKIT_DIR$\inc\c\string.h</file>
+            <file>$PROJ_DIR$\build\obj\si32_zg_uart_connect_no_sleep_ty_callback.xcl</file>
+            <file>$PROJ_DIR$\build\obj\serial_protocol_queue.xcl</file>
+            <file>$PROJ_DIR$\build\lst\oem_util.lst</file>
+            <file>$PROJ_DIR$\build\obj\system.__cstat.et</file>
+            <file>$PROJ_DIR$\build\lst\serial_protocol_queue.lst</file>
+            <file>$PROJ_DIR$\..\src\no_sleep_process.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\zigbee-pro-stack.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\zll-library.a</file>
+            <file>$PROJ_DIR$\..\..\..\common\src\system.c</file>
+            <file>$PROJ_DIR$\build\obj\no_sleep_process.xcl</file>
+            <file>$PROJ_DIR$\..\..\..\common\src\serial_protocol.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\tuya_sdk.a</file>
+            <file>$PROJ_DIR$\..\src\oem_util.c</file>
+            <file>$TOOLKIT_DIR$\inc\c\ysizet.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdlib.h</file>
+            <file>$PROJ_DIR$\build\exe\sdk_route.out</file>
+            <file>$PROJ_DIR$\build\lst\serial_protocol.lst</file>
+            <file>$PROJ_DIR$\build\lst\system.lst</file>
+            <file>$PROJ_DIR$\..\src\sdk_test_router_callback.c</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
+            <file>$PROJ_DIR$\build\lst\config.lst</file>
+            <file>$PROJ_DIR$\build\obj\serial_protocol.xcl</file>
+            <file>$PROJ_DIR$\build\obj\serial_protocol.__cstat.et</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\time32.h</file>
+            <file>$PROJ_DIR$\build\obj\oem_util.__cstat.et</file>
+            <file>$PROJ_DIR$\build\obj\config.xcl</file>
+            <file>$PROJ_DIR$\build\exe\tuya_sdk.s37</file>
+            <file>$PROJ_DIR$\build\obj\si32_zg_uart_connect_no_sleep_ty_callback.o</file>
+            <file>$TOOLKIT_DIR$\inc\c\stddef.h</file>
+            <file>$TOOLKIT_DIR$\lib\rt7M_tl.a</file>
+            <file>$PROJ_DIR$\build\lst\sdk_route.log</file>
+            <file>$PROJ_DIR$\..\include\serial_protocol_callbacks.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\tools\iar_tools\icf\iar-cfg-common.icf</file>
+            <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
+            <file>$PROJ_DIR$\build\obj\sdk_test_router_callback.xcl</file>
+            <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
+            <file>$PROJ_DIR$\build\obj\oem_util.xcl</file>
+            <file>$TOOLKIT_DIR$\lib\dl7M_tln.a</file>
+            <file>$PROJ_DIR$\build\obj\sdk_test_router_callback.o</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdint.h</file>
+            <file>$PROJ_DIR$\build\obj\oem_util.o</file>
+            <file>$PROJ_DIR$\build\lst\mcu_api.lst</file>
+            <file>$TOOLKIT_DIR$\inc\c\time.h</file>
+            <file>$PROJ_DIR$\build\obj\config.o</file>
+        </outputs>
+        <file>
+            <name>[ROOT_NODE]</name>
+            <outputs>
+                <tool>
+                    <name>ILINK</name>
+                    <file> 81 38 97</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\common\src\mcu_api.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 108 53</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 48</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 43</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 65 100 102 89 46 85 79 45 98 16 40 80 44 109 90 13 95 106 24 3 34 9 33 20 21 23 35 32</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\src\si32_zg_uart_connect_no_sleep_ty_callback.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 52 94</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 66</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 49</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 98 16 40 100 102 89 46 85 79 80 44 65 45 109 90 13 95 106 24 3 34 9 33 20 21 23 35 32 42</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\common\src\serial_protocol_queue.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 70 60</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 67</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 47</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 40 100 102 89 46 85 79 65 45 109 90 18 106 16 80 44 13 95 24 3 34 9 33 21 23 35 32 98 20 42</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\src\config.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 86 110</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 92</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 58</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 16 40 100 102 89 46 85 79 80 44 65 45 109 90 13 95 106 24 3 34 9 33 32</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\src\no_sleep_process.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 62 64</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 75</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 36</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 98 16 40 100 102 89 46 85 79 80 44 65 45 109 90 13 95 106 24 3 34 9 33 20 21 23 35 32 42</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\common\src\system.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 83 41</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 39</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 69</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 23 35</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\common\src\serial_protocol.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 82 63</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 87</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 88</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 40 100 102 89 46 85 79 65 45 109 90 80 44 31 95 3 21 106 23 35 16 13 24 34 9 33 32 18 98 20 42</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\src\oem_util.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 68 107</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 103</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 91</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 42 16 40 100 102 89 46 85 79 80 44 65 45 109 90 13 95 106 24 3 34 9 33 98 20 21 23 35 32</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\build\exe\sdk_route.out</name>
+            <outputs>
+                <tool>
+                    <name>OBJCOPY</name>
+                    <file> 93</file>
+                </tool>
+                <tool>
+                    <name>ILINK</name>
+                    <file> 38 97</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ILINK</name>
+                    <file> 37 99 25 8 15 26 11 5 6 110 27 14 0 30 2 28 17 10 53 12 1 64 107 19 22 7 63 60 94 29 4 41 77 72 50 73 61 96 54 104</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\src\sdk_test_router_callback.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 105</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 101</file>
+                </tool>
+            </outputs>
+        </file>
+    </configuration>
+</project>

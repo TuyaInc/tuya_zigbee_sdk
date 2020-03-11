@@ -1,9 +1,19 @@
-/** @file hal/micro/unix/compiler/gcc.h
- * See @ref platform_common and @ref unix_gcc_config for documentation.
+/***************************************************************************//**
+ * @file
+ * @brief See @ref platform_common and @ref unix_gcc_config for documentation.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * <!-- Copyright 2003-2010 by Ember Corporation. All rights reserved.   *80*-->
- */
-
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 /** @addtogroup unix_gcc_config
  * @brief Compiler and Platform specific definitions and typedefs for the
  *  the Unix GCC compiler.
@@ -52,27 +62,6 @@ typedef unsigned long long int64u;
 typedef signed long long int64s;
 typedef unsigned long PointerType;
 //@} \\END MASTER VARIABLE TYPES
-
-/**
- * @brief 8051 memory segments stubs.
- */
-#if defined(C8051)
-typedef boolean bit;
-typedef bit BIT;
-
-#define SEG_DATA
-#define SEG_IDATA
-#define SEG_XDATA
-#define SEG_PDATA
-#define SEG_CODE
-#define SEG_BDATA
-
-#define idata SEG_IDATA
-#define xdata SEG_XDATA
-#define pdata SEG_PDATA
-#define code  SEG_CODE
-#define bdata SEG_BDATA
-#endif // C8051
 
 /**
  * @brief Denotes that this platform supports 64-bit data-types.

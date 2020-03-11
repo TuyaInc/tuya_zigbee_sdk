@@ -1,13 +1,20 @@
-/** @file hal/micro/micro-types.h
+/***************************************************************************//**
+ * @file
+ * @brief This file handles defines and enums related to all the micros.
+ * THIS IS A GENERATED FILE. DO NOT EDIT.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * @brief
- * This file handles defines and enums related to all the micros.
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
  *
- * THIS IS A GENERATED FILE.  DO NOT EDIT.
- *
- * <!-- Copyright 2017 Silicon Laboratories, Inc.                        *80*-->
- */
-
+ ******************************************************************************/
 #ifndef __MICRO_DEFINES_H__
 #define __MICRO_DEFINES_H__
 
@@ -57,16 +64,16 @@
 // for PLAT 4, MICRO 29 is the obsolete_cortexm3_29
 // for PLAT 4, MICRO 30 is the em355
 // for PLAT 4, MICRO 31 is the em3555
-// for PLAT 4, MICRO 32 is the ezr32hg
-// for PLAT 4, MICRO 33 is the ezr32lg
-// for PLAT 4, MICRO 34 is the ezr32wg
+// for PLAT 4, MICRO 32 is the obsolete_cortexm3_32
+// for PLAT 4, MICRO 33 is the obsolete_cortexm3_33
+// for PLAT 4, MICRO 34 is the obsolete_cortexm3_34
 
 // PLAT 5 is the C8051
-// for PLAT 5, MICRO 1 is the siF930
-// for PLAT 5, MICRO 2 is the siF960
-// for PLAT 5, MICRO 3 is the cobra
-// for PLAT 5, MICRO 4 is the siF370
-// for PLAT 5, MICRO 5 is the siF393
+// for PLAT 5, MICRO 1 is the obsolete_c8051_1
+// for PLAT 5, MICRO 2 is the obsolete_c8051_2
+// for PLAT 5, MICRO 3 is the obsolete_c8051_3
+// for PLAT 5, MICRO 4 is the obsolete_c8051_4
+// for PLAT 5, MICRO 5 is the obsolete_c8051_5
 
 // PLAT 6 is the FFD
 // for PLAT 6, MICRO 1 is the si4010
@@ -75,6 +82,8 @@
 // FAMILY values are used in EBL headers and bootloaders as well
 // FAMILY 1 is the BGM13
 // FAMILY 1 is the MGM1
+// FAMILY 1 is the MGM21
+// FAMILY 1 is the BGM21
 // FAMILY 1 is the MGM13
 // FAMILY 1 is the MGM12
 // FAMILY 1 is the BGM1
@@ -199,9 +208,9 @@ enum {
   EMBER_MICRO_CORTEXM3_OBSOLETE_CORTEXM3_29 = 29,
   EMBER_MICRO_CORTEXM3_EM355                = 30,
   EMBER_MICRO_CORTEXM3_EM3555               = 31,
-  EMBER_MICRO_CORTEXM3_EZR32HG              = 32,
-  EMBER_MICRO_CORTEXM3_EZR32LG              = 33,
-  EMBER_MICRO_CORTEXM3_EZR32WG              = 34,
+  EMBER_MICRO_CORTEXM3_OBSOLETE_CORTEXM3_32 = 32,
+  EMBER_MICRO_CORTEXM3_OBSOLETE_CORTEXM3_33 = 33,
+  EMBER_MICRO_CORTEXM3_OBSOLETE_CORTEXM3_34 = 34,
   EMBER_MICRO_CORTEXM3_MAX_VALUE
 };
 
@@ -240,19 +249,19 @@ typedef uint16_t EmberMicroCortexM3Enum;
   "obsolete_cortexm3_29",            \
   "em355",                           \
   "em3555",                          \
-  "ezr32hg",                         \
-  "ezr32lg",                         \
-  "ezr32wg",                         \
+  "obsolete_cortexm3_32",            \
+  "obsolete_cortexm3_33",            \
+  "obsolete_cortexm3_34",            \
   NULL,
 
 // Create an enum for all of the different C8051 micros we support
 enum {
-  EMBER_MICRO_C8051_UNKNOWN   = 0,
-  EMBER_MICRO_C8051_SIF930    = 1,
-  EMBER_MICRO_C8051_SIF960    = 2,
-  EMBER_MICRO_C8051_COBRA     = 3,
-  EMBER_MICRO_C8051_SIF370    = 4,
-  EMBER_MICRO_C8051_SIF393    = 5,
+  EMBER_MICRO_C8051_UNKNOWN          = 0,
+  EMBER_MICRO_C8051_OBSOLETE_C8051_1 = 1,
+  EMBER_MICRO_C8051_OBSOLETE_C8051_2 = 2,
+  EMBER_MICRO_C8051_OBSOLETE_C8051_3 = 3,
+  EMBER_MICRO_C8051_OBSOLETE_C8051_4 = 4,
+  EMBER_MICRO_C8051_OBSOLETE_C8051_5 = 5,
   EMBER_MICRO_C8051_MAX_VALUE
 };
 
@@ -260,11 +269,11 @@ typedef uint16_t EmberMicroC8051Enum;
 
 #define EMBER_MICRO_C8051_STRINGS \
   "Unknown",                      \
-  "siF930",                       \
-  "siF960",                       \
-  "cobra",                        \
-  "siF370",                       \
-  "siF393",                       \
+  "obsolete_c8051_1",             \
+  "obsolete_c8051_2",             \
+  "obsolete_c8051_3",             \
+  "obsolete_c8051_4",             \
+  "obsolete_c8051_5",             \
   NULL,
 
 // Create an enum for all of the different FFD micros we support
@@ -286,6 +295,8 @@ enum {
   EMBER_FAMILY_UNKNOWN    = 0,
   EMBER_FAMILY_BGM13      = 1,
   EMBER_FAMILY_MGM1       = 1,
+  EMBER_FAMILY_MGM21      = 1,
+  EMBER_FAMILY_BGM21      = 1,
   EMBER_FAMILY_MGM13      = 1,
   EMBER_FAMILY_MGM12      = 1,
   EMBER_FAMILY_BGM1       = 1,
@@ -319,6 +330,8 @@ typedef uint16_t EmberFamilyEnum;
   "Unknown",                 \
   "BGM13",                   \
   "MGM1",                    \
+  "MGM21",                   \
+  "BGM21",                   \
   "MGM13",                   \
   "MGM12",                   \
   "BGM1",                    \
@@ -433,25 +446,25 @@ typedef uint16_t EmberMicroEnum;
     #define MICRO EMBER_MICRO_CORTEXM3_EM355
   #elif defined(CORTEXM3_EM3555)
     #define MICRO EMBER_MICRO_CORTEXM3_EM3555
-  #elif defined(CORTEXM3_EZR32HG)
-    #define MICRO EMBER_MICRO_CORTEXM3_EZR32HG
-  #elif defined(CORTEXM3_EZR32LG)
-    #define MICRO EMBER_MICRO_CORTEXM3_EZR32LG
-  #elif defined(CORTEXM3_EZR32WG)
-    #define MICRO EMBER_MICRO_CORTEXM3_EZR32WG
+  #elif defined(CORTEXM3_OBSOLETE_CORTEXM3_32)
+    #define MICRO EMBER_MICRO_CORTEXM3_OBSOLETE_CORTEXM3_32
+  #elif defined(CORTEXM3_OBSOLETE_CORTEXM3_33)
+    #define MICRO EMBER_MICRO_CORTEXM3_OBSOLETE_CORTEXM3_33
+  #elif defined(CORTEXM3_OBSOLETE_CORTEXM3_34)
+    #define MICRO EMBER_MICRO_CORTEXM3_OBSOLETE_CORTEXM3_34
   #endif
 #elif defined(C8051)
   #define PLAT EMBER_PLATFORM_C8051
-  #if defined(C8051_SIF930)
-    #define MICRO EMBER_MICRO_C8051_SIF930
-  #elif defined(C8051_SIF960)
-    #define MICRO EMBER_MICRO_C8051_SIF960
-  #elif defined(C8051_COBRA)
-    #define MICRO EMBER_MICRO_C8051_COBRA
-  #elif defined(C8051_SIF370)
-    #define MICRO EMBER_MICRO_C8051_SIF370
-  #elif defined(C8051_SIF393)
-    #define MICRO EMBER_MICRO_C8051_SIF393
+  #if defined(C8051_OBSOLETE_C8051_1)
+    #define MICRO EMBER_MICRO_C8051_OBSOLETE_C8051_1
+  #elif defined(C8051_OBSOLETE_C8051_2)
+    #define MICRO EMBER_MICRO_C8051_OBSOLETE_C8051_2
+  #elif defined(C8051_OBSOLETE_C8051_3)
+    #define MICRO EMBER_MICRO_C8051_OBSOLETE_C8051_3
+  #elif defined(C8051_OBSOLETE_C8051_4)
+    #define MICRO EMBER_MICRO_C8051_OBSOLETE_C8051_4
+  #elif defined(C8051_OBSOLETE_C8051_5)
+    #define MICRO EMBER_MICRO_C8051_OBSOLETE_C8051_5
   #endif
 #elif defined(FFD)
   #define PLAT EMBER_PLATFORM_FFD
@@ -469,6 +482,10 @@ typedef uint16_t EmberMicroEnum;
   #define FAMILY EMBER_FAMILY_BGM13
 #elif defined(MGM1)
   #define FAMILY EMBER_FAMILY_MGM1
+#elif defined(MGM21)
+  #define FAMILY EMBER_FAMILY_MGM21
+#elif defined(BGM21)
+  #define FAMILY EMBER_FAMILY_BGM21
 #elif defined(MGM13)
   #define FAMILY EMBER_FAMILY_MGM13
 #elif defined(MGM12)
@@ -527,14 +544,14 @@ typedef uint16_t EmberMicroEnum;
 // PHY 1 is em2420 (no longer supported)
 // PHY 2 is em250
 // PHY 3 is em3XX
-// PHY 4 is si446x
-// PHY 5 is cobra
+// PHY 4 is si446x (no longer supported)
+// PHY 5 is cobra (no longer supported)
 // PHY 6 is PRO2+
-// PHY 7 is si4x55
-// PHY 8 is si4010
+// PHY 7 is si4x55 (no longer supported)
+// PHY 8 is si4010 (no longer supported)
 // PHY 9 is efr32
-// PHY 10 is pro2
-// PHY 11 is ezr2
+// PHY 10 is pro2 (no longer supported)
+// PHY 11 is ezr2 (no longer supported)
 // PHY 12 is dual
 // PHY 13 is transceiver_sim
 // PHY 14 is efr32gb
@@ -605,21 +622,21 @@ typedef uint16_t EmberPhyEnum;
 #elif defined(PHY_EM3XX)
   #define PHY EMBER_PHY_EM3XX
 #elif defined(PHY_SI446X_US) || defined(PHY_SI446X_EU) || defined(PHY_SI446X_CN) || defined(PHY_SI446X_JP)
-  #define PHY EMBER_PHY_SI446X
+  #error si446x PHY is no longer supported
 #elif defined(PHY_COBRA)
-  #define PHY EMBER_PHY_COBRA
+  #error cobra PHY is no longer supported
 #elif defined(PHY_PRO2PLUS)
   #define PHY EMBER_PHY_PRO2PLUS
 #elif defined(PHY_SI4X55)
-  #define PHY EMBER_PHY_SI4X55
+  #error si4x55 PHY is no longer supported
 #elif defined(PHY_SI4010)
-  #define PHY EMBER_PHY_SI4010
+  #error si4010 PHY is no longer supported
 #elif defined(PHY_EFR32)
   #define PHY EMBER_PHY_EFR32
 #elif defined(PHY_PRO2)
-  #define PHY EMBER_PHY_PRO2
+  #error pro2 PHY is no longer supported
 #elif defined(PHY_EZR2)
-  #define PHY EMBER_PHY_EZR2
+  #error ezr2 PHY is no longer supported
 #elif defined(PHY_DUAL)
   #define PHY EMBER_PHY_DUAL
 #elif defined(PHY_TRANSCEIVER_SIM)

@@ -1,4 +1,5 @@
-/** @file hal/micro/cortexm3/token.h
+/***************************************************************************//**
+ * @file
  * @brief Cortex-M3 Token system for storing non-volatile information.
  * See @ref token for documentation.
  *
@@ -7,10 +8,19 @@
  *  internal only and should not be accessed by appilications.  This
  *  information is still documented, but should not be published in
  *  the generated doxygen.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * <!-- Copyright 2007-2011 by Ember Corporation. All rights reserved.   *80*-->
- */
-
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 #ifndef __PLAT_TOKEN_H__
 #define __PLAT_TOKEN_H__
 
@@ -36,6 +46,8 @@
  * be referenced from anywhere in the code base.
  */
 #define DEFINETYPES
+// Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+//cstat !MISRAC2012-Dir-4.10
   #include "stack/config/token-stack.h"
 #undef DEFINETYPES
 
@@ -58,6 +70,8 @@
 #define TOKEN_DEF(name, creator, iscnt, isidx, type, arraysize, ...) \
   TOKEN_##name,
 enum {
+  // Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+  //cstat !MISRAC2012-Dir-4.10
     #include "stack/config/token-stack.h"
   TOKEN_COUNT
 };
@@ -75,6 +89,8 @@ enum {
 #define TOKEN_DEF(name, creator, iscnt, isidx, type, arraysize, ...) \
   TOKEN_##name##_SIZE = sizeof(type),
 enum {
+  // Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+  //cstat !MISRAC2012-Dir-4.10
     #include "stack/config/token-stack.h"
 };
 
@@ -164,7 +180,7 @@ extern const void * const tokenDefaults[];
  * specifies, in bytes, the space allocated to a counter token for
  * +1 marks.  The number of +1 marks varies between chips based on the
  * minimum write granularity for a chip's flash.  EM35x chips can use 8bit
- * per +1 while EFM32/EZM32/EZR32 chips use 16bit per +1.
+ * per +1 while EFM32/EZM32 chips use 16bit per +1.
  */
 #define COUNTER_TOKEN_PAD        50
 
@@ -180,6 +196,8 @@ extern const void * const tokenDefaults[];
  */
 #define TOKEN_DEF(name, creator, iscnt, isidx, type, arraysize, ...) \
   typedef type TOKEN_##name##_TYPE;
+// Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+//cstat !MISRAC2012-Dir-4.10
   #include "stack/config/token-stack.h"
 #undef TOKEN_DEF
 
@@ -281,19 +299,11 @@ void halInternalGetIdxTokenPtrOrData(void *ptr, uint16_t ID, uint8_t index, uint
   ((const void *)(address + FIB_BOTTOM))
     #define halInternalMfgIndexedToken(type, address, index) \
   (*((const type *)(address + FIB_BOTTOM) + index))
-  #elif defined(_SILICON_LABS_32B_SERIES_1)
+  #else
     #define halInternalMfgTokenPointer(address) \
   ((const void *)(USERDATA_BASE | (address & 0x0FFF)))
     #define halInternalMfgIndexedToken(type, address, index) \
   (*((const type *)(USERDATA_BASE | (address & 0x0FFF)) + index))
-  #elif defined(_SILICON_LABS_32B_SERIES_2)
-// temporary workaround until user data area access has been implemented
-// ToDo: EMHAL-1446 "fully support mfg tokens on Series2"
-uint8_t dummyMfgTokenSpace[0x2000];
-    #define halInternalMfgTokenPointer(address) \
-  ((const void *)((uint32_t)dummyMfgTokenSpace + (address & 0x0FFF)))
-    #define halInternalMfgIndexedToken(type, address, index) \
-  (*((const type *)((uint32_t)dummyMfgTokenSpace + (address & 0x0FFF)) + index))
   #endif
 #endif
 

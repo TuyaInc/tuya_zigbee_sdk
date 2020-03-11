@@ -1,15 +1,20 @@
-//=============================================================================
-// FILE
-//   cstartup.c - Startup and low-level utility code for Ember's Cortex based
-//                SOCs when using the IAR toolchain.
-//
-// DESCRIPTION
-//   This file defines the basic information needed to go from reset up to
-//   the main() found in C code.
-//
-//   Copyright 2013 Silicon Laboratories, Inc.                             *80*
-//=============================================================================
-
+/***************************************************************************//**
+ * @file
+ * @brief This file defines the basic information needed to go from reset up to
+ * the main() found in C code.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
+ *
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 #include PLATFORM_HEADER
 #include "hal/micro/cortexm3/diagnostic.h"
 #include "hal/micro/cortexm3/mpu.h"
@@ -62,12 +67,6 @@
 // defined soley for the purpose of placing the stack.  Refer to reset handler
 // for the initialization code and iar-cfg-common.icf for segment placement
 // in memory.
-//
-// halResetInfo, used to store crash information and bootloader parameters, is
-// overlayed on top of the base of this segment so it can be overwritten by the
-// call stack.
-// This assumes that the stack will not go that deep between reset and
-// use of the crash or the bootloader data.
 //=============================================================================
 #ifndef CSTACK_SIZE
   #ifdef RTOS
@@ -102,8 +101,7 @@ VAR_AT_SEGMENT(NO_STRIPPING uint8_t guardRegionPlaceHolder[HEAP_GUARD_REGION_SIZ
 #endif
 
 // Reset cause and crash info live in a special RAM segment that is
-// not modified during startup.  This segment is overlayed on top of the
-// bottom of the cstack.
+// not modified during startup.
 VAR_AT_SEGMENT(NO_STRIPPING HalResetInfoType halResetInfo, __RESETINFO__);
 
 // If space is needed in the flash for data storage like for the local storage
@@ -203,7 +201,7 @@ VAR_AT_SEGMENT(NO_STRIPPING const HalAppAddressTableType halAppAddressTable, __A
   _DATA_INIT_SEGMENT_END,                             //void *initcTop;
   _TEXT_SEGMENT_END,                                  //void *codeTop;
   _CSTACK_SEGMENT_BEGIN,                              //void *cstackBottom;
-  _EMHEAP_OVERLAY_SEGMENT_END,                        //void *heapTop;
+  _EMHEAP_SEGMENT_END,                                //void *heapTop;
   _SIMEE_SEGMENT_END,                                 //void *simeeTop;
   _DEBUG_CHANNEL_SEGMENT_END                          //void *debugChannelTop;
 };

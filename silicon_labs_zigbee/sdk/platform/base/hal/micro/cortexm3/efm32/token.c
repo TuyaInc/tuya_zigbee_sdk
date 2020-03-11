@@ -1,9 +1,20 @@
-/** @file hal/micro/cortexm3/efm32/token.c
+/***************************************************************************//**
+ * @file
  * @brief Token implementation.
  * See token.h for details.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * <!-- Copyright 2014 Silicon Laboratories, Inc.                        *80*-->
- */
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 #include PLATFORM_HEADER
 #include "stack/include/ember.h"
 #include "stack/include/error.h"
@@ -11,7 +22,7 @@
 #include "serial/serial.h"
 
 #ifndef SER232
-  #define SER232 0
+  #define SER232 1
 #endif
 
 //prints debug data from the token access functions
@@ -19,8 +30,28 @@
 //#define TOKENDBG(x) x
 
 #ifdef USE_NVM3
-
 #include "hal/plugin/nvm3/nvm3-token.h"
+
+#if defined(NVM3_EXTFLASH)
+bool emRadioGetRandomNumbers(uint16_t *rn, uint8_t count);
+#define NVM3_CRYPTO_KEY_BYTES 16
+
+#if !defined(NVM3_TEST)
+#include "em_wdog.h"
+#define NVM3_CRYPTO_KEY_ADDRESS (LOCKBITS_BASE + (TOKEN_MFG_NVM3_CRYPTO_KEY & 0x0FFFU));
+#endif // NVM3_TEST
+
+// Function passed ot NVM3 to provide random numbers
+static uint32_t getRandomNumber(void)
+{
+  uint32_t res;
+
+  emRadioGetRandomNumbers((uint16_t *) &res, sizeof(res) / sizeof(uint16_t));
+
+  return res;
+}
+
+#endif // NVM3_EXFLASH
 
 // Global variable used by library code to know number of tokens
 #ifdef SIMEE2_TO_NVM3_UPGRADE
@@ -31,6 +62,12 @@ EmberStatus halSimEeToNvm3Upgrade(void);
 
 static bool tokensActive = false;
 
+// This token storage is using NVM3.
+bool halCommonUsingNvm3(void)
+{
+  return true;
+}
+
 EmberStatus halStackInitTokens(void)
 {
   uint8_t i;
@@ -40,9 +77,52 @@ EmberStatus halStackInitTokens(void)
   Ecode_t ecode, status;
   EmberStatus ret;
 
+#if defined (NVM3_EXTFLASH)
+  // Disable watchdog and reconfigure it to a longer timout period to allow
+  // nvm3_open to finish as this takes a long time with external flash
+#if !defined (NVM3_TEST) && defined(HAL_WDOG_ENABLE)
+  halInternalDisableWatchDog(MICRO_DISABLE_WATCH_DOG_KEY);
+  WDOG_Init_TypeDef wdogInit = WDOG_INIT_DEFAULT;
+  wdogInit.enable = true;
+  wdogInit.perSel = wdogPeriod_128k;
+  wdogInit.warnSel = wdogWarnTime75pct;
+
+  WDOGn_Init(DEFAULT_WDOG, &wdogInit);
+#endif
+
+  bool cryptoKeyExists = false;
+  uint16_t nvm3CryptoKey[NVM3_CRYPTO_KEY_BYTES / 2];
+
+  // Read existing crypto key from manufacturing token
+  halInternalGetMfgTokenData((uint8_t *) nvm3CryptoKey,
+                             TOKEN_MFG_NVM3_CRYPTO_KEY,
+                             0,
+                             NVM3_CRYPTO_KEY_BYTES);
+
+  // If the existing crypto key is all FFs we assume it
+  // has not been written yet
+  for (i = 0; i < NVM3_CRYPTO_KEY_BYTES / 2; i++) {
+    cryptoKeyExists |= (nvm3CryptoKey[i] != 0xFFFFU);
+  }
+
+  // If no NVM3 crypto key exists we generate a new one and
+  // write it as a manufacturing token
+  if (!cryptoKeyExists) {
+    emRadioGetRandomNumbers(nvm3CryptoKey, NVM3_CRYPTO_KEY_BYTES / sizeof(nvm3CryptoKey[0]));
+    halInternalSetMfgTokenData(TOKEN_MFG_NVM3_CRYPTO_KEY,
+                               (uint8_t *) nvm3CryptoKey,
+                               NVM3_CRYPTO_KEY_BYTES);
+  }
+
+  nvm3_defaultInit->getRndNumber = getRandomNumber;
+  nvm3_defaultInit->cryptoKey = (uint8_t *) NVM3_CRYPTO_KEY_ADDRESS;
+
+#else // defined (NVM3_EXTFLASH)
+  // Updrade is only supported when using NVM3 in internal flash
   if (halSimEeToNvm3Upgrade()) {
     return (EmberStatus) EMBER_NVM3_ERR_UPGRADE;
   }
+#endif
 
   ecode = nvm3_open(nvm3_defaultHandle, nvm3_defaultInit);
   TOKENDBG(emberSerialPrintf(SER232,
@@ -174,6 +254,11 @@ EmberStatus halStackInitTokens(void)
       ret = (EmberStatus) EMBER_NVM3_ERR_TOKEN_INIT;
       break;
   }
+  // Disable watchdog and reconfigure it to restore original watchdog period.
+#if defined (NVM3_EXTFLASH) && defined(HAL_WDOG_ENABLE)
+  halInternalDisableWatchDog(MICRO_DISABLE_WATCH_DOG_KEY);
+  halInternalEnableWatchDog();
+#endif
   return ret;
 }
 
@@ -305,6 +390,12 @@ void halInternalIncrementCounterToken(uint8_t token)
 #include "hal/plugin/sim-eeprom/sim-eeprom.h"
 
 bool tokensActive = false;
+
+// This token storage is using SimEE.
+bool halCommonUsingNvm3(void)
+{
+  return false;
+}
 
 EmberStatus halStackInitTokens(void)
 {
@@ -450,7 +541,11 @@ uint16_t getTokenAddress(uint16_t creator)
     #define TOKEN_MFG TOKEN_DEF
     #define TOKEN_DEF(name, creator, iscnt, isidx, type, arraysize, ...) \
   case creator: return TOKEN_##name;
+    // Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+    //cstat !MISRAC2012-Dir-4.10
     #include "hal/micro/cortexm3/efm32/token-manufacturing.h"
+    // Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+    //cstat !MISRAC2012-Dir-4.10
     #include "stack/config/token-stack.h"
     #undef TOKEN_MFG
     #undef TOKEN_DEF
@@ -469,7 +564,11 @@ uint8_t getTokenSize(uint16_t creator)
     #define TOKEN_MFG TOKEN_DEF
     #define TOKEN_DEF(name, creator, iscnt, isidx, type, arraysize, ...) \
   case creator: return sizeof(type);
+    // Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+    //cstat !MISRAC2012-Dir-4.10
     #include "hal/micro/cortexm3/efm32/token-manufacturing.h"
+    // Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+    //cstat !MISRAC2012-Dir-4.10
     #include "stack/config/token-stack.h"
     #undef TOKEN_MFG
     #undef TOKEN_DEF
@@ -488,7 +587,11 @@ uint8_t getTokenArraySize(uint16_t creator)
     #define TOKEN_MFG TOKEN_DEF
     #define TOKEN_DEF(name, creator, iscnt, isidx, type, arraysize, ...) \
   case creator: return arraysize;
+    // Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+    //cstat !MISRAC2012-Dir-4.10
     #include "hal/micro/cortexm3/efm32/token-manufacturing.h"
+    // Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+    //cstat !MISRAC2012-Dir-4.10
     #include "stack/config/token-stack.h"
     #undef TOKEN_MFG
     #undef TOKEN_DEF

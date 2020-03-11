@@ -1,8 +1,19 @@
-/** @file hal/micro/cortexm3/efm32/mfg-token.c
+/***************************************************************************//**
+ * @file
  * @brief EFM32 Cortex-M3 Manufacturing-Token system
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * <!-- Copyright 2015 Silicon Laboratories, Inc.                        *80*-->
- */
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 #include PLATFORM_HEADER
 #include "include/error.h"
 #include "hal/micro/cortexm3/flash.h"
@@ -12,6 +23,8 @@
 #define DEFINETOKENS
 #define TOKEN_MFG(name, creator, iscnt, isidx, type, arraysize, ...) \
   const uint16_t TOKEN_##name = TOKEN_##name##_ADDRESS;
+// Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+//cstat !MISRAC2012-Dir-4.10
   #include "hal/micro/cortexm3/efm32/token-manufacturing.h"
 #undef TOKEN_DEF
 #undef TOKEN_MFG
@@ -21,14 +34,19 @@
   #define SILABS_DEVINFO_EUI64_LOW   (DEVINFO->UNIQUEL)
   #define SILABS_DEVINFO_EUI64_HIGH  (DEVINFO->UNIQUEH)
 #elif defined(_SILICON_LABS_32B_SERIES_2)
+  #include "em_se.h"
   #define SILABS_DEVINFO_EUI64_LOW   (DEVINFO->EUI64L)
   #define SILABS_DEVINFO_EUI64_HIGH  (DEVINFO->EUI64H)
-  #define USERDATA_BASE              (MSC_FLASH_USERDATA_MEM_BASE)
-  #warning HACK: manufacturing tokens stored in the lock bits data pages on series 1 are being stored in main flash on series 2 until SE software is complete
-VAR_AT_SEGMENT(NO_STRIPPING NO_INIT(uint8_t dummyMfgTokenSpace[0x2000]), __INTERNAL_STORAGE__);
-// TODO: Change/rewrite mfg-token.c to use secure element to pass data to proper
-// locations. Currently utilising random flash pages in __INTERNAL_STORAGE__.
-  #define LOCKBITS_BASE ((uint32_t)dummyMfgTokenSpace)
+// Unlike Series1 EFR devices, Series2 devices do not have an explicit
+// flash space for LockBits.  Series 2 uses the top page of main
+// flash to store LockBits.  This top page is set aside using a dedicated
+// byte array that the linker places at the top of flash.  The define
+// LOCKBITS_BASE is then used like all EFR devices to access the LockBits
+// memory.
+// In non-Series2 devices the LOCKBITS_IN_MAINFLASH section is not
+// defined so it is ignored by the linker and therefore the top page
+// of flash is free for all existing prior uses.
+VAR_AT_SEGMENT(NO_STRIPPING NO_INIT(uint8_t lockBitsInMainFlashSpace[FLASH_PAGE_SIZE]), __LOCKBITS_IN_MAINFLASH__);
 #else
   #error Error: this micro is not yet supported by the manufacturing token code
 #endif
@@ -153,6 +171,97 @@ void halInternalSetMfgTokenData(uint16_t token, void *data, uint8_t len)
     assert(flash[i] == 0xFF);
   }
 
+  #if defined(_SILICON_LABS_32B_SERIES_2)
+  uint32_t startWordToWrite, endWordToWrite, startWordAddress, endWordAddress;
+  bool isStartWord = false;
+  bool isEndWord = false;
+
+  // if address is 2 byte aligned instead of 4, write two buffer bytes of 0xFFFF with
+  // the first 2 bytes of data separately from the rest of data 2 bytes before
+  // realAddress. There is buffer space built into the token map to account for these
+  // extra two bytes at the beginning
+  if ((realAddress & 3U) != 0U) {
+    // address for start word at aligned address 2 bytes before realAddress,
+    // realAddress shifts to aligned address 2 bytes later
+    startWordAddress = realAddress - 2;
+    realAddress += 2;
+    assert((realAddress & 3U) == 0U);
+
+    // create word to write buffer bytes and first 2 bytes of token
+    startWordToWrite = 0x0000FFFF | (*(uint16_t *)data << 16);
+
+    // adjust data pointer and byte count
+    data = (uint16_t *)data + 1;
+    len -= 2;
+
+    isStartWord = true;
+  }
+
+  // If data size is 2 byte aligned instead of 4, write the last 2 bytes of data and
+  // two buffer bytes of 0xFFFF at the end of the token separately from the rest of
+  // data. Buffer space is built into the mfg token map to account for the extra bytes
+  if ((len & 3U) != 0) {
+    // adjust to new length
+    len -= 2;
+
+    // address for end word at aligned address where the last two bytes of data would
+    // be written
+    endWordAddress = realAddress + len;
+
+    // create word to write last 2 bytes of token and buffer bytes
+    endWordToWrite = 0xFFFF0000 | *((uint16_t *)data + len / 2);
+
+    isEndWord = true;
+  }
+
+  // if writing to USERDATA use secure element
+  if ((token & 0xF000) == (USERDATA_TOKENS & 0xF000)) {
+    SE_Response_t seStatus = SE_RESPONSE_ABORT;
+    uint32_t offset;
+
+    // write first word if necessary
+    if (isStartWord) {
+      offset = startWordAddress & 0x0FFF;
+      seStatus = SE_writeUserData(offset, (void *)&startWordToWrite, 4);
+      assert(seStatus == SE_RESPONSE_OK);
+    }
+
+    // write main area of token if necessary
+    if (len > 0) {
+      offset = realAddress & 0x0FFF;
+      seStatus = SE_writeUserData(offset, data, len);
+      assert(seStatus == SE_RESPONSE_OK);
+    }
+
+    // write last word if necessary
+    if (isEndWord) {
+      offset = endWordAddress & 0x0FFF;
+      seStatus = SE_writeUserData(offset, (void *)&endWordToWrite, 4);
+      assert(seStatus == SE_RESPONSE_OK);
+    }
+  } else {
+    // write first word if necessary
+    if (isStartWord) {
+      flashStatus = 0; //halInternalFlashWriteSeries2(startWordAddress, &startWordToWrite, 1);
+      assert(flashStatus == EMBER_SUCCESS);
+    }
+
+    //write main area of token if necessary
+    if (len > 0) {
+      //Remember, the flash library's token support operates in 32bit quantities,
+      //but halInternalFlashWrite converts those to 16 bit quantities and the
+      //token system operates in 8bit quantities.  Hence the divide by 2.
+      flashStatus = halInternalFlashWrite(realAddress, data, (len / 2));
+      assert(flashStatus == EMBER_SUCCESS);
+    }
+
+    // write last word if necessary
+    if (isEndWord) {
+      flashStatus = 0; //halInternalFlashWriteSeries2(endWordAddress, &endWordToWrite, 1);
+      assert(flashStatus == EMBER_SUCCESS);
+    }
+  }
+  #elif defined(_SILICON_LABS_32B_SERIES_1)
   //Remember, the flash library's token support operates in 16bit quantities,
   //but the token system operates in 8bit quantities.  Hence the divide by 2.
   //NOTE: The actual flash for the EFM32 device prefer to work with 32b writes,
@@ -160,4 +269,7 @@ void halInternalSetMfgTokenData(uint16_t token, void *data, uint8_t len)
   //purposes of the SimEE/Token system that likes to use 8b and 16b.
   flashStatus = halInternalFlashWrite(realAddress, data, (len / 2));
   assert(flashStatus == EMBER_SUCCESS);
+  #else
+    #error Unknown device series
+  #endif
 }

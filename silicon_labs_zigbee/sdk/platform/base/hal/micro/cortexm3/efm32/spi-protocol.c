@@ -1,17 +1,19 @@
-/**************************************************************************//**
- * @file hal/micro/cortexm3/efm/spi-protocol.c
+/***************************************************************************//**
+ * @file
  * @brief  EFM internal SPI Protocol implementation
  *******************************************************************************
- * @section License
- * <b>(C) Copyright 2015 Silicon Labs, www.silabs.com</b>
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
  *******************************************************************************
  *
- * This file is licensensed under the Silabs License Agreement. See the file
- * "Silabs_License_Agreement.txt" for details. Before using this software for
- * any purpose, you must agree to the terms of that agreement.
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
  *
- *****************************************************************************/
-
+ ******************************************************************************/
 #include PLATFORM_HEADER
 #include "stack/include/ember.h"
 #include "hal/hal.h"
@@ -130,7 +132,9 @@ void halHostSerialPowerup(void)
   // the slewrate can be lowered further
   GPIO_SlewrateSet(BSP_SPINCP_NHOSTINT_PORT, 4, 4);
   // the drivestrength is lowered from 10mA to 1mA by setting DRIVESTRENGTH to 1
+#if defined (_GPIO_P_CTRL_DRIVEMODE_MASK)
   GPIO_DriveStrengthSet(BSP_SPINCP_NHOSTINT_PORT, 1);
+#endif
 }
 
 void halHostSerialPowerdown(void)

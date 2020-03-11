@@ -1,14 +1,23 @@
-/** @file hal/micro/micro.h
- *
+/***************************************************************************//**
+ * @file
  * @brief Full HAL functions common across all microcontroller-specific files.
  * See @ref micro for documentation.
  *
  * Some functions in this file return an ::EmberStatus value.
  * See error-def.h for definitions of all ::EmberStatus return values.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * <!-- Copyright 2004-2011 by Ember Corporation. All rights reserved.   *80*-->
- */
-
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 /** @addtogroup micro
  * Many of the supplied example applications use these microcontroller functions.
  * See hal/micro/micro.h for source code.
@@ -73,7 +82,7 @@ uint8_t halGetResetInfo(void);
  */
 PGM_P halGetResetString(void);
 
-/** @brief Calls ::halGetExtendedResetInfo() and translates the EM35x or COBRA
+/** @brief Calls ::halGetExtendedResetInfo() and translates the EM35x
  *  reset code to the corresponding value used by the EM2XX HAL. Any reset codes
  * not present in the EM2XX are returned after being OR'ed with 0x80.
  *
@@ -82,7 +91,7 @@ PGM_P halGetResetString(void);
  * @return The EM2XX-compatible reset code. If not supported by the EM2XX,
  *         return the platform-specific code with B7 set.
  */
-#if defined(CORTEXM3) || defined(EMBER_STACK_COBRA)
+#if defined(CORTEXM3)
 uint8_t halGetEm2xxResetInfo(void);
 
 #else
@@ -100,10 +109,6 @@ uint8_t halGetEm2xxResetInfo(void);
   #include "cortexm3/micro.h"
 #elif defined(CORTEXM3_EFM32_MICRO)
   #include "cortexm3/efm32/micro.h"
-#elif defined(C8051)
-  #include "c8051/micro.h"
-#elif defined(FFD)
-//  #include "ffd/micro.h"
 #elif ((defined(EZSP_HOST) || defined(UNIX_HOST)))
   #include "hal/micro/unix/host/micro.h"
 #else

@@ -1,9 +1,19 @@
-/* File: debug-jtag-efr32.c
- * EFM32/EFR32 Debug Transport Mechanism
+/***************************************************************************//**
+ * @file
+ * @brief EFM32/EFR32 Debug Transport Mechanism
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * Copyright 2017 Silicon Laboratories, Inc.                                *80*
- */
-
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 #include PLATFORM_HEADER
 #include <string.h>
 #include "hal/hal.h"
@@ -58,13 +68,15 @@ static uint8_t debugChannelState = DEBUG_OFF;
 
 // Fallback BSP_TRACE definitions match EFR32 WSTK routing
 #ifndef BSP_TRACE_SWO_LOC
-#define BSP_TRACE_SWO_LOC  1
+#define BSP_TRACE_SWO_LOC  0
 #endif
 
 #if !defined(BSP_TRACE_SWO_PORT) || !defined(BSP_TRACE_SWO_PIN)
-#define BSP_TRACE_SWO_PIN  13
-#define BSP_TRACE_SWO_PORT gpioPortB
+#define BSP_TRACE_SWO_PIN  2
+#define BSP_TRACE_SWO_PORT gpioPortF
 #endif
+
+#define TARGET_FREQUENCY 875000U
 
 EmberStatus emDebugInit(void)
 {
@@ -139,7 +151,14 @@ void emDebugPowerUp(void)
   ITM->TER  = 0x0UL;        // trace enable
   ITM->TCR  = 0x0UL;        // trace control
   TPI->SPPR = 2UL;          // pin protocol (2 = NRZ)
-  TPI->ACPR = 21UL;         // clock prescaler
+  // Set TPIU prescaler for the current debug clock frequency.
+#if defined(_SILICON_LABS_32B_SERIES_2)
+  CMU_Clock_TypeDef clk = cmuClock_TRACECLK;
+#else
+  CMU_Clock_TypeDef clk = cmuClock_DBG;
+#endif
+  uint32_t div = (CMU_ClockFreqGet(clk) + (TARGET_FREQUENCY / 2U)) / TARGET_FREQUENCY; // rounding
+  TPI->ACPR = div - 1;      // clock prescaler
   ITM->TPR  = 0x0UL;        // trace priveledge
   DWT->CTRL = ((0x4UL << DWT_CTRL_NUMCOMP_Pos)
                | (1UL << DWT_CTRL_CYCTAP_Pos)

@@ -3,7 +3,7 @@
 /* Copyright 2015 Silicon Laboratories, Inc.                               *80*/
 /*----------------------------------------------------------------------------*/
 
-/* Memory map for the EFR32/EZR32 */
+/* Memory map for the EFR32 */
 /* GCC ld will not accept symbols for origin or length. This memory block
    definition will have to be generated per variant or moved to a parameterized
    include file in the future. For the time being, we're specifying the largest
@@ -27,7 +27,7 @@ RAM_TOP             = RAM_BOTTOM + RAM_SIZE - 1;
 MFB_BOTTOM          = 0x00000000;
 MFB_TOP             = MFB_BOTTOM + FLASH_SIZE - 1;
 
-/* The FIB does not exist on the EFR32/EZR32 */
+/* The FIB does not exist on the EFR32 */
 FIB_BOTTOM          = 0xFFFFFFFF;
 FIB_TOP             = 0xFFFFFFFF;
 

@@ -1,10 +1,19 @@
 /***************************************************************************//**
  * @file
  * @brief USB protocol stack library, low level USB peripheral access.
- * @author Nathaniel Ting
- * @version 3.20.3
- * <!-- Copyright 2013 by Silicon Laboratories. All rights reserved.     *80*-->
- *****************************************************************************/
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
+ *
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 #ifndef __EM_USBHAL_H
 #define __EM_USBHAL_H
 
@@ -142,15 +151,15 @@ static inline void USBDHAL_EnableUsbResetInt(void)
   #endif
 }
 
-static inline void USBDHAL_StartEp0Setup(USBD_Device_TypeDef *dev)
+static inline void USBDHAL_StartEp0Setup(USBD_Device_TypeDef *pDev)
 {
-  dev->ep[0].in = false;
-  dev->setup = dev->setupPkt;
+  pDev->ep[0].in = false;
+  pDev->setup = pDev->setupPkt;
 }
 
-static inline void USBDHAL_ReenableEp0Setup(USBD_Device_TypeDef *dev)
+static inline void USBDHAL_ReenableEp0Setup(USBD_Device_TypeDef *pDev)
 {
-  dev->setup = dev->setupPkt;
+  pDev->setup = pDev->setupPkt;
 }
 
 static inline void USBDHAL_DeactivateEp(USBD_Ep_TypeDef *ep)

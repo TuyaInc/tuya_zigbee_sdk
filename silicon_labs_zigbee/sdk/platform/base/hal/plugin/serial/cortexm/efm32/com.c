@@ -1,19 +1,19 @@
 /***************************************************************************//**
- * @file com.c
+ * @file
  * @brief COM Layer.
- * @version 0.01.0
  *******************************************************************************
- * @section License
- * <b>(C) Copyright 2014 Silicon Labs, www.silabs.com</b>
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
  *******************************************************************************
  *
- * This file is licensed under the Silabs License Agreement. See the file
- * "Silabs_License_Agreement.txt" for details. Before using this software for
- * any purpose, you must agree to the terms of that agreement.
- *
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
  *
  ******************************************************************************/
-
 #include PLATFORM_HEADER
 #include "stack/include/ember-types.h"
 #include "stack/include/error.h"
@@ -950,11 +950,10 @@ static void txCallback(UARTDRV_Handle_t handle,
 
 #endif //defined(COM_UART_ENABLE)
 
-void COM_RX_IRQHandler(COM_Port_t port, uint8_t byte)
+static void COM_RX_IRQHandler(COM_Handle_t comhandle, uint8_t byte)
 {
   UARTDRV_FlowControlState_t fcState;
   uint16_t freeSpace;
-  COM_Handle_t comhandle = getComHandleFromPort(port);
 
   // Intercept and handle flow control bytes
   if (byte == UARTDRV_FC_SW_XON) {
@@ -983,8 +982,14 @@ void COM_RX_IRQHandler(COM_Port_t port, uint8_t byte)
 #ifdef COM_USART0_ENABLE
 void USART0_RX_IRQHandler(void)
 {
-  if (USART0->STATUS & USART_STATUS_RXDATAV) {
-    COM_RX_IRQHandler(COM_USART0, USART_Rx(USART0));
+  COM_Handle_t comhandle = getComHandleFromPort(comPortUsart0);
+
+  if (comhandle->uarthandle->fcType == uartdrvFlowControlSw) {
+    if (USART0->STATUS & USART_STATUS_RXDATAV) {
+      COM_RX_IRQHandler(comhandle, USART_Rx(USART0));
+    }
+  } else {
+    USART0->IEN &= ~USART_IEN_RXDATAV;
   }
 }
 #endif // COM_USART0_ENABLE
@@ -993,8 +998,14 @@ void USART0_RX_IRQHandler(void)
 #ifdef COM_USART1_ENABLE
 void USART1_RX_IRQHandler(void)
 {
-  if (USART1->STATUS & USART_STATUS_RXDATAV) {
-    COM_RX_IRQHandler(COM_USART1, USART_Rx(USART1));
+  COM_Handle_t comhandle = getComHandleFromPort(comPortUsart1);
+
+  if (comhandle->uarthandle->fcType == uartdrvFlowControlSw) {
+    if (USART1->STATUS & USART_STATUS_RXDATAV) {
+      COM_RX_IRQHandler(comhandle, USART_Rx(USART1));
+    }
+  } else {
+    USART1->IEN &= ~USART_IEN_RXDATAV;
   }
 }
 
@@ -1003,8 +1014,14 @@ void USART1_RX_IRQHandler(void)
 #ifdef COM_USART2_ENABLE
 void USART2_RX_IRQHandler(void)
 {
-  if (USART2->STATUS & USART_STATUS_RXDATAV) {
-    COM_RX_IRQHandler(COM_USART2, USART_Rx(USART2));
+  COM_Handle_t comhandle = getComHandleFromPort(comPortUsart2);
+
+  if (comhandle->uarthandle->fcType == uartdrvFlowControlSw) {
+    if (USART2->STATUS & USART_STATUS_RXDATAV) {
+      COM_RX_IRQHandler(comhandle, USART_Rx(USART2));
+    }
+  } else {
+    USART2->IEN &= ~USART_IEN_RXDATAV;
   }
 }
 
@@ -1013,14 +1030,22 @@ void USART2_RX_IRQHandler(void)
 #ifdef COM_USART3_ENABLE
 void USART3_RX_IRQHandler(void)
 {
-  if (USART3->STATUS & USART_STATUS_RXDATAV) {
-    COM_RX_IRQHandler(comPortUsart3, USART_Rx(USART3));
+  COM_Handle_t comhandle = getComHandleFromPort(comPortUsart3);
+
+  if (comhandle->uarthandle->fcType == uartdrvFlowControlSw) {
+    if (USART3->STATUS & USART_STATUS_RXDATAV) {
+      COM_RX_IRQHandler(comhandle, USART_Rx(USART3));
+    }
+  } else {
+    USART3->IEN &= ~USART_IEN_RXDATAV;
   }
 }
 
 #endif
 
-/* "power down" COM by switching from DMA to UART byte interrupts */
+/* "power down" COM by switching from DMA to UART byte interrupts in EM1
+ *  or to GPIO interrupts otherwise
+ */
 void COM_InternalPowerDown(bool idle)
 {
   if (idle == false) {
@@ -1036,34 +1061,34 @@ void COM_InternalPowerDown(bool idle)
     #ifdef COM_USART3_ENABLE
     USART_Enable(USART3, usartDisable);
     #endif
+
+    #if (HAL_SERIAL_RXWAKE_ENABLE)
+    rxGpioIntEnable();
+    #endif
+  } else {
+    #if HAL_SERIAL_IDLE_WAKE_ENABLE
+      #ifdef COM_USART0_ENABLE
+    NVIC_ClearPendingIRQ(USART0_RX_IRQn);
+    NVIC_EnableIRQ(USART0_RX_IRQn);
+    USART_IntEnable(USART0, USART_IF_RXDATAV);
+      #endif
+      #ifdef COM_USART1_ENABLE
+    NVIC_ClearPendingIRQ(USART1_RX_IRQn);
+    NVIC_EnableIRQ(USART1_RX_IRQn);
+    USART_IntEnable(USART1, USART_IF_RXDATAV);
+      #endif
+      #ifdef COM_USART2_ENABLE
+    NVIC_ClearPendingIRQ(USART2_RX_IRQn);
+    NVIC_EnableIRQ(USART2_RX_IRQn);
+    USART_IntEnable(USART2, USART_IF_RXDATAV);
+      #endif
+      #ifdef COM_USART3_ENABLE
+    NVIC_ClearPendingIRQ(USART3_RX_IRQn);
+    NVIC_EnableIRQ(USART3_RX_IRQn);
+    USART_IntEnable(USART3, USART_IF_RXDATAV);
+      #endif
+    #endif
   }
-
-#if HAL_SERIAL_IDLE_WAKE_ENABLE
-  #ifdef COM_USART0_ENABLE
-  NVIC_ClearPendingIRQ(USART0_RX_IRQn);
-  NVIC_EnableIRQ(USART0_RX_IRQn);
-  USART_IntEnable(USART0, USART_IF_RXDATAV);
-  #endif
-  #ifdef COM_USART1_ENABLE
-  NVIC_ClearPendingIRQ(USART1_RX_IRQn);
-  NVIC_EnableIRQ(USART1_RX_IRQn);
-  USART_IntEnable(USART1, USART_IF_RXDATAV);
-  #endif
-  #ifdef COM_USART2_ENABLE
-  NVIC_ClearPendingIRQ(USART2_RX_IRQn);
-  NVIC_EnableIRQ(USART2_RX_IRQn);
-  USART_IntEnable(USART2, USART_IF_RXDATAV);
-  #endif
-  #ifdef COM_USART3_ENABLE
-  NVIC_ClearPendingIRQ(USART3_RX_IRQn);
-  NVIC_EnableIRQ(USART3_RX_IRQn);
-  USART_IntEnable(USART3, USART_IF_RXDATAV);
-  #endif
-#endif
-
-#if (HAL_SERIAL_RXWAKE_ENABLE)
-  rxGpioIntEnable();
-#endif
 }
 
 /* "power up" COM by switching back to DMA interrupts */
@@ -1082,11 +1107,30 @@ void COM_InternalPowerUp(bool idle)
     #ifdef COM_USART3_ENABLE
     USART_Enable(USART3, usartEnable);
     #endif
-  }
 
-#if (HAL_SERIAL_RXWAKE_ENABLE)
-  rxGpioIntDisable();
-#endif
+    #if (HAL_SERIAL_RXWAKE_ENABLE)
+    rxGpioIntDisable();
+    #endif
+  } else {
+    #if HAL_SERIAL_IDLE_WAKE_ENABLE
+      #ifdef COM_USART0_ENABLE
+    NVIC_ClearPendingIRQ(USART0_RX_IRQn);
+    NVIC_DisableIRQ(USART0_RX_IRQn);
+      #endif
+      #ifdef COM_USART1_ENABLE
+    NVIC_ClearPendingIRQ(USART1_RX_IRQn);
+    NVIC_DisableIRQ(USART1_RX_IRQn);
+      #endif
+      #ifdef COM_USART2_ENABLE
+    NVIC_ClearPendingIRQ(USART2_RX_IRQn);
+    NVIC_DisableIRQ(USART2_RX_IRQn);
+      #endif
+      #ifdef COM_USART3_ENABLE
+    NVIC_ClearPendingIRQ(USART3_RX_IRQn);
+    NVIC_DisableIRQ(USART3_RX_IRQn);
+      #endif
+    #endif
+  }
 }
 
 /* Inject data into the RX FIFO */
@@ -1631,8 +1675,11 @@ Ecode_t COM_PrintfLine(COM_Port_t port, PGM_P formatString, ...)
   COM_PrintCarriageReturn(port);
   return stat;
 }
-
-Ecode_t COM_WriteData(COM_Port_t port, uint8_t *data, uint8_t length)
+#if defined (__IAR_SYSTEMS_ICC__)
+__weak Ecode_t COM_WriteData(COM_Port_t port, uint8_t *data, uint8_t length)
+#else
+__attribute__((weak)) Ecode_t COM_WriteData(COM_Port_t port, uint8_t *data, uint8_t length)
+#endif
 {
   if (checkValidPort(port) == false) {
     return EMBER_ERR_FATAL;
@@ -1777,17 +1824,17 @@ void COM_FlushRx(COM_Port_t port)
 
 bool COM_Unused(COM_Port_t port)
 {
-  if (checkValidPort((COM_Port_t) port) == false) {
+  if (checkValidPort(port) == false) {
     return true;
   }
 
-  COM_Handle_t comhandle = getComHandleFromPort((COM_Port_t) port);
+  COM_Handle_t comhandle = getComHandleFromPort(port);
   if (comhandle == NULL) {
     return true;
   }
   // use rxQueue as a proxy for a COM port being initialized. Will be a null
   // pointer if uninitialized
-  return !((bool) comhandle->rxQueue);
+  return (comhandle->rxQueue == NULL);
 }
 
 /* Initialize the UART RX pin as a GPIO Interrupt. GPIO Interrupt is used

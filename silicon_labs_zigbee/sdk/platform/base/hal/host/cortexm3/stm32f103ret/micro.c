@@ -1,5 +1,6 @@
-/** @file hal/host/cortexm3/micro.c
- *  @brief General STM32F103RET host HAL functions.
+/***************************************************************************//**
+ * @file
+ * @brief General STM32F103RET host HAL functions.
  *
  * GPIO Allocation for STM32F103RET host HAL, showing primary usage
  * and powerdown configuration (IPU=input-pullup, IPD=input-pulldown,
@@ -92,11 +93,19 @@
  * - halEepromInit()::  SPI2/DataFlash
  *     - hal/host/cortexm3/stm32f103ret/bootloader/at45db021d.c
  *     - hal/host/cortexm3/stm32f103ret/bootloader/m45pe20.c
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
  *
- * <!-- Copyright 2010 by Ember Corporation. All rights reserved.        *80*-->
- */
-
+ ******************************************************************************/
 #include PLATFORM_HEADER
 #include <stdlib.h>
 #include "stack/include/error.h"

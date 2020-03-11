@@ -1,11 +1,21 @@
-// File: spiflash-class1-common.h
-//
-// Description: This header file contains the prototypes for functions
-//				needed in all spiflash-class1.c files in order for
-//				them to work with spiflash-common.c
-//
-// Copyright 2015 Silicon Laboratories, Inc.                                *80*
-
+/***************************************************************************//**
+ * @file
+ * @brief This header file contains the prototypes for functions
+ * needed in all spiflash-class1.c files in order for
+ * them to work with spiflash-common.c
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
+ *
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 #ifndef __SPIFLASH_CLASS1_COMMON_H__
 #define __SPIFLASH_CLASS1_COMMON_H__
 

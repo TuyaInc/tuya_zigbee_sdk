@@ -1,13 +1,19 @@
-/*
- * File: hal/micro/generic/mem-util.c
- * Description: generic memory manipulation routines.
+/***************************************************************************//**
+ * @file
+ * @brief generic memory manipulation routines.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * Author(s): Lee Taylor, lee@ember.com,
- *            Jeff Mathews, jm@ember.com
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
  *
- * Copyright 2004 by Ember Corporation. All rights reserved.                *80*
- */
-
+ ******************************************************************************/
 #include PLATFORM_HEADER
 #include "stack/include/ember-types.h"
 #include "include/error.h"
@@ -18,7 +24,6 @@
 // A version of memmove. This can handle overlapping source and
 // destination regions.
 
-#ifndef EMBER_STACK_COBRA
 void halCommonMemMove(void *dest, const void *src, uint16_t bytes)
 {
   uint8_t *d = (uint8_t *)dest;
@@ -54,8 +59,6 @@ void halCommonMemMove(void *dest, const void *src, uint16_t bytes)
     }
   }
 }
-
-#endif //#ifndef EMBER_STACK_COBRA
 
 // Same as above except copies from Program space to RAM.
 // This routine never has to worry about overlapping source and dest

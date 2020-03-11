@@ -1,8 +1,19 @@
-/** @file hal/micro/cortexm3/mfg-token.c
+/***************************************************************************//**
+ * @file
  * @brief Cortex-M3 Manufacturing-Token system
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * <!-- Copyright 2014 Silicon Laboratories, Inc.                        *80*-->
- */
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 #include PLATFORM_HEADER
 #include "include/error.h"
 #include "hal/micro/cortexm3/flash.h"
@@ -14,6 +25,8 @@
 #define DEFINETOKENS
 #define TOKEN_MFG(name, creator, iscnt, isidx, type, arraysize, ...) \
   const uint16_t TOKEN_##name = TOKEN_##name##_ADDRESS;
+// Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+//cstat !MISRAC2012-Dir-4.10
   #include "hal/micro/cortexm3/token-manufacturing.h"
 #undef TOKEN_DEF
 #undef TOKEN_MFG

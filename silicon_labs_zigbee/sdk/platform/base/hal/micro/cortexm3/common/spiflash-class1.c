@@ -1,6 +1,6 @@
-/*
- * File: spiflash-common.c
- * Description: SPIFlash driver that supports a variety of SPI flash parts
+/***************************************************************************//**
+ * @file
+ * @brief SPIFlash driver that supports a variety of SPI flash parts
  *   Including: Spansion S25FL208K (8Mbit)
  *                 Winbond W25X20BV (2Mbit), W25Q80BV (8Mbit)
  *              Macronix MX25L2006E (2Mbit), MX25L4006E (4Mbit), MX25L8006E (8Mbit)
@@ -15,11 +15,19 @@
  *    same protocol as these.
  *
  *   This driver does not support any write protection functionality
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * Copyright 2015 Silicon Laboratories, Inc.                                *80*
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
  *
- */
-
+ ******************************************************************************/
 /*
  * When SPI_FLASH_SC1 is defined, serial controller one will be used to
  * communicate with the external flash.

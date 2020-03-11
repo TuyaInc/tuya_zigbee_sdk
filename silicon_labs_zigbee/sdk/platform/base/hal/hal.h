@@ -1,14 +1,24 @@
-/** @file hal/hal.h
+/***************************************************************************//**
+ * @file
  * @brief Generic set of HAL includes for all platforms.
  *
  * See also @ref hal for more documentation.
  *
  * Some HAL includes are not used or present in builds intended for the Host
  * processor connected to the Ember Network Coprocessor.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * <!-- Copyright 2008-2010 by Ember Corporation. All rights reserved.   *80*-->
- */
-
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 /** @addtogroup hal
  *  @if EM35x
  *    EM35x Microprocessors

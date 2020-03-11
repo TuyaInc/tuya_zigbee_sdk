@@ -1,12 +1,21 @@
-/** @file hal/micro/cortexm3/efm32/micro-common.h
- *
+/***************************************************************************//**
+ * @file
  * @brief Utility and convenience functions for EFM32/EFR32 microcontroller,
  *        common to both the full and minimal hal.
  * See @ref micro for documentation.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * <!-- Copyright 2016 Silicon Laboratories, Inc.                        *80*-->
- */
-
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 /** @addtogroup micro
  * See also hal/micro/cortexm3/efm32/micro.h for source code.
  *@{
@@ -319,6 +328,28 @@ void halInternalSetCtune(uint16_t tune);
  *
  */
 uint16_t halInternalGetCtune(void);
+
+/**
+ * @brief Get the factory calibrated CTUNE value on a series 1 module.
+ *
+ * @param ctuneVal  pointer to write ctune value
+ *
+ * @return True if factory calibrated value present, False if not present.
+ *
+ */
+bool halInternalGetModuleCtune(uint16_t *ctuneVal);
+
+/**
+ * @brief Get the factory calibrated CTUNE Xi and Xo values on a series 2 module.
+ *
+ * @param ctuneXiVal  pointer to write ctune Xi value
+ *
+ * @param ctuneXoVal   pointer to write ctune Xo value
+ *
+ * @return True if factory calibrated values present, False if not present.
+ *
+ */
+bool halInternalGetModuleCtuneXiXo(uint8_t *ctuneXiVal, uint8_t *ctuneXoVal);
 
 /**
  * @brief Get the CTUNE token value.

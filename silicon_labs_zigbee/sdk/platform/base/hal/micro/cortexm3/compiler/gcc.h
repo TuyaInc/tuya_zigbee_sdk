@@ -1,12 +1,23 @@
-/** @file hal/micro/cortexm3/compiler/gcc.h
+/***************************************************************************//**
+ * @file
  * @brief Compiler/platform-specific definitions and typedefs for the
  * GCC ARM C compiler.
  *
  * This file should be included first in all source files by
  * setting the preprocessor macro PLATFORM_HEADER to point to it.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * <!-- Copyright 2008 by Ember Corporation. All rights reserved. -->
- */
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 #ifndef __GCC_H__
 #define __GCC_H__
 
@@ -304,7 +315,6 @@ void rtosResetWatchdog(void);
 #define __DATA_INIT__                       ".data_init"
 #define __DATA__                            ".data"
 #define __BSS__                             ".bss"
-#define __APP_RAM__                         "APP_RAM"
 #define __CONST__                           ".rodata"
 #define __TEXT__                            ".text"
 #define __TEXTRW_INIT__                     ".textrw_init"
@@ -318,9 +328,9 @@ void rtosResetWatchdog(void);
 #define __SIMEE__                           ".simee"              // Simulated EEPROM storage
 #define __PSSTORE__                         ".psstore"            // PS Store storage
 #define __EMHEAP__                          ".emheap"             // Ember Heap region
-#define __EMHEAP_OVERLAY__                  "EMHEAP_overlay"      // Heap/reset info overlay
 #define __GUARD_REGION__                    ".guard_region"       // Guard page
 #define __INTERNAL_STORAGE__                ".internal_storage"   // Internal storage region
+#define __LOCKBITS_IN_MAINFLASH__           ".lockbits_in_mainflash" //Region of main flash for Lock Bits on Series2 Devices.
 #define __UNRETAINED_RAM__                  "UNRETAINED_RAM"      // RAM not retained in sleep
 
 /**
@@ -334,7 +344,6 @@ extern uint32_t __RESETINFO__begin, __RESETINFO__end, __RESETINFO__size;
 extern uint32_t __DATA_INIT__begin, __DATA_INIT__end, __DATA_INIT__size;
 extern uint32_t __DATA__begin, __DATA__end, __DATA__size;
 extern uint32_t __BSS__begin, __BSS__end, __BSS__size;
-extern uint32_t __APP_RAM__begin, __APP_RAM__end, __APP_RAM__size;
 extern uint32_t __CONST__begin, __CONST__end, __CONST__size;
 extern uint32_t __TEXT__begin, __TEXT__end, __TEXT__size;
 extern uint32_t __TEXTRW_INIT__begin, __TEXTRW_INIT__end, __TEXTRW_INIT__size;
@@ -348,9 +357,9 @@ extern uint32_t __NVM__begin, __NVM__end, __NVM__size;
 extern uint32_t __SIMEE__begin, __SIMEE__end, __SIMEE__size;
 extern uint32_t __PSSTORE__begin, __PSSTORE__end, __PSSTORE__size;
 extern uint32_t __EMHEAP__begin, __EMHEAP__end, __EMHEAP__size;
-extern uint32_t __EMHEAP_OVERLAY__begin, __EMHEAP_OVERLAY__end, __EMHEAP_OVERLAY__size;
 extern uint32_t __GUARD_REGION__begin, __GUARD_REGION__end, __GUARD_REGION__size;
 extern uint32_t __INTERNAL_STORAGE__begin, __INTERNAL_STORAGE__end, __INTERNAL_STORAGE__size;
+extern uint32_t __LOCKBITS_IN_MAINFLASH__begin, __LOCKBITS_IN_MAINFLASH__end, __LOCKBITS_IN_MAINFLASH__size;
 extern uint32_t __UNRETAINED_RAM__begin, __UNRETAINED_RAM__end, __UNRETAINED_RAM__size;
 
 /**
@@ -365,7 +374,6 @@ extern uint32_t __UNRETAINED_RAM__begin, __UNRETAINED_RAM__end, __UNRETAINED_RAM
 #define _DATA_INIT_SEGMENT_BEGIN        (&__DATA_INIT__begin)
 #define _DATA_SEGMENT_BEGIN             (&__DATA__begin)
 #define _BSS_SEGMENT_BEGIN              (&__BSS__begin)
-#define _APP_RAM_SEGMENT_BEGIN          (&__APP_RAM__begin)
 #define _CONST_SEGMENT_BEGIN            (&__CONST__begin)
 #define _TEXT_SEGMENT_BEGIN             (&__TEXT__begin)
 #define _TEXTRW_INIT_SEGMENT_BEGIN      (&__TEXTRW_INIT__begin)
@@ -379,9 +387,9 @@ extern uint32_t __UNRETAINED_RAM__begin, __UNRETAINED_RAM__end, __UNRETAINED_RAM
 #define _SIMEE_SEGMENT_BEGIN            (&__SIMEE__begin)
 #define _PSSTORE_SEGMENT_BEGIN          (&__PSSTORE__begin)
 #define _EMHEAP_SEGMENT_BEGIN           (&__EMHEAP__begin)
-#define _EMHEAP_OVERLAY_SEGMENT_BEGIN   (&__EMHEAP_OVERLAY__begin)
 #define _GUARD_REGION_SEGMENT_BEGIN     (&__GUARD_REGION__begin)
 #define _INTERNAL_STORAGE_SEGMENT_BEGIN (&__INTERNAL_STORAGE__begin)
+#define _LOCKBITS_IN_MAINFLASH_SEGMENT_BEGIN (&__LOCKBITS_IN_MAINFLASH__begin)
 #define _UNRETAINED_RAM_SEGMENT_BEGIN   (&__UNRETAINED_RAM__begin)
 
 #define _NO_INIT_SEGMENT_END            (&__NO_INIT__end)
@@ -392,7 +400,6 @@ extern uint32_t __UNRETAINED_RAM__begin, __UNRETAINED_RAM__end, __UNRETAINED_RAM
 #define _DATA_INIT_SEGMENT_END          (&__DATA_INIT__end)
 #define _DATA_SEGMENT_END               (&__DATA__end)
 #define _BSS_SEGMENT_END                (&__BSS__end)
-#define _APP_RAM_SEGMENT_END            (&__APP_RAM__end)
 #define _CONST_SEGMENT_END              (&__CONST__end)
 #define _TEXT_SEGMENT_END               (&__TEXT__end)
 #define _TEXTRW_INIT_SEGMENT_END        (&__TEXTRW_INIT__end)
@@ -406,9 +413,9 @@ extern uint32_t __UNRETAINED_RAM__begin, __UNRETAINED_RAM__end, __UNRETAINED_RAM
 #define _SIMEE_SEGMENT_END              (&__SIMEE__end)
 #define _PSSTORE_SEGMENT_END            (&__PSSTORE__end)
 #define _EMHEAP_SEGMENT_END             (&__EMHEAP__end)
-#define _EMHEAP_OVERLAY_SEGMENT_END     (&__EMHEAP_OVERLAY__end)
 #define _GUARD_REGION_SEGMENT_END       (&__GUARD_REGION__end)
 #define _INTERNAL_STORAGE_SEGMENT_END   (&__INTERNAL_STORAGE__end)
+#define _LOCKBITS_IN_MAINFLASH_SEGMENT_END   (&__LOCKBITS_IN_MAINFLASH__end)
 #define _UNRETAINED_RAM_SEGMENT_END     (&__UNRETAINED_RAM__end)
 
 #define _NO_INIT_SEGMENT_SIZE           ((uint32_t)&__NO_INIT__size)
@@ -419,7 +426,6 @@ extern uint32_t __UNRETAINED_RAM__begin, __UNRETAINED_RAM__end, __UNRETAINED_RAM
 #define _DATA_INIT_SEGMENT_SIZE         ((uint32_t)&__DATA_INIT__size)
 #define _DATA_SEGMENT_SIZE              ((uint32_t)&__DATA__size)
 #define _BSS_SEGMENT_SIZE               ((uint32_t)&__BSS__size)
-#define _APP_RAM_SEGMENT_SIZE           ((uint32_t)&__APP_RAM__size)
 #define _CONST_SEGMENT_SIZE             ((uint32_t)&__CONST__size)
 #define _TEXT_SEGMENT_SIZE              ((uint32_t)&__TEXT__size)
 #define _TEXTRW_INIT_SEGMENT_SIZE       ((uint32_t)&__TEXTRW_INIT__size)
@@ -433,9 +439,9 @@ extern uint32_t __UNRETAINED_RAM__begin, __UNRETAINED_RAM__end, __UNRETAINED_RAM
 #define _SIMEE_SEGMENT_SIZE             ((uint32_t)&__SIMEE__size)
 #define _PSSTORE_SEGMENT_SIZE           ((uint32_t)&__PSSTORE__size)
 #define _EMHEAP_SEGMENT_SIZE            ((uint32_t)&__EMHEAP__size)
-#define _EMHEAP_OVERLAY_SEGMENT_SIZE    ((uint32_t)&__EMHEAP_OVERLAY__size)
 #define _GUARD_REGION_SEGMENT_SIZE      ((uint32_t)&__GUARD_REGION__size)
 #define _INTERNAL_STORAGE_SEGMENT_SIZE  ((uint32_t)&__INTERNAL_STORAGE__size)
+#define _LOCKBITS_IN_MAINFLASH_SEGMENT_SIZE  ((uint32_t)&__LOCKBITS_IN_MAINFLASH__size)
 #define _UNRETAINED_RAM_SEGMENT_SIZE    ((uint32_t)&__UNRETAINED_RAM__size)
 
 //A utility function for inserting barrier instructions.  These

@@ -1,12 +1,22 @@
-/**
- * bg_message.h
- * \addtogroup bg_message Message queue
- * @{
- * These functions manage bg_messages and queue used for signaling in WiFi stack.<br>
- * bg_message_sender struct keeps list of receivers and bg_messages sent from that sender is sent to all receivers.
+/***************************************************************************//**
+ * @file
+ * @brief These functions manage bg_messages and queue used for signaling in
+ * WiFi stack.
+ * bg_message_sender struct keeps list of receivers and bg_messages sent from
+ * that sender is sent to all receivers.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- */
-
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 #ifndef BG_MESSAGE_H_
 #define BG_MESSAGE_H_
 #include <stdint.h>

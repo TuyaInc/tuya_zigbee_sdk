@@ -1,9 +1,19 @@
-/** @file hal/micro/cortexm3/mfg-token.h
+/***************************************************************************//**
+ * @file
  * @brief Cortex-M3 Manufacturing token system
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * <!-- Copyright 2010-2011 by Ember Corporation. All rights reserved.   *80*-->
- */
-
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 #ifndef __MFG_TOKEN_H__
 #define __MFG_TOKEN_H__
 
@@ -18,6 +28,8 @@
  * be referenced from anywhere in the code base.
  */
 #define DEFINETYPES
+// Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+//cstat !MISRAC2012-Dir-4.10
   #include "hal/micro/cortexm3/token-manufacturing.h"
 #undef DEFINETYPES
 
@@ -36,6 +48,8 @@
  */
 #define TOKEN_MFG(name, creator, iscnt, isidx, type, arraysize, ...) \
   extern const uint16_t TOKEN_##name;
+// Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+//cstat !MISRAC2012-Dir-4.10
   #include "hal/micro/cortexm3/token-manufacturing.h"
 #undef TOKEN_MFG
 
@@ -50,6 +64,8 @@
 #define TOKEN_MFG(name, creator, iscnt, isidx, type, arraysize, ...) \
   TOKEN_##name##_SIZE = sizeof(type),
 enum {
+  // Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+  //cstat !MISRAC2012-Dir-4.10
     #include "hal/micro/cortexm3/token-manufacturing.h"
 };
 
@@ -68,6 +84,8 @@ enum {
  */
 #define TOKEN_MFG(name, creator, iscnt, isidx, type, arraysize, ...) \
   typedef type TOKEN_##name##_TYPE;
+// Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+//cstat !MISRAC2012-Dir-4.10
   #include "hal/micro/cortexm3/token-manufacturing.h"
 #undef TOKEN_MFG
 
@@ -108,6 +126,8 @@ enum {
  * @description The enum that operates on the two macros above.
  */
 enum {
+  // Multiple inclusion of unguarded token-related header files is by design; suppress violation.
+  //cstat !MISRAC2012-Dir-4.10
   #include "hal/micro/cortexm3/token-manufacturing.h"
 };
 

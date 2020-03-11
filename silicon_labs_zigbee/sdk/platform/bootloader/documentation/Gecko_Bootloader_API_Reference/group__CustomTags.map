@@ -1,5 +1,0 @@
-<map id="Custom GBL Tags" name="Custom GBL Tags">
-<area shape="rect" id="node1" href="$group__LzmaProgTag.html" title="Tag to handle LZMA compressed programming data. " alt="" coords="328,5,503,32"/>
-<area shape="rect" id="node3" href="$group__Lz4ProgTag.html" title="Tag to handle LZ4 compressed programming data. " alt="" coords="334,56,497,83"/>
-<area shape="rect" id="node4" href="$group__EblParser.html" title="GBL parser implementation. " alt="" coords="5,31,97,57"/>
-</map>

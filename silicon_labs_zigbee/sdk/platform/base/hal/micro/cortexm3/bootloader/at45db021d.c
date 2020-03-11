@@ -1,6 +1,6 @@
-/*
- * File: at45db021d.c
- * Description: SPI Interface to Atmel AT45DB021D Serial Flash Memory
+/***************************************************************************//**
+ * @file
+ * @brief SPI Interface to Atmel AT45DB021D Serial Flash Memory
  * containing 264kBytes of memory.
  *
  * This file provides an interface to the AT45DB021D flash memory to allow
@@ -16,11 +16,19 @@
  * interface will write two 128 byte blocks to each remote page utilizing
  * 256 of the 264 bytes available per page. This format effectively uses
  * 256kBytes of memory.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * Copyright 2010 by Ember Corporation. All rights reserved.                *80*
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
  *
- */
-
+ ******************************************************************************/
 #include PLATFORM_HEADER
 #include "hal/micro/bootloader-eeprom.h"
 #include "bootloader-common.h"

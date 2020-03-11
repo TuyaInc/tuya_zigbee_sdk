@@ -1,15 +1,19 @@
-// -----------------------------------------------------------------------------
-/// @file uart-link-config.h
-/// @brief UART NCP Config Header
-///
-/// @section License
-/// <b>(C) Copyright 2017 Silicon Laboratories, http://www.silabs.com</b>
-///
-/// This file is licensed under the Silabs License Agreement. See the file
-/// "Silabs_License_Agreement.txt" for details. Before using this software for
-/// any purpose, you must agree to the terms of that agreement.
-///
-// -----------------------------------------------------------------------------
+/***************************************************************************//**
+ * @file
+ * @brief UART NCP Config Header
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
+ *
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 #ifndef NCP_UART_CONFIG_H
 #define NCP_UART_CONFIG_H
 
@@ -21,17 +25,23 @@
 
 // Select USART
     #if BSP_UARTNCP_USART_PORT == HAL_SERIAL_PORT_USART0
-      #define NCP_USART USART0
+      #define NCP_USART       USART0
+      #define NCP_USART_NUM   0
     #elif BSP_UARTNCP_USART_PORT == HAL_SERIAL_PORT_USART1
-      #define NCP_USART USART1
+      #define NCP_USART       USART1
+      #define NCP_USART_NUM   1
     #elif BSP_UARTNCP_USART_PORT == HAL_SERIAL_PORT_USART2
-      #define NCP_USART USART2
+      #define NCP_USART       USART2
+      #define NCP_USART_NUM   2
     #elif BSP_UARTNCP_USART_PORT == HAL_SERIAL_PORT_USART3
-      #define NCP_USART USART3
+      #define NCP_USART       USART3
+      #define NCP_USART_NUM   3
     #elif BSP_UARTNCP_USART_PORT == HAL_SERIAL_PORT_USART4
-      #define NCP_USART USART4
+      #define NCP_USART       USART4
+      #define NCP_USART_NUM   4
     #elif BSP_UARTNCP_USART_PORT == HAL_SERIAL_PORT_USART5
-      #define NCP_USART USART5
+      #define NCP_USART       USART5
+      #define NCP_USART_NUM   5
     #endif
 
 // Define null flow control pins if HW flow control is not specified to
@@ -72,6 +82,28 @@
     NULL,                                                                   /* TX operation queue           */ \
     BSP_UARTNCP_CTS_LOC,                                                    /* CTS pin location             */ \
     BSP_UARTNCP_RTS_LOC                                                     /* RTS pin location             */ \
+  }
+    #elif defined(_GPIO_USART_ROUTEEN_MASK)
+    #define USART_INIT                                                                                         \
+  {                                                                                                            \
+    NCP_USART,                                                              /* USART port                   */ \
+    HAL_UARTNCP_BAUD_RATE,                                                  /* Baud rate                    */ \
+    BSP_UARTNCP_TX_PORT,                                                    /* TX port number               */ \
+    BSP_UARTNCP_RX_PORT,                                                    /* RX port number               */ \
+    BSP_UARTNCP_TX_PIN,                                                     /* TX pin number                */ \
+    BSP_UARTNCP_RX_PIN,                                                     /* RX pin number                */ \
+    NCP_USART_NUM,                                                          /* UART instance number         */ \
+    (USART_Stopbits_TypeDef)USART_FRAME_STOPBITS_ONE,                       /* Stop bits                    */ \
+    (USART_Parity_TypeDef)USART_FRAME_PARITY_NONE,                          /* Parity                       */ \
+    (USART_OVS_TypeDef)USART_CTRL_OVS_X16,                                  /* Oversampling mode            */ \
+    false,                                                                  /* Majority vote disable        */ \
+    (UARTDRV_FlowControlType_t)HAL_UARTNCP_FLOW_CONTROL,                    /* Flow control                 */ \
+    BSP_UARTNCP_CTS_PORT,                                                   /* CTS port number              */ \
+    BSP_UARTNCP_CTS_PIN,                                                    /* CTS pin number               */ \
+    BSP_UARTNCP_RTS_PORT,                                                   /* RTS port number              */ \
+    BSP_UARTNCP_RTS_PIN,                                                    /* RTS pin number               */ \
+    NULL,                                                                   /* RX operation queue           */ \
+    NULL,                                                                   /* TX operation queue           */ \
   }
     #else //defined( _USART_ROUTELOC0_MASK )
     #define USART_INIT                                                                                         \

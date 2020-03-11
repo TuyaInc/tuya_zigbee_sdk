@@ -1,14 +1,22 @@
-/**
- * File: ember-printf-wrapper.c
- * Description: A wrapper for the Ember minimalistic implementation of printf()
+/***************************************************************************//**
+ * @file
+ * @brief A wrapper for the Ember minimalistic implementation of printf()
  *   to call standard printf() format specifiers.  This saves space if
  *   the application wants to use the standard printf(), since there is no
  *   point in including the Ember printf implementation.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
  *
- * Copyright 2014 by Silicon Labs.  All rights reserved.                   *80*
- */
-
+ ******************************************************************************/
 #include PLATFORM_HEADER
 #include "stack/include/ember-types.h"
 #include "stack/include/error.h"

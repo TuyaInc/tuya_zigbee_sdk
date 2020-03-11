@@ -1,5 +1,19 @@
-// Copyright 2016 Silicon Laboratories, Inc.
-
+/***************************************************************************//**
+ * @file
+ * @brief
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
+ *
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 // For ftruncate(2) in glibc.
 #define _XOPEN_SOURCE 500
 
@@ -183,6 +197,12 @@ static bool copyNvm(uint8_t* nvmData,
   }
 
   hostTokenDebugPrintf("New Token: %2x\n", tokenCreators[index]);
+  return false;
+}
+
+// This token storage only uses SimEE.
+bool halCommonUsingNvm3(void)
+{
   return false;
 }
 

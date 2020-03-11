@@ -1,10 +1,20 @@
-/** @file hal/micro/token.h
+/***************************************************************************//**
+ * @file
  * @brief Token system for storing non-volatile information.
  * See @ref token for documentation.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * <!-- Copyright 2008-2011 by Ember Corporation. All rights reserved.   *80*-->
- */
-
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 /** @addtogroup tokens
  * The token system stores such non-volatile information as the manufacturing
  * ID, channel number, transmit power, and various pieces of information
@@ -266,12 +276,6 @@
   #else //MINIMAL_HAL
     #include "cortexm3/token.h"
   #endif //MINIMAL_HAL
-#elif defined(C8051)
-  #if defined(C8051_COBRA)
-    #include "c8051/cobra/token.h"
-  #else
-    #include "c8051/silabs/token.h"
-  #endif
 #elif defined(EMBER_TEST)
   #include "generic/token-ram.h"
 #elif (defined(EZSP_HOST) || defined(UNIX_HOST)) && defined(EMBER_AF_API_TOKEN)
@@ -288,6 +292,15 @@
  *  failure of the command.
  */
 EmberStatus halStackInitTokens(void);
+
+/**
+ * @brief Allow library code to check at runtime if the system is working with
+ * SimEE or NVM3 storage of tokens.
+ *
+ * @ return true is NVM3 is being used or faslse if SimEE is being used.
+ *
+ */
+bool halCommonUsingNvm3(void);
 
 // NOTE:
 // The following API as written below is purely for doxygen

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <fileVersion>4</fileVersion>
+    <fileChecksum>325026034</fileChecksum>
+    <configuration>
+        <name>Normal</name>
+        <outputs>
+            <file>$PROJ_DIR$\..\..\..\common\include\jsmn.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\zigbee_modules.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\mf_test_callback.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\zcl_command_micro.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\zigbee_sdk.h</file>
+            <file>$PROJ_DIR$\..\..\..\common\include\mcu_api.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\zigbee_dev_template.h</file>
+            <file>$PROJ_DIR$\..\include\serial_protocol_callbacks.h</file>
+            <file>$PROJ_DIR$\..\..\..\common\include\system.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\zigbee_attr.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\type_def.h</file>
+            <file>$PROJ_DIR$\..\..\..\common\include\serial_protocol.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\zigbee_cmd.h</file>
+            <file>$PROJ_DIR$\..\..\..\common\include\serial_protocol_queue.h</file>
+            <file>$PROJ_DIR$\..\..\..\common\include\cJSON.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\hal_battery.h</file>
+            <file>$PROJ_DIR$\..\..\..\common\include\cJSON_Utils.h</file>
+            <file>$PROJ_DIR$\..\include\config.h</file>
+            <file>$PROJ_DIR$\build\exe\sdk_route.out</file>
+            <file>$PROJ_DIR$\build\obj\oem_util.xcl</file>
+            <file>$PROJ_DIR$\build\obj\oem_util.o</file>
+            <file>$PROJ_DIR$\build\obj\config.xcl</file>
+            <file>$PROJ_DIR$\build\obj\no_sleep_process.xcl</file>
+            <file>$PROJ_DIR$\build\obj\config.o</file>
+            <file>$PROJ_DIR$\build\obj\tuya_sdk.pbd</file>
+            <file>$PROJ_DIR$\build\obj\serial_protocol_queue.xcl</file>
+            <file>$PROJ_DIR$\build\obj\system.xcl</file>
+            <file>$PROJ_DIR$\build\obj\mcu_api.o</file>
+            <file>$PROJ_DIR$\build\obj\mcu_api.xcl</file>
+            <file>$PROJ_DIR$\build\obj\serial_protocol_queue.o</file>
+            <file>$PROJ_DIR$\build\obj\system.o</file>
+            <file>$PROJ_DIR$\..\src\config.c</file>
+            <file>$PROJ_DIR$\..\..\..\common\src\serial_protocol.c</file>
+            <file>$PROJ_DIR$\..\src\si32_zg_uart_connect_no_sleep_ty_callback.c</file>
+            <file>$PROJ_DIR$\..\..\..\common\src\system.c</file>
+            <file>$PROJ_DIR$\..\src\no_sleep_process.c</file>
+            <file>$PROJ_DIR$\build\obj\si32_zg_uart_connect_no_sleep_ty_callback.o</file>
+            <file>$PROJ_DIR$\..\..\..\common\src\mcu_api.c</file>
+            <file>$PROJ_DIR$\build\obj\serial_protocol.xcl</file>
+            <file>$PROJ_DIR$\build\obj\si32_zg_uart_connect_no_sleep_ty_callback.xcl</file>
+            <file>$PROJ_DIR$\build\obj\serial_protocol.o</file>
+            <file>$PROJ_DIR$\build\obj\no_sleep_process.o</file>
+            <file>$PROJ_DIR$\..\src\oem_util.c</file>
+            <file>$PROJ_DIR$\..\..\..\common\src\serial_protocol_queue.c</file>
+            <file>$PROJ_DIR$\build\exe\tuya_sdk.s37</file>
+        </outputs>
+        <file>
+            <name>[ROOT_NODE]</name>
+            <outputs>
+                <tool>
+                    <name>ILINK</name>
+                    <file> 18</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\build\exe\sdk_route.out</name>
+            <outputs>
+                <tool>
+                    <name>OBJCOPY</name>
+                    <file> 44</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\src\config.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 23</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 21</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\common\src\serial_protocol.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 40</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 38</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\src\si32_zg_uart_connect_no_sleep_ty_callback.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 36</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 39</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\common\src\system.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 30</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 26</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\src\no_sleep_process.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 41</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 22</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\common\src\mcu_api.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 27</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 28</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\src\oem_util.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 20</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 19</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\common\src\serial_protocol_queue.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 29</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 25</file>
+                </tool>
+            </outputs>
+        </file>
+    </configuration>
+</project>

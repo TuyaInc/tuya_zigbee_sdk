@@ -1,9 +1,19 @@
-/** @file hal/host/cortexm3/stm32f103ret/button-specific.h
- * See @ref button and @ref stm32f103ret_button for documentation.
+/***************************************************************************//**
+ * @file
+ * @brief See @ref button and @ref stm32f103ret_button for documentation.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * <!-- Copyright 2010 by Ember Corporation. All rights reserved.        *80*-->
- */
-
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 /** @addtogroup stm32f103ret_button
  * @brief  Sample micro specific API funtions and defines for using
  * push-buttons.

@@ -56,18 +56,12 @@ void halSimEepromCallback(EmberStatus status)
   switch (status) {
   case EMBER_SIM_EEPROM_ERASE_PAGE_GREEN:
     //SimEE is asking for one page to be erased.
-#ifdef EMBER_STACK_COBRA
-    HalUARTRestrain();      // temporarily hold off serial input from host
-#endif
     halSimEepromErasePage();
     break;
   case EMBER_SIM_EEPROM_ERASE_PAGE_RED:
   case EMBER_SIM_EEPROM_FULL:
   { //SimEE says we're out of room!  Erase all pages now or data
     //currently being written will be dropped.
-#ifdef EMBER_STACK_COBRA
-    HalUARTRestrain();      // temporarily hold off serial input from host
-#endif
     if(halSimEepromPagesRemainingToBeErased() > 0) {
       //If there is at least one HW page to erase, loop over ErasePage until
       //all HW pages are erased.  Without this explicit check before
@@ -110,8 +104,6 @@ void halSimEepromCallback(EmberStatus status)
         //[[             platform independent reboot mechanism]]
         #if defined (CORTEXM3)
           halInternalSysReset(RESET_FLASH_VERIFY);
-        #elif defined (EMBER_STACK_COBRA)
-          halInternalSystemReset(RESET_FLASH);
         #else
           assert(0);
         #endif
@@ -119,8 +111,6 @@ void halSimEepromCallback(EmberStatus status)
       case EMBER_ERR_FLASH_WRITE_INHIBITED:
         #if defined (CORTEXM3)
           halInternalSysReset(RESET_FLASH_INHIBIT);
-        #elif defined (EMBER_STACK_COBRA)
-          halInternalSystemReset(RESET_FLASH);
         #else
           assert(0);
         #endif

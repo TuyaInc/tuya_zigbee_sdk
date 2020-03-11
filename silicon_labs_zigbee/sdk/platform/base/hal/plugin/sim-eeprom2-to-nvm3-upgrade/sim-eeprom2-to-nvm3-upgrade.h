@@ -1,8 +1,19 @@
-/** @file hal/plugin/sim-eeprom2-to-nvm3-upgrade/sim-eeprom2-to-nvm3-upgrade.h
+/***************************************************************************//**
+ * @file
  * @brief Upgrade support from Simulated EEPROM version 2 to NVM3.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * <!-- Copyright 2018 Silicon Laboratories, Inc.                        *80*-->
- */
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 #ifndef __SIM_EEPROM2_TO_NVM3_UPGRADE_H__
 #define __SIM_EEPROM2_TO_NVM3_UPGRADE_H__
 

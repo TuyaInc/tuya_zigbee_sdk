@@ -1,9 +1,19 @@
-/** @file hal/micro/cortexm3/flash.h
- * See @ref flash for documentation.
+/***************************************************************************//**
+ * @file
+ * @brief See @ref flash for documentation.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * <!-- Copyright 2008 by Ember Corporation. All rights reserved.        *80*-->
- */
-
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 /** @addtogroup flash
  * @brief Definition and description of public flash manipulation routines.
  *
@@ -71,11 +81,17 @@ EmberStatus halInternalFlashErase(uint8_t eraseType, uint32_t address);
  * to 0xFFFF at every address.  Only two writes can be performed to the same
  * address between erasures and this is enforced by the flash interface
  * controller.  If the value already in the address being written to is 0xFFFF,
- * any value can be written.  If the value is not 0xFFFF and not 0x0000, only
- * 0x0000 can be written.  If the value is 0x0000, nothing can be written.
+ * any value can be written.
+
+ * \b NOTE: The following is deprecated and should only be used internally: If
+ * the value is not 0xFFFF and not 0x0000, only 0x0000 can be written.  If the
+ * value is 0x0000, nothing can be written.
  *
  * \b NOTE: This function can NOT write the option bytes and will throw an
  * error if that is attempted.
+ *
+ * \b NOTE: This function can only write on series 2 devices if provided a 4 byte
+ * aligned address and an even number of 16bit half-words.
  *
  * @param address The starting address of where the programming will occur.
  * This parameter MUST be half-word aligned since all programming operations
@@ -98,11 +114,38 @@ EmberStatus halInternalFlashErase(uint8_t eraseType, uint32_t address);
  */
 EmberStatus halInternalFlashWrite(uint32_t address, uint16_t * data, uint32_t length);
 
+/** @brief Writes a block of 32 bit words to flash.  A page is erased
+ * to 0xFFFFFFFF at every address. If the value already in the address being written
+ * to is 0xFFFFFFFF, any value can be written. Otherwise nothing can be written.
+ *
+ * \b NOTE: This function can NOT write the option bytes and will throw an
+ * error if that is attempted.
+ *
+ * @param address The starting address of where the programming will occur.
+ * This parameter MUST be word (four byte) aligned since all programming operations
+ * are words.  Also, the address parameter is NOT a pointer.  This
+ * routine will cast the address to a pointer for the actual hardware access.
+ *
+ * @param data A pointer to a buffer containing the 32bit words to be written.
+ *
+ * @param length The number of 32bit words contained in the data buffer
+ * to be written to flash.
+ *
+ * @return An ::EmberStatus value indicating the success or failure of the
+ * command:
+ *  - EMBER_ERR_FLASH_PROG_FAIL if the address is not 32 bit aligned, the
+ *    address is inside the option bytes, write protection is enabled, or the
+ *    address is being written to more than twice between erasures.
+ *  - EMBER_ERR_FLASH_VERIFY_FAILED if write verification failed
+ *  - EMBER_SUCCESS if writing completed and verified properly
+ */
+EmberStatus halInternalFlashWriteSeries2(uint32_t address, uint32_t * data, uint32_t length);
+
 /** @brief Writes a block of 32 bit words to flash.
  * @param address The starting address of where the programming will occur.
  * This parameter MUST be half-word aligned since all programming operations
  * are half-words.  Also, the address parameter is NOT a pointer.  This
- * routines will cast the address to a pointer for the actual hardware access.
+ * routine will cast the address to a pointer for the actual hardware access.
  *
  * @param data A pointer to a buffer containing the 32bit words to
  * be written.

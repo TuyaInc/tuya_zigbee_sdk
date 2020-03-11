@@ -1,10 +1,20 @@
-/** @file hal/micro/cortexm3/efm/micro.h
+/***************************************************************************//**
+ * @file
  * @brief Utility and convenience functions for EFM32 microcontroller.
  * See @ref micro for documentation.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * <!-- Copyright 2017 by Ember Corporation.             All rights reserved.-->
- */
-
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 /** @addtogroup micro
  * See also hal/micro/cortexm3/micro.h for source code.
  *@{
@@ -94,7 +104,7 @@ enum {
 #define HEAP_GUARD_REGION_SIZE_BYTES (1 << (HEAP_GUARD_REGION_SIZE + 1))
 
 // Define a value to fill the guard region between the heap and stack.
-#define HEAP_GUARD_FILL_VALUE (0xE2E2E2E2)
+#define HEAP_GUARD_FILL_VALUE (0xE2E2E2E2U)
 
 // Resize the CSTACK to add space to the 'heap' that exists below it
 uint32_t halStackModifyCStackSize(int32_t stackSizeDeltaWords);
@@ -308,13 +318,6 @@ void halRadioPowerUpHandler(void);
 void halRadioPowerDownHandler(void);
 
 #include "micro-common.h"
-
-// Enable PTA Support
-#define PTA_SUPPORT
-#define PTA_GPIOCFG_INPUT     gpioModeInputPull
-#define PTA_GPIOCFG_OUTPUT    gpioModePushPull
-#define PTA_GPIOCFG_WIRED_OR  gpioModeWiredOr
-#define PTA_GPIOCFG_WIRED_AND gpioModeWiredAnd
 
 #endif //__EFM_MICRO_H__
 

@@ -1,15 +1,24 @@
-/** @file hal/micro/cortexm3/ezsp-spi-serial-controller-autoselect.h
- *  @brief  Automatic serial controller selection for EZSP SPI EM3XX NCP
+/***************************************************************************//**
+ * @file
+ * @brief  Automatic serial controller selection for EZSP SPI EM3XX NCP
  *
  * The old default for an EZSP SPI NCP was to use SC2, however some newer
  * variants don't have SC2 (or some of the extra required GPIO). When this is
  * the case, this file will define EZSP_SPI_PORT as 1 so the implementation will
  * use SC1.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * <!-- Author(s): Jerome Issa -->
- * <!-- Copyright 2014 Silicon Labs, Inc.                                *80*-->
- */
-
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 //The maximum SPI Protocol message size is 136 bytes. We define a buffer of
 //142 specifically for error detection during the Response Section.  By using
 //a buffer of 142, we can use the TXCNT register to monitor the state of

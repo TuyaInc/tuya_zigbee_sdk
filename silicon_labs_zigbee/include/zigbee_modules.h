@@ -30,6 +30,8 @@
 #define TYZS12 14
 #define TYZS13 15
 #define TYZS15 16
+#define ZS3L   17
+
 
 #define TYZS3_USART_CONFIG_DEFAULT {\
     UART_ID_UART0,\
@@ -86,5 +88,20 @@
     USART_DATABITS_8BIT,\
     NULL\
 }
+
+#define ZS3L_USART_CONFIG_DEFAULT {\
+    UART_ID_UART0,\
+    UART_PIN_TYPE_CONFIG,\
+    {PORT_A, PIN_5},\
+    {PORT_A, PIN_6},\
+    LOC_0, \
+    LOC_0, \
+    115200,\
+    USART_PARITY_NONE,\
+    USART_STOPBITS_ONE,\
+    USART_DATABITS_8BIT,\
+    NULL\
+}
+
 
 #endif //ZIGBEE_MODULES_H

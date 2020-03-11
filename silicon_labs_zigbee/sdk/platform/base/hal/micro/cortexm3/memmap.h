@@ -1,13 +1,20 @@
-/** @file hal/micro/cortexm3/memmap.h
+/***************************************************************************//**
+ * @file
+ * @brief Memory map definitions
+ * THIS IS A GENERATED FILE. DO NOT EDIT.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * @brief
- * Memory map definitions
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
  *
- * THIS IS A GENERATED FILE.  DO NOT EDIT.
- *
- * <!-- Copyright 2017 Silicon Laboratories, Inc.                        *80*-->
- */
-
+ ******************************************************************************/
 #ifndef __MEMMAP_H__
 #define __MEMMAP_H__
 
@@ -21,15 +28,15 @@
   #include "hal/micro/cortexm3/obsolete_cortexm3_28/memmap.h"
 #elif defined(CORTEXM3_OBSOLETE_CORTEXM3_29)
   #include "hal/micro/cortexm3/obsolete_cortexm3_29/memmap.h"
+#elif defined(CORTEXM3_OBSOLETE_CORTEXM3_32)
+  #include "hal/micro/cortexm3/obsolete_cortexm3_32/memmap.h"
+#elif defined(CORTEXM3_OBSOLETE_CORTEXM3_33)
+  #include "hal/micro/cortexm3/obsolete_cortexm3_33/memmap.h"
+#elif defined(CORTEXM3_OBSOLETE_CORTEXM3_34)
+  #include "hal/micro/cortexm3/obsolete_cortexm3_34/memmap.h"
 #elif defined(CORTEXM3_OBSOLETE_CORTEXM3_7)
   #include "hal/micro/cortexm3/obsolete_cortexm3_7/memmap.h"
 #elif defined(CORTEXM3_EFR32)
-  #include "hal/micro/cortexm3/efm32/memmap.h"
-#elif defined(CORTEXM3_EZR32HG)
-  #include "hal/micro/cortexm3/efm32/memmap.h"
-#elif defined(CORTEXM3_EZR32LG)
-  #include "hal/micro/cortexm3/efm32/memmap.h"
-#elif defined(CORTEXM3_EZR32WG)
   #include "hal/micro/cortexm3/efm32/memmap.h"
 #elif defined(CORTEXM3_EM317)
   #include "hal/micro/cortexm3/em35x/em317/memmap.h"

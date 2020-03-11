@@ -1,9 +1,19 @@
-/** @file hal/micro/cortexm3/diagnostic.h
- * See @ref diagnostics for detailed documentation.
+/***************************************************************************//**
+ * @file
+ * @brief See @ref diagnostics for detailed documentation.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * <!-- Copyright 2009 by Ember Corporation. All rights reserved.-->
- */
-
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 /** @addtogroup diagnostics
  * @brief Crash and watchdog diagnostic functions.
  *
@@ -87,51 +97,7 @@ typedef union {
 
 typedef union {
   struct {
-#ifdef _EZR_DEVICE
-    uint32_t DMA_IRQn       : 1;  // B0
-    uint32_t GPIO_EVEN_IRQn : 1;  // B1
-    uint32_t TIMER0_IRQn    : 1;  // B2
-    uint32_t USART0_RX_IRQn : 1;  // B3
-    uint32_t USART0_TX_IRQn : 1;  // B4
-    uint32_t USB_IRQn       : 1;  // B5
-    uint32_t ACMP0_IRQn     : 1;  // B6
-    uint32_t ADC0_IRQn      : 1;  // B7
-    uint32_t DAC0_IRQn      : 1;  // B8
-    uint32_t I2C0_IRQn      : 1;  // B9
-    uint32_t I2C1_IRQn      : 1;  // B10
-    uint32_t GPIO_ODD_IRQn  : 1;  // B11
-    uint32_t TIMER1_IRQn    : 1;  // B12
-    uint32_t TIMER2_IRQn    : 1;  // B13
-    uint32_t TIMER3_IRQn    : 1;  // B14
-    uint32_t USART1_RX_IRQn : 1;  // B15
-    uint32_t USART1_TX_IRQn : 1;  // B16
-    uint32_t LESENSE_IRQn   : 1;  // B17
-    uint32_t USART2_RX_IRQn : 1;  // B18
-    uint32_t USART2_TX_IRQn : 1;  // B19
-    uint32_t UART0_RX_IRQn  : 1;  // B20
-    uint32_t UART0_TX_IRQn  : 1;  // B21
-    uint32_t UART1_RX_IRQn  : 1;  // B22
-    uint32_t UART1_TX_IRQn  : 1;  // B23
-    uint32_t LEUART0_IRQn   : 1;  // B24
-    uint32_t LEUART1_IRQn   : 1;  // B25
-    uint32_t LETIMER0_IRQn  : 1;  // B26
-    uint32_t PCNT0_IRQn     : 1;  // B27
-    uint32_t PCNT1_IRQn     : 1;  // B28
-    uint32_t PCNT2_IRQn     : 1;  // B29
-    uint32_t RTC_IRQn       : 1;  // B30
-    uint32_t BURTC_IRQn     : 1;  // B31
-    uint32_t CMU_IRQn       : 1;  // B32
-    uint32_t VCMP_IRQn      : 1;  // B33
-    uint32_t LCD_IRQn       : 1;  // B34
-    uint32_t MSC_IRQn       : 1;  // B35
-    uint32_t AES_IRQn       : 1;  // B36
-    uint32_t EBI_IRQn       : 1;  // B37
-    uint32_t EMU_IRQn       : 1;  // B38
-    uint32_t                : 25; // B39-63
-  } bits;
-
-  uint32_t word[2];
-#elif defined (_SILICON_LABS_32B_SERIES_1_CONFIG_1)
+#if defined (_SILICON_LABS_32B_SERIES_1_CONFIG_1)
     uint32_t EMU_IRQn         : 1;  // B0
     uint32_t FRC_PRI_IRQn     : 1;  // B1
     uint32_t WDOG0_IRQn       : 1;  // B2

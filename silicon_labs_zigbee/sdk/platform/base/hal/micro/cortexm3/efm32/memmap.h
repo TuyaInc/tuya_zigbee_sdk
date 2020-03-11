@@ -1,9 +1,19 @@
-/** @file hal/micro/cortexm3/efm32/memmap.h
- * @brief Definition of efr32/ezr32 family specific memory map information
+/***************************************************************************//**
+ * @file
+ * @brief Definition of efr32 family specific memory map information
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * <!-- Copyright 2016 Silicon Laboratories, Inc.                        *80*-->
- */
-
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 #ifndef __MEMMAP_H__
   #error This header should not be included directly, use hal/micro/cortexm3/memmap.h
 #endif
@@ -28,7 +38,7 @@
 #define MFB_REGION_SIZE     (1)  // Size of a write protect region in pages
 #define MFB_ADDR_MASK       (FLASH_SIZE - 1)
 
-// Default to a 16 kB bootloader on all EFR32/EZR32
+// Default to a 16 kB bootloader on all EFR32
 #define BOOTLOADER_16K
 
 // Size in bytes that one RAM retention bit covers

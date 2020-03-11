@@ -1,10 +1,19 @@
-/** @file hal/micro/cortexm3/spi-protocol2.c
- *  @brief SPI protocol implementation for ZIP NCPs (ip-modem-app-spi et al)
+/***************************************************************************//**
+ * @file
+ * @brief SPI protocol implementation for ZIP NCPs (ip-modem-app-spi et al)
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * <!-- Author(s): Ryan Meador -->
- * Copyright 2013 by Silicon Laboratories. All rights reserved.             *80*
- */
-
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 #include PLATFORM_HEADER
 #include "stack/include/ember.h"
 #include "hal/hal.h"

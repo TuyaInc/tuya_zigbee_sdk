@@ -1,17 +1,26 @@
-/** @file hal/plugin/sim-eeprom/sim-eeprom.h
+/***************************************************************************//**
+ * @file
  * @brief Simulated EEPROM system for wear leveling token storage across flash.
  * See @ref simeeprom for documentation.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * <!-- Copyright 2008-2011 by Ember Corporation. All rights reserved.   *80*-->
- */
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 #ifndef __SIM_EEPROM_H__
 #define __SIM_EEPROM_H__
 
 //pull in the platform specific information here
 #if defined(CORTEXM3) || defined(EMBER_TEST)
   #include "sim-eeprom-cortexm3.h"
-#elif defined (C8051_COBRA)
-  #include "sim-eeprom-cobra.h"
 #else
   #error invalid sim-eeprom platform
 #endif

@@ -1,15 +1,17 @@
 /***************************************************************************//**
- * @file nvic-config.h
+ * @file
  * @brief NVIC Config Header
- * @version 0.01.0
  *******************************************************************************
- * @section License
- * <b>(C) Copyright 2016 Silicon Labs, www.silabs.com</b>
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
  *******************************************************************************
  *
- * This file is licensed under the Silabs License Agreement. See the file
- * "Silabs_License_Agreement.txt" for details. Before using this software for
- * any purpose, you must agree to the terms of that agreement.
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
  *
  ******************************************************************************/
 #include "emlib_config.h"
@@ -118,9 +120,13 @@
 #ifndef SEGMENT2
   #define SEGMENT2()
 #endif
+#ifndef FIXED_EXCEPTION
+  #define FIXED_EXCEPTION(vectorNumber, functionName, deviceIrqn, deviceIrqHandler) \
+  EXCEPTION(vectorNumber, functionName, deviceIrqn, deviceIrqHandler, NVIC_FIXED, 0)
+#endif
 #ifndef PERM_EXCEPTION
-  #define PERM_EXCEPTION(vectorNumber, functionName, deviceIrqn, deviceIrqHandler, priorityLevel, subpriority) \
-  EXCEPTION(vectorNumber, functionName, deviceIrqn, deviceIrqHandler, priorityLevel, 0)
+  #define PERM_EXCEPTION(vectorNumber, functionName, deviceIrqn, deviceIrqHandler) \
+  FIXED_EXCEPTION(vectorNumber, functionName, deviceIrqn, deviceIrqHandler)
 #endif
 
 // Some series 1, config 3 micros have a smaller peripheral set, meaning the IRQ
@@ -151,25 +157,31 @@
 //   functionName = name of the function that the exception should trigger
 //   priorityLevel = priority level of the function
 //   supriority = Used to break ties between exceptions at the same level
+// FIXED_EXCEPTION
+//   is used to define an exception that doesn't have a corresponding
+//   priority level register so it should be ignored by the code that
+//   sets interrupt priorities.  While there is a NVIC_FIXED priority
+//   level for completeness of information, it's safest to simply not
+//   try to set a register that doesn't exist/cannot be set.
 // PERM_EXCEPTION
 //   is used to define an exception that should not be intercepted by the
 //   interrupt debugging logic, or that not should have a weak stub defined.
-//   Otherwise the definition is the same as EXCEPTION
+//   Otherwise the definition is the same as FIXED_EXCEPTION.
 
 //INTENTIONALLY INDENTED AND SPACED APART! Keep it that way!  See comment above!
 
 /* *INDENT-OFF**/
     SEGMENT()
     SEGMENT2()
-    PERM_EXCEPTION( 1, halEntryPoint, (IRQn_Type)(-15), Reset_Handler,   NVIC_FIXED,          0) //Reset
+    PERM_EXCEPTION( 1, halEntryPoint, (IRQn_Type)(-15), Reset_Handler) //Reset
 
     SEGMENT()
     SEGMENT2()
-    EXCEPTION(      2, halNmiIsr, NonMaskableInt_IRQn, NMI_Handler,       NVIC_FIXED,         0)
+    FIXED_EXCEPTION(2, halNmiIsr, NonMaskableInt_IRQn, NMI_Handler)
 
     SEGMENT()
     SEGMENT2()
-    EXCEPTION(      3, halHardFaultIsr, HardFault_IRQn, HardFault_Handler, NVIC_FIXED,         0)
+    FIXED_EXCEPTION(3, halHardFaultIsr, HardFault_IRQn, HardFault_Handler)
 
     SEGMENT()
     SEGMENT2()

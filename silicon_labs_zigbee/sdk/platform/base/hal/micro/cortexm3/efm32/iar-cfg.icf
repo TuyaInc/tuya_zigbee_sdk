@@ -21,7 +21,7 @@ else {
   define symbol TRUE_RAM_SIZE = RAM_SIZE;
 }
 
-// EFR32/EZR32 doesn't have a FIB
+// EFR32 doesn't have a FIB
 define symbol NO_FIB = 1;
 
 define memory mem with size = 4G;

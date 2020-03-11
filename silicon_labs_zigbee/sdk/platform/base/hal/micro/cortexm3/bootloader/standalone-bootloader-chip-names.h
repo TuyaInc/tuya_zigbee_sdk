@@ -1,13 +1,20 @@
-/** @file hal/micro/cortexm3/bootloader/standalone-bootloader-chip-names.h
+/***************************************************************************//**
+ * @file
+ * @brief Name constants for whichever chip we're building for
+ * THIS IS A GENERATED FILE. DO NOT EDIT.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * @brief
- * Name constants for whichever chip we're building for
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
  *
- * THIS IS A GENERATED FILE.  DO NOT EDIT.
- *
- * <!-- Copyright 2017 Silicon Laboratories, Inc.                        *80*-->
- */
-
+ ******************************************************************************/
 #if defined(CORTEXM3_EM317)
   #define MY_EM3XX "EM317 "
 #elif defined(CORTEXM3_EM346)

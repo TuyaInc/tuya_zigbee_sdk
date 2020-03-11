@@ -1,9 +1,19 @@
-/** @file hal/micro/cortexm3/compiler/iar-boot.h
- * See @ref iar for detailed documentation.
+/***************************************************************************//**
+ * @file
+ * @brief See @ref iar for detailed documentation.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * <!-- Copyright 2013 Silicon Laboratories, Inc.                       *80*-->
- */
-
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 /** @addtogroup iar
  * @brief Compiler and Platform specific definitions and typedefs for
  *  Ember bootloaders when built with the IAR ARM C compiler.
@@ -347,7 +357,6 @@ void halInternalResetWatchDog(void);
 #define __DATA_INIT__ ".data_init"
 #define __DATA__ ".data"
 #define __BSS__ ".bss"
-#define __APP_RAM__ "APP_RAM"
 #define __CONST__ ".rodata"
 #define __TEXT__ ".text"
 #define __TEXTRW_INIT__ ".textrw_init"
@@ -380,7 +389,6 @@ void halInternalResetWatchDog(void);
 #pragma segment=__DATA_INIT__
 #pragma segment=__DATA__
 #pragma segment=__BSS__
-#pragma segment=__APP_RAM__
 #pragma segment=__CONST__
 #pragma segment=__TEXT__
 #pragma segment=__TEXTRW_INIT__
@@ -404,7 +412,6 @@ void halInternalResetWatchDog(void);
 #define _DATA_INIT_SEGMENT_BEGIN                       __segment_begin(__DATA_INIT__)
 #define _DATA_SEGMENT_BEGIN                            __segment_begin(__DATA__)
 #define _BSS_SEGMENT_BEGIN                             __segment_begin(__BSS__)
-#define _APP_RAM_SEGMENT_BEGIN                         __segment_begin(__APP_RAM__)
 #define _CONST_SEGMENT_BEGIN                           __segment_begin(__CONST__)
 #define _TEXT_SEGMENT_BEGIN                            __segment_begin(__TEXT__)
 #define _TEXTRW_INIT_SEGMENT_BEGIN                     __segment_begin(__TEXTRW_INIT__)
@@ -428,7 +435,6 @@ void halInternalResetWatchDog(void);
 #define _DATA_INIT_SEGMENT_END                        __segment_end(__DATA_INIT__)
 #define _DATA_SEGMENT_END                             __segment_end(__DATA__)
 #define _BSS_SEGMENT_END                              __segment_end(__BSS__)
-#define _APP_RAM_SEGMENT_END                          __segment_end(__APP_RAM__)
 #define _CONST_SEGMENT_END                            __segment_end(__CONST__)
 #define _TEXT_SEGMENT_END                             __segment_end(__TEXT__)
 #define _TEXTRW_INIT_SEGMENT_END                      __segment_end(__TEXTRW_INIT__)
@@ -452,7 +458,6 @@ void halInternalResetWatchDog(void);
 #define _DATA_INIT_SEGMENT_SIZE                       __segment_size(__DATA_INIT__)
 #define _DATA_SEGMENT_SIZE                            __segment_size(__DATA__)
 #define _BSS_SEGMENT_SIZE                             __segment_size(__BSS__)
-#define _APP_RAM_SEGMENT_SIZE                         __segment_size(__APP_RAM__)
 #define _CONST_SEGMENT_SIZE                           __segment_size(__CONST__)
 #define _TEXT_SEGMENT_SIZE                            __segment_size(__TEXT__)
 #define _TEXTRW_INIT_SEGMENT_SIZE                     __segment_size(__TEXTRW_INIT__)

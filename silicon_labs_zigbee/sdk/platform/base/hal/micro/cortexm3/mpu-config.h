@@ -1,15 +1,22 @@
-/** @file hal/micro/cortexm3/mpu-config.h
- *
- * @brief
- * This file pulls in the appropriate MPU
+/***************************************************************************//**
+ * @file
+ * @brief This file pulls in the appropriate MPU
  * configuration based on the specific Cortex-M3
  * being compiled.
+ * THIS IS A GENERATED FILE. DO NOT EDIT.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * THIS IS A GENERATED FILE.  DO NOT EDIT.
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
  *
- * <!-- Copyright 2017 Silicon Laboratories, Inc.                        *80*-->
- */
-
+ ******************************************************************************/
 #if defined(CORTEXM3_EM317)
   #include "em35x/em317/mpu-config.h"
 #elif defined(CORTEXM3_EM346)
@@ -53,11 +60,5 @@
 #elif defined(CORTEXM3_SKY66107)
   #include "em35x/sky66107/mpu-config.h"
 #elif defined(CORTEXM3_EFR32)
-  #include "efm32/mpu-config.h"
-#elif defined(CORTEXM3_EZR32HG)
-  #include "efm32/mpu-config.h"
-#elif defined(CORTEXM3_EZR32LG)
-  #include "efm32/mpu-config.h"
-#elif defined(CORTEXM3_EZR32WG)
   #include "efm32/mpu-config.h"
 #endif

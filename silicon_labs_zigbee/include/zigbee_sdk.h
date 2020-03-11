@@ -115,6 +115,7 @@ typedef enum {
     ZIPM_PROFILE_ID = 0x0101,//Industial plant monitoring
     ZTA_PROFILE_ID = 0x0107, //Telecom application
     ZAMI_PROFILE_ID = 0x0109,//Advanced metering initiative
+    ZLL_PROFILE_ID = 0xC05E, //ZLL profile
 }PROFILE_ID_T;
 
 //cluster ID
@@ -408,6 +409,13 @@ typedef struct {
   cluster_t *client_cluster_list; //output cluster
 } dev_description_t;
 
+typedef struct {
+    uint8_t original_ep;
+    uint8_t alias_ep1;
+    uint8_t alias_ep2;
+    uint8_t alias_ep3;
+}dev_ep_alias_t;
+
 typedef enum {
     SEND_ST_OK,
     SEND_ST_ERR,
@@ -650,6 +658,7 @@ typedef struct {
     uart_callback func;
 }user_uart_config_t;
 
+#ifdef EFR32MG13P
 #define USART_CONFIG_DEFAULT {\
     UART_ID_UART0,\
     UART_PIN_TYPE_CONFIG,\
@@ -663,7 +672,21 @@ typedef struct {
     USART_DATABITS_8BIT,\
     NULL\
 }
-
+#else
+#define USART_CONFIG_DEFAULT {\
+    UART_ID_UART0,\
+    UART_PIN_TYPE_CONFIG,\
+    {PORT_A, PIN_5},\
+    {PORT_A, PIN_6},\
+    LOC_0,\
+    LOC_0,\
+    115200,\
+    USART_PARITY_NONE,\
+    USART_STOPBITS_ONE,\
+    USART_DATABITS_8BIT,\
+    NULL\
+}
+#endif
 typedef enum
 {
     APP_VERSION = 0,
@@ -722,10 +745,10 @@ typedef struct {
 }gw_addr_t;
 
 typedef struct {
-    uint8_t dest_addr;
     uint8_t src_ep;
     uint8_t dest_ep;
     CLUSTER_ID_T cluster_id;
+    uint16_t dest_addr;
 }dev_addr_t;
 
 
@@ -772,7 +795,7 @@ typedef enum {
 }ZCL_DATA_DIRECTION_T;
 
 typedef struct {
-    /*real send time delay��delay_time+rand()%random_time*/
+    /*real send time delay is equal to delay_time+rand()%random_time*/
     uint16_t delay_time; //send delay time with ms
     uint16_t random_time;//send random times with ms
     
@@ -1111,6 +1134,22 @@ extern void dev_register_base_info(char *model_id, char *pid_prefix, char *pid);
  */
 extern void dev_register_zg_ep_infor(dev_description_t *ep_desc, uint8_t ep_sums);
 
+
+/**
+ * @description: setting alias endpoint for a endpoint.
+ * @param {dev_ep_alias_t} 
+  * @return: TRUE for successful, FALSE for failed.
+ */
+extern bool_t dev_set_endpoint_alias(dev_ep_alias_t *alias_item);
+
+/**
+ * @description: zigbee endpoint enable disable
+ * @param {endpint} endpoint number
+ * @param {enable} TRUE: enable,  FALSE: disable
+  * @return: none
+ */
+extern void dev_endpint_enable_disable(uint8_t endpoint, bool_t enable);
+
 /**
  * @description: zigbee device information register funciton
  * @param {config} device configuratin, inculde device type, join  mechanism ETC
@@ -1152,6 +1191,76 @@ extern void dev_zg_enable_steering_join_permit(void);
  * @return: none
  */
 extern void dev_attr_recovery(void);
+
+
+
+//report table config
+
+typedef enum {
+    ZCL_REPORTING_DIRECTION_REPORTED = 0x00,
+    ZCL_REPORTING_DIRECTION_RECEIVED = 0x01,
+} ZCL_REPORTING_DIRECTION_T;
+
+
+typedef enum {
+    ZCL_CLUSTER_MASK_SERVER = 0x40,
+    ZCL_CLUSTER_MASK_CLIENT = 0x80,
+} ZCL_CLUSTER_MASK_T;
+
+typedef struct {
+    ZCL_REPORTING_DIRECTION_T direction;
+    uint8_t endpoint;
+    CLUSTER_ID_T cluster;
+    uint16_t     attribute;
+
+    /** CLUSTER_MASK_SERVER for server-side attributes or CLUSTER_MASK_CLIENT for
+    *  client-side attributes.
+    */
+    ZCL_CLUSTER_MASK_T mask;
+    /** Manufacturer code associated with the cluster and/or attribute.  If the
+    *  cluster id is inside the manufacturer-specific range, this value
+    *  indicates the manufacturer code for the cluster.  Otherwise, if this
+    *  value is non-zero and the cluster id is a standard ZCL cluster, it
+    *  indicates the manufacturer code for attribute.
+    */
+    uint16_t manufacturer_code;
+    union {
+        struct {
+            /** The minimum reporting interval, measured in seconds. */
+            uint16_t min_interval;
+            /** The maximum reporting interval, measured in seconds. */
+            uint16_t max_interval;
+            /** The minimum change to the attribute that will result in a report
+            *  being sent.
+            */
+            uint32_t reportable_change;
+        } reported;
+        struct {
+            /** The node id of the source of the received reports. */
+            uint16_t source_addr;
+            /** The remote endpoint from which the attribute is reported. */
+            uint8_t endpoint;
+            /** The maximum expected time between reports, measured in seconds. */
+            uint16_t timeout;
+        } received;
+    } data;
+} zg_report_table_t;
+
+extern bool_t zg_report_table_init(zg_report_table_t *report_config, uint8_t report_config_sums);
+
+
+typedef void (*ext_plugin_cmd_callback_func_t)(uint8_t endpoint, uint16_t cluster, ZCL_DATA_DIRECTION_T direction, uint8_t cmd, uint8_t args_len, void *args);
+typedef struct {
+    uint16_t cluster_id;
+    ext_plugin_cmd_callback_func_t func;
+}ext_plugin_cmd_callback_struct_t;
+
+extern void ext_plugin_identify_client_enable(void);
+extern void ext_plugin_identify_server_enable(void);
+extern void ext_plugin_green_power_client_enable(void);
+extern void ext_plugin_reporting_enable(void);
+extern bool_t ext_plugin_register_cmd_handle(ext_plugin_cmd_callback_struct_t *list, uint8_t list_sums);
+
 
 //******************************************************************************
 //                                                                              
@@ -2107,7 +2216,67 @@ typedef struct {
   uint8_t hours;
   uint8_t minutes;
   uint8_t seconds;
+  uint8_t week; //0=MON, 1=TUES, etc.
 } device_time_struct_t;
+
+
+typedef struct {
+    uint16_t year; //normal range:> 2019, 0xFFFF means: Wildcard character, It's valid for any year
+    uint8_t  mon;  //normal range:1~12, 0xFF means: Wildcard character, It's valid for any month
+    uint8_t  day;  //normal range:1~31, 0xFF means: Wildcard character, It's valid for any day
+}app_day_t;
+
+typedef struct {
+    uint8_t  hour; //normal range:0~23, 0xFF means: Wildcard character, It's valid for any hour
+    uint8_t  min;  //normal range:0~59, 0xFF means: Wildcard character, It's valid for any minute
+    uint8_t  sec;  //range: 0~59
+}app_time_t;
+
+typedef enum {
+    APP_TIMER_TYPE_CALENDAR = 0,
+    APP_TIMER_TYPE_WEEK,
+}APP_TIMER_TYPE_T;
+
+
+#define WEEK_BITS_MAP_MONDAY    0x01
+#define WEEK_BITS_MAP_TUESDAY   0x02
+#define WEEK_BITS_MAP_WEDNESDAY 0x04
+#define WEEK_BITS_MAP_THURSDAY  0x08
+#define WEEK_BITS_MAP_FRIDAY    0x10
+#define WEEK_BITS_MAP_SATURDAY  0x20
+#define WEEK_BITS_MAP_SUNDAY    0x40
+
+typedef uint8_t WEEK_BITS_MAP_T;
+
+//index: app_timer_struct_t index
+typedef void (*app_timer_callback_t)(uint8_t index);
+
+typedef struct {
+    APP_TIMER_TYPE_T type;
+    bool_t period_action_flag;
+    bool_t valid;
+    app_time_t time;
+    union {
+        app_day_t calendar_day;
+        WEEK_BITS_MAP_T week_map;
+    } day_struct;
+    app_timer_callback_t func;
+}app_timer_struct_t;
+
+/**
+ * @description: config the app timer
+ * @param {app_timer_struct_list} timer task list.
+ * @param {sums} timer task sums
+ * @return: TRUE for successful, FALSE for failed
+ */
+extern bool_t app_timer_config(app_timer_struct_t *app_timer_struct_list, uint8_t sums);
+
+/**
+ * @description: get the remain seconds of next app timer task
+ * @param {none}
+ * @return: time: seconds
+ */
+extern uint32_t app_timer_get_next_task_seconds(void);
 
 /**
  * @description: set time period for device get time form gateway
@@ -2544,6 +2713,27 @@ extern void dev_timer1_reset(void);
  */
 extern bool_t dev_timer1_started(void);
 
+
+
+typedef enum {
+    FIND_BIND_ST_OK = 0,
+    FIND_BIND_ST_ERR,
+}FIND_BIND_ST_T;
+
+typedef void (*find_bind_callback_t)(FIND_BIND_ST_T st);
+typedef void (*find_nwk_addr_callback_t)(uint16_t nwk_addr);
+typedef void (*find_match_dev_callback_t)(uint16_t nwk_addr, uint8_t endpoint);
+
+extern void zg_find_nwk_addr(uint8_t *mac, find_nwk_addr_callback_t func);
+extern void zg_match_dev_by_profile_cluster(uint16_t dest_addr, 
+                                                    PROFILE_ID_T profile_id,
+                                                    CLUSTER_ID_T cluster_id,
+                                                    bool_t is_server_cluster,
+                                                    find_match_dev_callback_t func);
+extern void zg_find_bind_start(uint8_t endpoint);
+extern void zg_find_bind_start_with_callback(uint8_t endpoint, find_bind_callback_t func);
+
+
 /**
  * @description: get the gpio port and pin according the index
  * @param {index} gpio index
@@ -2558,9 +2748,20 @@ typedef enum {
     ZG_JOIN_TYPE_NO_NETWORK       //no network
 }ZG_JOIN_TYPE_T;
 
+typedef enum {
+    ZG_JOIN_GW_TYPE_TUYA = 0,    //tuya gateway
+    ZG_JOIN_GW_TYPE_OTHERS,      //others gateway
+    ZG_JOIN_GW_TYPE_UNKNOWN      //no network or distribute network
+}ZG_JOIN_GW_TYPE_T;
+
+
 extern ZG_JOIN_TYPE_T zg_get_join_type(void);
+extern ZG_JOIN_GW_TYPE_T zg_get_join_gw_type(void);
 extern bool_t zg_is_zll_net(void); //for zll lib
 
+
+//ota enable disable
+extern void zg_ota_enable_disable(bool_t en_flag);
 
 #define DEV_DEFAULT_WAKEUP_MAX_TIMEOUT   (1000*60*2)  //default max wakeup interval is 2 min
 /**
@@ -2578,6 +2779,21 @@ extern void dev_unusual_wakeup_timeout_set(uint32_t wakeupTime);
  * @return: bool_t TRUE: system will reboot, FLASE: system do nothing.
  */
 VIRTUAL_FUNC bool_t dev_unusual_wakeup_timeout_callback(void);
+
+
+typedef enum {
+    DEV_VER_ZHA = 0x00,
+    DEV_VER_ZG30,
+    DEV_VER_ZLL,
+}DEV_VER_T;
+
+VIRTUAL_FUNC DEV_VER_T dev_ep_to_dev_ver(uint8_t ep);
+
+VIRTUAL_FUNC void zll_reset_to_factory_new_callback(void);
+
+VIRTUAL_FUNC void dev_sleep_before_callback(uint32_t t);
+VIRTUAL_FUNC void dev_wake_up_callback(uint32_t t);
+VIRTUAL_FUNC void dev_uart_gpio_wake_up_callback(GPIO_PIN_T pin);
 
 //simple json parse function
 typedef enum {
@@ -2603,6 +2819,48 @@ typedef enum {
 */
 extern JSON_RET_T json_get_str_value(const char *json_str, char *key, char *out_buffer, uint16_t out_buffer_len);
 extern JSON_RET_T json_get_int_value(const char *in_json_str, char *key, int *out_int_value);
+
+
+
+typedef enum {
+    /** A binding that is currently not in use. */
+    DEV_BIND_TYPE_UNUSED         = 0,
+    /** A unicast binding whose 64-bit identifier is the destination EUI64. */
+    DEV_BIND_TYPE_UNICAST        = 1,
+    /** A unicast binding whose 64-bit identifier is the many-to-one
+    * destination EUI64.  Route discovery should be disabled when sending
+    * unicasts via many-to-one bindings. */
+    DEV_BIND_TYPE_MANY_TO_ONE    = 2,
+    /** A multicast binding whose 64-bit identifier is the group address. This
+    * binding can be used to send messages to the group and to receive
+    * messages sent to the group. */
+    DEV_BIND_TYPE_MULTICAST      = 3,
+}DEV_BIND_TYPE_T;
+
+typedef struct {
+    /** The type of binding. */
+    DEV_BIND_TYPE_T type;
+    /** The endpoint on the local node. */
+    uint8_t local;
+    /** A cluster ID that matches one from the local endpoint's simple descriptor.
+    * This cluster ID is set by the provisioning application to indicate which
+    * part an endpoint's functionality is bound to this particular remote node
+    * and is used to distinguish between unicast and multicast bindings. Note
+    * that a binding can be used to to send messages with any cluster ID, not
+    * just that listed in the binding.
+    */
+    uint16_t cluster_id;
+    /** The endpoint on the remote node (specified by \c identifier). */
+    uint8_t remote;
+    /** A 64-bit identifier.  This is either:
+    * - The destination EUI64, for unicasts.
+    * - A 16-bit multicast group address, for multicasts.
+    */
+    uint8_t identifier[8];
+}dev_bind_table_entry;
+
+extern bool_t dev_bind_table_add(dev_bind_table_entry *bind_entry); //add a entry
+extern bool_t dev_bind_table_del(dev_bind_table_entry *bind_entry); //delete a entry
 
 #ifdef __cplusplus
 }

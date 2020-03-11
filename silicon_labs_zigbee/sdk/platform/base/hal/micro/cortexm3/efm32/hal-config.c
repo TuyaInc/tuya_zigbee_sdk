@@ -1,25 +1,31 @@
-// -----------------------------------------------------------------------------
-/// @file hal-config.c
-/// @brief HAL config initialization
-///
-/// @section License
-/// <b>(C) Copyright 2016 Silicon Laboratories, http://www.silabs.com</b>
-///
-/// This file is licensed under the Silabs License Agreement. See the file
-/// "Silabs_License_Agreement.txt" for details. Before using this software for
-/// any purpose, you must agree to the terms of that agreement.
-///
-// -----------------------------------------------------------------------------
+/***************************************************************************//**
+ * @file
+ * @brief HAL config initialization
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
+ *
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 #include PLATFORM_HEADER
 #include "hal/hal.h"
 #include "em_device.h"
 #include "em_cmu.h"
 #include "em_emu.h"
 #include "ecode.h"
+#include "plugin/antenna/antenna.h"
 #include "plugin/serial/com.h"
 #include "plugin/serial/com_config.h"
 #if (PHY_RAIL || PHY_DUALRAIL)
 #include "rail.h"
+#include "rail_ieee802154.h"
 #elif defined (_EFR_DEVICE)
 #include "rfhal_pti.h"
 #endif
@@ -34,94 +40,108 @@
 #include "coexistence/protocol/ieee802154/coexistence-802154.h"
 #endif
 
-#if defined(_SILICON_LABS_32B_SERIES_2)
 static void halConfigClockInit(void)
 {
-#if (HAL_CLK_HFCLK_SOURCE == HAL_CLK_HFCLK_SOURCE_HFXO)
+// Initialize HFXO if used
+#if ((HAL_CLK_HFCLK_SOURCE == HAL_CLK_HFCLK_SOURCE_HFXO)   \
+  || ((HAL_CLK_HFCLK_SOURCE == HAL_CLK_HFCLK_SOURCE_HFRCO) \
+  && (HAL_CLK_PLL_CONFIGURATION == HAL_CLK_PLL_CONFIGURATION_80MHZ)))
   #if !BSP_CLK_HFXO_PRESENT
     #error Cannot select HFXO when HFXO is not present
   #endif
 
   CMU_HFXOInit_TypeDef hfxoInit = BSP_CLK_HFXO_INIT;
+
+  #if defined(BSP_CLK_HFXO_CTUNE) && (BSP_CLK_HFXO_CTUNE >= 0)
+  #if defined(_SILICON_LABS_32B_SERIES_2)
+  hfxoInit.ctuneXiAna = BSP_CLK_HFXO_CTUNE;
+  hfxoInit.ctuneXoAna = BSP_CLK_HFXO_CTUNE;
+  #else
+  hfxoInit.ctuneSteadyState = BSP_CLK_HFXO_CTUNE;
+  #endif // series 2
+  #endif // BSP_CLK_HFXO_CTUNE
+
+  #if defined(_SILICON_LABS_32B_SERIES_2)
+  uint8_t customSteadyCtuneXi;
+  uint8_t customSteadyCtuneXo;
+  uint16_t customSteadyCtuneToken;
+
+  // check factory calibrated ctune value
+  if (halInternalGetModuleCtuneXiXo(&customSteadyCtuneXi, &customSteadyCtuneXo)) {
+    hfxoInit.ctuneXiAna = customSteadyCtuneXi;
+    hfxoInit.ctuneXoAna = customSteadyCtuneXo;
+  }
+  // otherwise check for ctune in mfg token
+  else if (halInternalGetCtuneToken(&customSteadyCtuneToken, &customSteadyCtuneToken)) {
+    hfxoInit.ctuneXiAna = (uint8_t)customSteadyCtuneToken;
+    hfxoInit.ctuneXoAna = (uint8_t)customSteadyCtuneToken;
+  }
+  #else
+  uint16_t customSteadyCtuneModule;
+  uint16_t customSteadyCtuneToken;
+  // check factory calibrated ctune value
+  if (halInternalGetModuleCtune(&customSteadyCtuneModule)) {
+    hfxoInit.ctuneSteadyState = customSteadyCtuneModule;
+  }
+  // otherwise check for ctune in mfg token
+  else if (halInternalGetCtuneToken(&customSteadyCtuneToken, &customSteadyCtuneToken)) {
+    hfxoInit.ctuneSteadyState = customSteadyCtuneToken;
+  }
+  #endif // series 2
   CMU_HFXOInit(&hfxoInit);
+#endif // hfxo or hfrco with hfxo
 
-  // Enable HFXO oscillator, and wait for it to be stable
-  CMU_OscillatorEnable(cmuOsc_HFXO, true, true);
-
+#if (HAL_CLK_HFCLK_SOURCE == HAL_CLK_HFCLK_SOURCE_HFXO)
   // Setting system HFXO frequency
   SystemHFXOClockSet(BSP_CLK_HFXO_FREQ);
 
-  // Enable HFXO oscillator, and wait for it to be stable
-  CMU_OscillatorEnable(cmuOsc_HFXO, true, true);
-
-  // Use HFXO as high frequency clock
-  CMU_ClockSelectSet(cmuClock_SYSCLK, cmuSelect_HFXO);
-#elif (HAL_CLK_HFCLK_SOURCE == HAL_CLK_HFCLK_SOURCE_HFRCO)
-  CMU_ClockSelectSet(cmuClock_SYSCLK, cmuSelect_HFRCODPLL);
-#else
-  #error Must define HAL_CLK_HFCLK_SOURCE
-#endif // HAL_CLK_HFCLK_SOURCE
-}
-#else // Non-Series 2
-static void halConfigClockInit(void)
-{
-/* HFCLK */
-#if (HAL_CLK_HFCLK_SOURCE == HAL_CLK_HFCLK_SOURCE_HFXO)
-  #if !BSP_CLK_HFXO_PRESENT
-    #error Cannot select HFXO when HFXO is not present
-  #endif
-  CMU_HFXOInit_TypeDef hfxoInit = BSP_CLK_HFXO_INIT;
-  #if BSP_CLK_HFXO_CTUNE_TOKEN
-    #if defined(_CMU_HFXOCTRL_MASK)
-  uint16_t customSteadyCtune;
-  if (halInternalGetCtuneToken(&customSteadyCtune, &customSteadyCtune)) {
-    hfxoInit.ctuneSteadyState = customSteadyCtune;
-  } else
-    #endif //_CMU_HFXOCTRL_MASK
-
-  // Bit [19] in MODULEINFO is the HFXOCALVAL:
-  // 1=No factory cal, use default XO tunning value in FW
-  // 0=Factory Cal, use XO tunning value in DI
-    #define DEVINFO_MODULEINFO_HFXOCALVAL_MASK  0x00080000UL
-  // Calibration value for HFXO CTUNE is at DEVINFO Offset 0x08
-    #define DEVINFO_HFXOCTUNE  (*((uint16_t *) DEVINFO_BASE + 0x8UL))
-  // if Factory Cal exists in DEVINFO then use it
-  #if defined(DEVINFO_HFXOCTUNE)
-  if (0 == (DEVINFO->MODULEINFO & DEVINFO_MODULEINFO_HFXOCALVAL_MASK)) {
-    hfxoInit.ctuneSteadyState = DEVINFO_HFXOCTUNE;
-  }
-  #endif
-  #elif BSP_CLK_HFXO_CTUNE >= 0
-  hfxoInit.ctuneSteadyState = BSP_CLK_HFXO_CTUNE;
-  #endif // BSP_CLK_HFXO_CTUNE_TOKEN
-
-  CMU_HFXOInit(&hfxoInit);
-
-  /* Enable HFXO oscillator, and wait for it to be stable */
-  CMU_OscillatorEnable(cmuOsc_HFXO, true, true);
-
-  /* Setting system HFXO frequency */
-  SystemHFXOClockSet(BSP_CLK_HFXO_FREQ);
-
-  // Enable HFXO oscillator, and wait for it to be stable
-  CMU_OscillatorEnable(cmuOsc_HFXO, true, true);
-
-  #if defined(HAL_CLK_HFXO_AUTOSTART) && HAL_CLK_HFXO_AUTOSTART == HAL_CLK_HFXO_AUTOSTART_SELECT
+  // Select the HFXO and, if supported, manually turn off HFRCO
+  // If requested and supported, turn on autostart/select for series 1 devices
+  #if defined(_SILICON_LABS_32B_SERIES_1)
+    #if defined(HAL_CLK_HFXO_AUTOSTART) && HAL_CLK_HFXO_AUTOSTART == HAL_CLK_HFXO_AUTOSTART_SELECT
   // Automatically start and select HFXO
   CMU_HFXOAutostartEnable(0, true, true);
-  #else
-  #if defined(HAL_CLK_HFXO_AUTOSTART) && HAL_CLK_HFXO_AUTOSTART == HAL_CLK_HFXO_AUTOSTART_START
+    #else
+      #if defined(HAL_CLK_HFXO_AUTOSTART) && HAL_CLK_HFXO_AUTOSTART == HAL_CLK_HFXO_AUTOSTART_START
   // Automatically start HFXO
   CMU_HFXOAutostartEnable(0, true, false);
-  #endif // HAL_CLK_HFXO_AUTOSTART
-  // Use HFXO as high frequency clock
+      #endif // HAL_CLK_HFXO_AUTOSTART
   CMU_ClockSelectSet(cmuClock_HF, cmuSelect_HFXO);
-  #endif // HAL_CLK_HFXO_AUTOSTART
+    #endif // HAL_CLK_HFXO_AUTOSTART
 
   /* HFRCO not needed when using HFXO */
   CMU_OscillatorEnable(cmuOsc_HFRCO, false, false);
+  #elif defined(_SILICON_LABS_32B_SERIES_2) // defined(_SILICON_LABS_32B_SERIES_1)
+  CMU_ClockSelectSet(cmuClock_SYSCLK, cmuSelect_HFXO);
+  #else // defined(_SILICON_LABS_32B_SERIES_2)
+    #error Unknown device series
+  #endif // defined(_SILICON_LABS_32B_SERIES_2)
+
 #elif (HAL_CLK_HFCLK_SOURCE == HAL_CLK_HFCLK_SOURCE_HFRCO)
+  #if defined(_SILICON_LABS_32B_SERIES_2)
+  // Use LFXO at 40MHz
+    #if (HAL_CLK_PLL_CONFIGURATION == HAL_CLK_PLL_CONFIGURATION_40MHZ)
+  CMU_LFXOInit_TypeDef lfxoInit = CMU_LFXOINIT_DEFAULT;
+    #if defined(BSP_CLK_LFXO_CTUNE) && BSP_CLK_LFXO_CTUNE > 0
+  lfxoInit.ctune = BSP_CLK_LFXO_CTUNE;
+    #endif
+  CMU_LFXOInit(&lfxoInit);
+  CMU_DPLLInit_TypeDef dpllInit = CMU_DPLL_LFXO_TO_40MHZ;
+    #endif
+  // Use HFXO at 80MHz
+    #if (HAL_CLK_PLL_CONFIGURATION == HAL_CLK_PLL_CONFIGURATION_80MHZ)
+  CMU_DPLLInit_TypeDef dpllInit = CMU_DPLL_HFXO_TO_80MHZ;
+    #endif
+    #if (HAL_CLK_PLL_CONFIGURATION != HAL_CLK_PLL_CONFIGURATION_NONE)
+  bool locked = false;
+  while (!locked) {
+    locked = CMU_DPLLLock(&dpllInit);
+  }
+    #endif
+  CMU_ClockSelectSet(cmuClock_SYSCLK, cmuSelect_HFRCODPLL);
+  #else
   CMU_ClockSelectSet(cmuClock_HF, cmuSelect_HFRCO);
+  #endif // series 2
 #else
   #error Must define HAL_CLK_HFCLK_SOURCE
 #endif // HAL_CLK_HFCLK_SOURCE
@@ -136,7 +156,7 @@ static void halConfigClockInit(void)
   #else
   CMU_LFXOInit_TypeDef lfxoInit = BSP_CLK_LFXO_INIT;
 
-  #if defined(_CMU_HFXOCTRL_MASK) && defined(BSP_CLK_LFXO_CTUNE) && BSP_CLK_LFXO_CTUNE > 0
+  #if defined(BSP_CLK_LFXO_CTUNE) && BSP_CLK_LFXO_CTUNE > 0
   lfxoInit.ctune = BSP_CLK_LFXO_CTUNE;
   #endif
   CMU_LFXOInit(&lfxoInit);
@@ -146,6 +166,7 @@ static void halConfigClockInit(void)
   #endif
 #endif
 
+#if defined(_SILICON_LABS_32B_SERIES_1)
   // LFA
 #if (HAL_CLK_LFACLK_SOURCE == HAL_CLK_LFCLK_SOURCE_LFXO)
   CMU_ClockSelectSet(cmuClock_LFA, cmuSelect_LFXO);
@@ -183,8 +204,36 @@ static void halConfigClockInit(void)
 #elif (HAL_CLK_LFECLK_SOURCE == HAL_CLK_LFCLK_SOURCE_ULFRCO)
   CMU_ClockSelectSet(cmuClock_LFE, cmuSelect_ULFRCO);
 #endif
+
+#elif defined(_SILICON_LABS_32B_SERIES_2)
+  // EM23
+#if (HAL_CLK_EM23CLK_SOURCE == HAL_CLK_LFCLK_SOURCE_LFXO)
+  CMU_ClockSelectSet(cmuClock_EM23GRPACLK, cmuSelect_LFXO);
+#elif (HAL_CLK_EM23CLK_SOURCE == HAL_CLK_LFCLK_SOURCE_LFRCO)
+  CMU_ClockSelectSet(cmuClock_EM23GRPACLK, cmuSelect_LFRCO);
+#elif (HAL_CLK_EM23CLK_SOURCE == HAL_CLK_LFCLK_SOURCE_ULFRCO)
+  CMU_ClockSelectSet(cmuClock_EM23GRPACLK, cmuSelect_ULFRCO);
+#endif
+
+  // EM4
+#if (HAL_CLK_EM4CLK_SOURCE == HAL_CLK_LFCLK_SOURCE_LFXO)
+  CMU_ClockSelectSet(cmuClock_EM4GRPACLK, cmuSelect_LFXO);
+#elif (HAL_CLK_EM4CLK_SOURCE == HAL_CLK_LFCLK_SOURCE_LFRCO)
+  CMU_ClockSelectSet(cmuClock_EM4GRPACLK, cmuSelect_LFRCO);
+#elif (HAL_CLK_EM4CLK_SOURCE == HAL_CLK_LFCLK_SOURCE_ULFRCO)
+  CMU_ClockSelectSet(cmuClock_EM4GRPACLK, cmuSelect_ULFRCO);
+#endif
+
+  // RTCC
+#if (HAL_CLK_RTCCCLK_SOURCE == HAL_CLK_LFCLK_SOURCE_LFXO)
+  CMU_ClockSelectSet(cmuClock_RTCCCLK, cmuSelect_LFXO);
+#elif (HAL_CLK_RTCCCLK_SOURCE == HAL_CLK_LFCLK_SOURCE_LFRCO)
+  CMU_ClockSelectSet(cmuClock_RTCCCLK, cmuSelect_LFRCO);
+#elif (HAL_CLK_RTCCCLK_SOURCE == HAL_CLK_LFCLK_SOURCE_ULFRCO)
+  CMU_ClockSelectSet(cmuClock_RTCCCLK, cmuSelect_ULFRCO);
+#endif
+#endif // _SILICON_LABS_32B_SERIES_1
 }
-#endif // Series 2
 
 Ecode_t halConfigInit(void)
 {
@@ -305,10 +354,7 @@ Ecode_t halConfigInit(void)
 #if (HAL_ANTDIV_ENABLE)
   halInternalInitAntennaDiversity();
 #endif
-
-
 #if 0
-
 #if (HAL_SERIAL_USART0_ENABLE)
   COM_Init_t initDataUsart0 = COM_USART0_DEFAULT;
   status = COM_Init(comPortUsart0, &initDataUsart0);
@@ -376,3 +422,41 @@ Ecode_t halConfigInit(void)
 #endif
   return status;
 }
+
+#if ANTENNA_USE_RAIL_SCHEME && (ANTENNA_RX_DEFAULT_MODE != HAL_ANTENNA_MODE_DISABLED)
+
+#if HAL_COEX_PHY_ENABLED
+#define config2p4GHzRadioAntDiv(railHandle) \
+  (RAIL_IEEE802154_Config2p4GHzRadioAntDivCoex(railHandle))
+#else //!HAL_COEX_PHY_ENABLED
+#define config2p4GHzRadioAntDiv(railHandle) \
+  (RAIL_IEEE802154_Config2p4GHzRadioAntDiv(railHandle))
+#endif //HAL_COEX_PHY_ENABLED
+
+extern EmberStatus emRadioConfigRxAntenna(HalAntennaMode mode);
+
+RAIL_Status_t halPluginConfig2p4GHzRadio(RAIL_Handle_t railHandle)
+{
+  // Establish the proper radio config supporting antenna diversity
+  assert(config2p4GHzRadioAntDiv(railHandle)
+         == RAIL_STATUS_NO_ERROR);
+
+  assert(halAntennaConfigRailAntenna(railHandle) == RAIL_STATUS_NO_ERROR);
+
+  // Tell RAIL what Rx antenna mode to use
+  assert(emRadioConfigRxAntenna(halGetAntennaRxMode()) == EMBER_SUCCESS);
+
+  return RAIL_STATUS_NO_ERROR;
+}
+
+#elif HAL_COEX_PHY_ENABLED //!(ANTENNA_USE_RAIL_SCHEME && RX_MODE != DISABLED)
+RAIL_Status_t halPluginConfig2p4GHzRadio(RAIL_Handle_t railHandle)
+{
+  // Establish the proper radio config supporting antenna diversity
+  assert(RAIL_IEEE802154_Config2p4GHzRadioCoex(railHandle)
+         == RAIL_STATUS_NO_ERROR);
+  return RAIL_STATUS_NO_ERROR;
+}
+#else //(!HAL_COEX_PHY_ENABLED && !(ANTENNA_USE_RAIL_SCHEME && RX_MODE != DISABLED))
+// No halPluginConfig2p4GHzRadio() stub needed.
+#endif //(HAL_COEX_PHY_ENABLED || ANTENNA_USE_RAIL_SCHEME)

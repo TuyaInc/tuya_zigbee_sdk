@@ -1,5 +1,6 @@
-/** @file hal/micro/cortexm3/bootloader/external-flash-gpio-select.h
- *  @brief  Serial controller abstraction for EM3XX interface to external flash
+/***************************************************************************//**
+ * @file
+ * @brief  Serial controller abstraction for EM3XX interface to external flash
  *
  * This layer of abstraction allows the board header to specify which serial
  * controller to use when talking to the Flash IC. If EXTERNAL_FLASH_PORT is left
@@ -11,10 +12,19 @@
  * the EEPROM. This option is intended to be enabled when running app-bootloader
  * on designs based on current Ember reference designs. PB7 is chosen as this
  * pin unless overridden.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * <!-- Copyright 2014 Silicon Labs, Inc.                                *80*-->
- */
-
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 // Default to old behavior
 #ifndef EXTERNAL_FLASH_SERIAL_CONTROLLER
   #ifdef SPI_FLASH_SC1

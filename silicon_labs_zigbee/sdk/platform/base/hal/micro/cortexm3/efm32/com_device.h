@@ -1,9 +1,17 @@
-#if (defined CORTEXM3_EZR32LG)
-  #include "ezr32lg/com_device.h"
-#elif (defined CORTEXM3_EZR32WG)
-  #include "ezr32wg/com_device.h"
-#elif (defined CORTEXM3_EZR32HG)
-  #include "ezr32hg/com_device.h"
-#elif defined(CORTEXM3_EFR32_MICRO)
-  #include "efr32/com_device.h"
-#endif
+/***************************************************************************//**
+ * @file
+ * @brief
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
+ *
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
+#include "efr32/com_device.h"

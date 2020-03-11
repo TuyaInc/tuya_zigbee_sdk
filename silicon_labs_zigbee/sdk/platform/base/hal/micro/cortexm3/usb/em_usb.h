@@ -1,11 +1,19 @@
 /***************************************************************************//**
  * @file
  * @brief USB protocol stack library API for EFM32.
- * @author Nathaniel Ting
- * @version 3.20.3
- * <!-- Copyright 2013 by Silicon Laboratories. All rights reserved.     *80*-->
- *****************************************************************************/
-
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
+ *
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
+ *
+ ******************************************************************************/
 /** @addtogroup usb
  *@{
  */
@@ -691,6 +699,6 @@ void usbSuspendDsr(void);
 
 void usbTxData (void);
 void usbForceTxData (uint8_t *data, uint8_t length);
-void halInternalUart3RxIsr(uint8_t *rxData, uint8_t length, bool *pauseRx);
+void halInternalUart3RxIsr(uint8_t *rxData, uint8_t length, bool *rxPause);
 
 #endif /* __EM_USB_H */

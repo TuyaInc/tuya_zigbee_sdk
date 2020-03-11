@@ -1,11 +1,19 @@
-/*
- * File: em35x-internal-flash.c
- * Description: Driver that supports the internal flash of the EM35x
+/***************************************************************************//**
+ * @file
+ * @brief Driver that supports the internal flash of the EM35x
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
- * Copyright 2012 by Ember Corporation. All rights reserved.                *80*
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
  *
- */
-
+ ******************************************************************************/
 /*
  * When EEPROM_USES_SHUTDOWN_CONTROL is defined in the board header,
  * logic is enabled in the EEPROM driver which drives PB7 high upon EEPROM

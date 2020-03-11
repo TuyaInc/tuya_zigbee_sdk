@@ -1,10 +1,19 @@
-/** @file hal/micro/system-timer.h
- * See @ref system_timer for documentation.
+/***************************************************************************//**
+ * @file
+ * @brief See @ref system_timer for documentation.
+ *******************************************************************************
+ * # License
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
+ *******************************************************************************
  *
+ * The licensor of this software is Silicon Laboratories Inc. Your use of this
+ * software is governed by the terms of Silicon Labs Master Software License
+ * Agreement (MSLA) available at
+ * www.silabs.com/about-us/legal/master-software-license-agreement. This
+ * software is distributed to you in Source Code format and is governed by the
+ * sections of the MSLA applicable to Source Code.
  *
- * <!-- Copyright 2005 by Ember Corporation. All rights reserved.-->
- */
-
+ ******************************************************************************/
 /** @addtogroup system_timer
  * @brief Functions that provide access to the system clock.
  *
@@ -200,11 +209,6 @@ EmberStatus halCommonIdleForMilliseconds(uint32_t *duration);
 
 // Maintain the previous API for backwards compatibility
 #define halIdleForMilliseconds(duration) halCommonIdleForMilliseconds((duration))
-
-#ifdef EMBER_STACK_COBRA
-EmberStatus halCobraIdleForMicroseconds(uint32_t *duration);
-
-#endif
 
 #endif //__SYSTEM_TIMER_H__
 
