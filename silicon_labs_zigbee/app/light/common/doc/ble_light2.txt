@@ -1,0 +1,1 @@
+{Jsonver:1.0.0,category:0102,c_pin:6,c_lv:1,w_pin:5,w_lv:1,cmod:rgbwc,brightmin:10,brightmax:100,module:TYBT3,pwmhz:8000,crc:63,}

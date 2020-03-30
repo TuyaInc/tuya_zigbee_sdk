@@ -1,0 +1,176 @@
+{
+    "light": {
+        "Jsonver": {
+            "type": "fixed",
+            "value": "1.0.2"
+        },
+        "other": {
+            "rstnum": {
+                "valueType": "range",
+                "range": [
+                    3,
+                    10
+                ],
+                "index": 1,
+                "step": 1,
+                "value": 3
+            }
+        },
+        "iic": {
+            "ctrl": {
+                "type": "fixed",
+                "value": 0
+            },
+            "iicscl": {
+                "type": "fixed",
+                "value": 12
+            },
+            "iicsda": {
+                "type": "fixed",
+                "value": 8
+            }
+        },
+        "bat": {
+            "type": "fixed",
+            "value": "/.light.ProdFunc.category.value/0/,/.light.ProdFunc.cwtype.value/1/,/.light.ProdFunc.dmod.value/2/,/.light.ProdFunc.brightmax.value/3/,/.light.ProdFunc.brightmin.value/4/,/.light.ProdFunc.pwmhz.value/5/,/.light.ProdFunc.pmemory.value/6/,/.light.color.r.pin.value/7/,/.light.color.r.lv.value/12/,/.light.color.g.pin.value/8/,/.light.color.g.lv.value/12/,/.light.color.b.pin.value/9/,/.light.color.b.lv.value/12/,/.light.color.c.pin.value/10/,/.light.color.c.lv.value/12/,/.light.color.w.pin.value/11/,/.light.color.w.lv.value/12/,/.light.rstnum.value/13/,/.light.connection.rstbr.value/14/,/.light.connection.defbright.value/15/,/.light.iic.iicscl.value/16/,/.light.iic.iicsda.value/17/,/.light.iic.ctrl.value/18/,/.light.connection.rstcor.value/19/,/.light.connection.defcolor.value/20/,/.light.ProdFunc.module.value/21/"
+        },
+        "color": {
+            "r": {
+                "pin": {
+                    "list": [
+                        12
+                    ],
+                    "value": 12
+                },
+                "index": 1,
+                "lv": {
+                    "list": [
+                        true,
+                        false
+                    ],
+                    "value": true
+                }
+            },
+            "b": {
+                "pin": {
+                    "list": [
+                        8
+                    ],
+                    "value": 8
+                },
+                "index": 3,
+                "lv": {
+                    "list": [
+                        true,
+                        false
+                    ],
+                    "value": true
+                }
+            },
+            "g": {
+                "pin": {
+                    "list": [
+                        13
+                    ],
+                    "value": 13
+                },
+                "index": 2,
+                "lv": {
+                    "list": [
+                        true,
+                        false
+                    ],
+                    "value": true
+                }
+            }
+        },
+        "ProdFunc": {
+            "cmod": {
+                "type": "fixed",
+                "value": "rgb"
+            },
+            "dmod": {
+                "valueType": "bool",
+                "index": 5,
+                "value": false
+            },
+            "brightmin": {
+                "valueType": "range",
+                "range": [
+                    1,
+                    100
+                ],
+                "index": 2,
+                "step": 1,
+                "value": 10
+            },
+            "brightmax": {
+                "valueType": "range",
+                "range": [
+                    1,
+                    100
+                ],
+                "index": 1,
+                "step": 1,
+                "value": 100
+            },
+            "module": {
+                "type": "fixed",
+                "value": "TYZS1L"
+            },
+            "pwmhz": {
+                "valueType": "range",
+                "range": [
+                    500,
+                    20000
+                ],
+                "index": 3,
+                "step": 500,
+                "value": 8000
+            },
+            "category": {
+                "type": "fixed",
+                "value": "0503"
+            },
+            "pmemory": {
+                "valueType": "bool",
+                "index": 6,
+                "value": true
+            }
+        },
+        "connection": {
+            "rstcor": {
+                "type": "fixed",
+                "value": "r"
+            },
+            "defcolor": {
+                "type": "fixed",
+                "value": "r"
+            },
+            "rstmode": {
+                "type": "fixed",
+                "value": "2"
+            },
+            "rstbr": {
+                "valueType": "range",
+                "range": [
+                    10,
+                    100
+                ],
+                "index": 1,
+                "step": 1,
+                "value": 50
+            },
+            "defbright": {
+                "valueType": "range",
+                "range": [
+                    10,
+                    100
+                ],
+                "index": 2,
+                "step": 1,
+                "value": 50
+            }
+        }
+    }
+}

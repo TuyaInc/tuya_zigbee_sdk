@@ -3565,7 +3565,7 @@
     <group>
         <name>include</name>
         <file>
-            <name>$PROJ_DIR$\..\..\..\..\include\mf_test_callback.h</name>
+            <name>$PROJ_DIR$\..\..\..\..\include\tuya_mf_test.h</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\..\..\include\type_def.h</name>
@@ -3580,7 +3580,7 @@
             <name>$PROJ_DIR$\..\..\..\..\include\zigbee_dev_template.h</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\..\..\include\zigbee_sdk.h</name>
+            <name>$PROJ_DIR$\..\..\..\..\include\tuya_zigbee_sdk.h</name>
         </file>
     </group>
     <group>

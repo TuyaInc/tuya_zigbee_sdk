@@ -1,0 +1,1 @@
+{category:0502,cwtype:0,brightmax:100,brightmin:10,pwmhz:8000,pmemory:1,colorC:3,colorC_lv:1,colorW:11,colorW_lv:1,rstbr:50,defbright:50,rstcor:c,defcolor:c,module:TYZS1L,crc:108,}

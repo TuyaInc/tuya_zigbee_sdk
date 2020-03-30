@@ -1,0 +1,146 @@
+{
+    "light": {
+        "Jsonver": {
+            "type": "fixed",
+            "value": "1.0.2"
+        },
+        "other": {
+            "rstnum": {
+                "valueType": "range",
+                "range": [
+                    3,
+                    10
+                ],
+                "index": 1,
+                "step": 1,
+                "value": 3
+            }
+        },
+        "bat": {
+            "type": "fixed",
+            "value": "/.light.ProdFunc.category.value/category/,/.light.ProdFunc.cwtype.value/cwtype/,/.light.ProdFunc.dmod.value/dmod/,/.light.ProdFunc.brightmax.value/brightmax/,/.light.ProdFunc.brightmin.value/brightmin/,/.light.ProdFunc.pwmhz.value/pwmhz/,/.light.ProdFunc.pmemory.value/pmemory/,/.light.color.r.pin.value/colorR/,/.light.color.r.lv.value/coloR_lv/,/.light.color.g.pin.value/colorG/,/.light.color.g.lv.value/colorG_lv/,/.light.color.b.pin.value/colorB/,/.light.color.b.lv.value/colorB_lv/,/.light.color.c.pin.value/colorC/,/.light.color.c.lv.value/colorC_lv/,/.light.color.w.pin.value/colorW/,/.light.color.w.lv.value/colorW_lv/,/.light.rstnum.value/rstnum/,/.light.connection.rstbr.value/rstbr/,/.light.connection.defbright.value/defbright/,/.light.iic.iicscl.value/iicscl/,/.light.iic.iicsda.value/iicsda/,/.light.iic.ctrl.value/iic_ctrl/,/.light.connection.rstcor.value/rstcor/,/.light.connection.defcolor.value/defcolor/,/.light.ProdFunc.module.value/module/"
+        },
+        "color": {
+            "c": {
+                "pin": {
+                    "list": [
+                        3
+                    ],
+                    "value": 3
+                },
+                "index": 4,
+                "lv": {
+                    "list": [
+                        true,
+                        false
+                    ],
+                    "value": true
+                }
+            },
+            "w": {
+                "pin": {
+                    "list": [
+                        11
+                    ],
+                    "value": 11
+                },
+                "index": 5,
+                "lv": {
+                    "list": [
+                        true,
+                        false
+                    ],
+                    "value": true
+                }
+            }
+        },
+        "ProdFunc": {
+            "cmod": {
+                "type": "fixed",
+                "value": "cw"
+            },
+            "brightmin": {
+                "valueType": "range",
+                "range": [
+                    1,
+                    100
+                ],
+                "index": 2,
+                "step": 1,
+                "value": 10
+            },
+            "brightmax": {
+                "valueType": "range",
+                "range": [
+                    1,
+                    100
+                ],
+                "index": 1,
+                "step": 1,
+                "value": 100
+            },
+            "module": {
+                "type": "fixed",
+                "value": "TYZS1L"
+            },
+            "pwmhz": {
+                "valueType": "range",
+                "range": [
+                    500,
+                    20000
+                ],
+                "index": 3,
+                "step": 500,
+                "value": 8000
+            },
+            "category": {
+                "type": "fixed",
+                "value": "0502"
+            },
+            "cwtype": {
+                "valueType": "bool",
+                "index": 4,
+                "value": false
+            },
+            "pmemory": {
+                "valueType": "bool",
+                "index": 6,
+                "value": true
+            }
+        },
+        "connection": {
+            "rstcor": {
+                "type": "fixed",
+                "value": "c"
+            },
+            "defcolor": {
+                "type": "fixed",
+                "value": "c"
+            },
+            "rstmode": {
+                "type": "fixed",
+                "value": "2"
+            },
+            "rstbr": {
+                "valueType": "range",
+                "range": [
+                    10,
+                    100
+                ],
+                "index": 1,
+                "step": 1,
+                "value": 50
+            },
+            "defbright": {
+                "valueType": "range",
+                "range": [
+                    10,
+                    100
+                ],
+                "index": 2,
+                "step": 1,
+                "value": 50
+            }
+        }
+    }
+}

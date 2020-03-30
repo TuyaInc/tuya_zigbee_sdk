@@ -1,0 +1,8 @@
+OBJ_DIR = build/obj
+TARGET = sample_switch1
+TARGET_SECURITY = sample_switch1_security
+STR_VER = 1.0.0
+HEX_VER = 0x40
+OTA_IMAGE_TYPE = 0x1602
+MANUF_ID = 0x1002
+PLATFORM = EFR32MG21A020F768

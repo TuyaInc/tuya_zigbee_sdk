@@ -1,0 +1,8 @@
+#ifndef __LIHGT_PRINT_H__
+#define __LIHGT_PRINT_H__
+
+#ifdef __cplusplus
+extern "C" {
+#endif  /* __cplusplus */
+#endif
+

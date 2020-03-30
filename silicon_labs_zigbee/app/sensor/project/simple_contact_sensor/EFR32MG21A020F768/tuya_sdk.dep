@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <fileVersion>4</fileVersion>
+    <fileChecksum>2916603587</fileChecksum>
+    <configuration>
+        <name>Normal</name>
+        <outputs>
+            <file>$PROJ_DIR$\..\src\config.c</file>
+            <file>$PROJ_DIR$\build\exe\sdk_route.out</file>
+            <file>$PROJ_DIR$\build\exe\tuya_sdk.s37</file>
+            <file>$PROJ_DIR$\build\obj\tuya_sdk.pbd</file>
+            <file>$PROJ_DIR$\build\obj\config.xcl</file>
+            <file>$PROJ_DIR$\build\obj\config.o</file>
+            <file>$PROJ_DIR$\..\src\gpio_sensor.c</file>
+            <file>$PROJ_DIR$\build\obj\ias_zone_server.o</file>
+            <file>$PROJ_DIR$\..\src\ias_zone_server.c</file>
+            <file>$PROJ_DIR$\build\obj\simple_contact_sensor_callback.o</file>
+            <file>$PROJ_DIR$\..\src\simple_contact_sensor_callback.c</file>
+            <file>$PROJ_DIR$\build\obj\gpio_sensor.o</file>
+            <file>$PROJ_DIR$\build\obj\app_sensor.xcl</file>
+            <file>$PROJ_DIR$\build\obj\gpio_sensor.xcl</file>
+            <file>$PROJ_DIR$\build\obj\ias_zone_server.xcl</file>
+            <file>$PROJ_DIR$\build\obj\simple_contact_sensor_callback.xcl</file>
+            <file>$PROJ_DIR$\build\obj\app_sensor.o</file>
+            <file>$PROJ_DIR$\..\src\app_sensor.c</file>
+            <file>$PROJ_DIR$\..\src\app_common.c</file>
+            <file>$PROJ_DIR$\build\obj\app_common.o</file>
+            <file>$PROJ_DIR$\build\obj\app_common.xcl</file>
+        </outputs>
+        <file>
+            <name>[ROOT_NODE]</name>
+            <outputs>
+                <tool>
+                    <name>ILINK</name>
+                    <file> 1</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\src\config.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 5</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 4</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\build\exe\sdk_route.out</name>
+            <outputs>
+                <tool>
+                    <name>OBJCOPY</name>
+                    <file> 2</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\src\gpio_sensor.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 11</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 13</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\src\ias_zone_server.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 7</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 14</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\src\simple_contact_sensor_callback.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 9</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 15</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\src\app_sensor.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 16</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 12</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\src\app_common.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 19</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 20</file>
+                </tool>
+            </outputs>
+        </file>
+    </configuration>
+</project>

@@ -1,0 +1,137 @@
+{
+	"fimwareInfo": {
+		"name": "simple_contact_sensor",
+		"description": "this is a project",
+		"version": "1.0.0",
+		"ic": "EFR32MG21A020F768",
+		"ota_image_type":"0x1602",
+		"manufacture_id":"0x1002",
+		"model_id":"TS0203",
+		"pid": "alo8ncai",
+		"manufacture_name": "_TZ3000_",
+		"module_name":"ZS3L"
+	},
+	"uartConfig": {
+		"uart_enable": "true",
+		"uart_num": 1,
+		"uart": [
+			{
+				"uart0_rx_port": "PORT_F",
+				"uart0_rx_pin": "PIN_2",
+				"uart0_rx_loc": "LOC_25",
+				"uart0_tx_port": "PORT_F",
+				"uart0_tx_pin": "PIN_5",
+				"uart0_tx_loc": "LOC_29",
+				"uart0_bandrate": 115200
+			},
+			{
+				"uart0_rx_port": "PORT_A",
+				"uart0_rx_pin": "PIN_1",
+				"uart0_rx_loc": "LOC_0",
+				"uart0_tx_port": "PORT_A",
+				"uart0_tx_pin": "PIN_0",
+				"uart0_tx_loc": "LOC_0",
+				"uart0_bandrate": 115200
+			}
+		]
+	},
+  "ioConfig": {
+    "led_enable": "true",
+		"led_num": 2,
+		"key_enable": "true",
+		"key_num": 1,
+		"sensor_enable": "true",
+		"sensor_num": 1,
+    "led": [
+		  {
+			"led0_port": "PORT_A",
+			"led0_pin": "PIN_2",
+			"led0_mode": "GPIO_MODE_OUTPUT_PP",
+			"led0_out": "GPIO_DOUT_HIGH",
+			"led0_driver": "GPIO_DOUT_LOW"
+		  },
+		  {
+			"led1_port": "PORT_A",
+			"led1_pin": "PIN_3",
+			"led1_mode": "GPIO_MODE_OUTPUT_PP",
+			"led1_out": "GPIO_DOUT_HIGH",
+			"led1_driver": "GPIO_DOUT_LOW"
+		  }
+	],
+	"key": [
+		  {
+			"key0_port": "PORT_D",
+			"key0_pin": "PIN_15",
+			"key0_mode": "GPIO_MODE_INPUT_PULL",
+			"key0_out": "GPIO_DOUT_HIGH",
+			"key0_driver": "GPIO_DOUT_LOW"
+		  },
+		  {
+			"key1_port": "PORT_x",
+			"key1_pin": "PIN_x",
+			"key1_mode": "GPIO_MODE_OUTPUT_OD",
+			"key1_out": "GPIO_DOUT_LOW",
+			"key1_driver": "GPIO_LEVEL_HIGH"
+		  }
+		],
+		"sensor": [
+		  {
+			"alarm1_port": "PORT_F",
+			"alarm1_pin": "PIN_4",
+			"alarm1_mode": "GPIO_MODE_INPUT_HIGH_IMPEDANCE",
+			"alarm1_out": "GPIO_DOUT_LOW",
+			"alarm1_driver": "GPIO_LEVEL_ALL"
+			}
+		]
+	},
+	"iasInfo":{
+		"zoneinfo":{
+			"ias_zone_type":21
+		},
+		"alarm1info":{
+			"alarm1_led_flash_time":200,
+			"alarm1_gpio_polarity":0,
+			"alarm1_vibrate_time":200,
+			"alarm1_report_time":0
+		}
+	},
+	"netManage":{
+		"ledinfo":{
+			"power_up_led_on_time":3000,
+			"nwk_join_led_blink_freq":250
+		},
+		"join":{
+			"reset_time_ms":3000,
+			"channel_sw_per_ms":300,
+			"joined_continue_poll_time_ms":25000,
+			"power_on_join":0,
+			"rm_leave_join":1,
+			"join_time_out_ms":30000
+		},
+		"rejoin":{
+			"power_on_rejoin":1,
+			"auto_rejoin_poll":1,
+			"rejoined_continue_poll_time_ms":15000,
+			"beacon_per_ms":1000,
+			"beacon_time":4,
+			"next_rejoin_per_hour":4
+		},
+		"poll":{
+			"poll_forever":0,
+			"poll_interval_ms":800,
+			"wait_app_ack_ms":2000,
+			"poll_miss_max":6
+		},
+		"epinfo":{
+			"dev_ep_sum":1,
+			"ias_zone_ep":1
+		}
+	},
+	"devparam":{
+		"battery_param":{
+			"battery_report_minute":240,
+			"battery_max_milliv":3000,
+			"battery_min_milliv":2500
+		}
+	}
+}

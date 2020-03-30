@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <fileVersion>4</fileVersion>
+    <fileChecksum>4047522507</fileChecksum>
+    <configuration>
+        <name>1P132_release</name>
+        <outputs />
+        <forcedrebuild>
+            <name>[MULTI_TOOL]</name>
+            <tool>ILINK</tool>
+        </forcedrebuild>
+    </configuration>
+    <configuration>
+        <name>Normal</name>
+        <outputs>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\type_def.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\end-device-bind-stub-library.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\cbke-163k1-stub-library.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\cbke-283k1-stub-library.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\hal-library.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\zigbee_cmd.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\binding-table-library.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\install-code-library.a</file>
+            <file>$PROJ_DIR$\..\src\app_common.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\librail_efr32xg13_iar_release.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\zigbee_attr.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\gp-stub-library.a</file>
+            <file>$PROJ_DIR$\..\src\gpio_sensor.c</file>
+            <file>$PROJ_DIR$\..\src\simple_contact_sensor_callback.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\mfglib-library.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\multi-network-stub-library.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\cbke-library-dsa-verify-283k1-stub.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\debug-basic-library.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\packet-validate-library.a</file>
+            <file>$PROJ_DIR$\..\src\app_sensor.c</file>
+            <file>$PROJ_DIR$\..\src\config.c</file>
+            <file>$PROJ_DIR$\..\src\ias_zone_server.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\tuya_zigbee_sdk.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\cbke-library-dsa-verify-stub.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\cbke-stub-library.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\debug-extended-stub-library.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\zigbee_dev_template.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\cbke-library-dsa-sign-stub.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\tuya_mf_test.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\tuya_oem_kit.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\ysizet.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\stddef.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\hal_pwm.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\hal_adc.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\zigbee_raw_cmd_api.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\tuya_mcu_os.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\hal_systick_timer.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\hal_gpio.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\hal_battery.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\tuya_app_timer.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\hal_uart.h</file>
+            <file>$PROJ_DIR$\..\include\gpio_sensor.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdint.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\time32.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\tuya_tools.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\time.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdlib.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\tuya_zigbee_stack.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\hal_i2c.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\hal_timer.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\hal_flash.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Product_stdlib.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\hal_spi.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\string.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Product_string.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\include\tuya_zigbee_modules.h</file>
+            <file>$TOOLKIT_DIR$\lib\dl7M_tln.a</file>
+            <file>$PROJ_DIR$\build\obj\app_sensor.__cstat.et</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdio.h</file>
+            <file>$PROJ_DIR$\build\obj\app_common.__cstat.et</file>
+            <file>$TOOLKIT_DIR$\lib\shb_l.a</file>
+            <file>$PROJ_DIR$\build\obj\simple_contact_sensor_callback.__cstat.et</file>
+            <file>$TOOLKIT_DIR$\lib\m7M_tls.a</file>
+            <file>$TOOLKIT_DIR$\lib\rt7M_tl.a</file>
+            <file>$PROJ_DIR$\..\include\config.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\tools\iar_tools\icf\iar-cfg-common.icf</file>
+            <file>$PROJ_DIR$\build\obj\ias_zone_server.__cstat.et</file>
+            <file>$PROJ_DIR$\build\list\sdk_route.map</file>
+            <file>$PROJ_DIR$\build\obj\config.__cstat.et</file>
+            <file>$PROJ_DIR$\build\obj\gpio_sensor.__cstat.et</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\sim-eeprom2-1to2-upgrade-stub-library.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\zll-stub-library.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\sim-eeprom2-library.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\security-library-core.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\zigbee-pro-stack.a</file>
+            <file>$PROJ_DIR$\build\obj\ias_zone_server.xcl</file>
+            <file>$PROJ_DIR$\build\obj\config.xcl</file>
+            <file>$PROJ_DIR$\build\obj\gpio_sensor.xcl</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\tuya_sdk.a</file>
+            <file>$PROJ_DIR$\build\exe\sdk_route.out</file>
+            <file>$PROJ_DIR$\build\obj\ias_zone_server.o</file>
+            <file>$PROJ_DIR$\build\obj\simple_contact_sensor_callback.xcl</file>
+            <file>$PROJ_DIR$\build\obj\app_common.o</file>
+            <file>$PROJ_DIR$\build\obj\app_sensor.o</file>
+            <file>$PROJ_DIR$\build\obj\tuya_sdk.pbd</file>
+            <file>$PROJ_DIR$\build\obj\gpio_sensor.o</file>
+            <file>$PROJ_DIR$\..\include\app_sensor.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\zigbee-r22-support-stub-library.a</file>
+            <file>$PROJ_DIR$\..\include\ias_zone_server.h</file>
+            <file>$PROJ_DIR$\build\obj\app_common.xcl</file>
+            <file>$PROJ_DIR$\..\include\app_common.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\tools\iar_tools\icf\main_icf\iar-cfg.icf</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdbool.h</file>
+            <file>$PROJ_DIR$\build\obj\config.o</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\lib\iar_lib\EFR32MG13P732F512\security-library-link-keys-stub.a</file>
+            <file>$PROJ_DIR$\build\obj\simple_contact_sensor_callback.o</file>
+            <file>$PROJ_DIR$\build\obj\app_sensor.xcl</file>
+            <file>$PROJ_DIR$\build\exe\tuya_sdk.s37</file>
+        </outputs>
+        <file>
+            <name>[ROOT_NODE]</name>
+            <outputs>
+                <tool>
+                    <name>ILINK</name>
+                    <file> 84 72</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\src\app_common.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 87</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 94</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 64</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 69 22 63 31 32 46 33 48 30 51 56 58 59 50 47 0 34 45 40 36 57 43 53 41 54 35 39 55 10 5 26 52 49 37 29 60 28 38 42 95 97</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\src\gpio_sensor.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 90</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 82</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 74</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 63 31 32 46 33 48 30 51 56 22 58 59 50 47 0 34 45 40 36 57 43 53 41 54 35 39 55 10 5 26 52 49 37 29 60 28 38 42 69 44 95 97</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\src\simple_contact_sensor_callback.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 100</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 86</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 66</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 63 31 32 46 33 48 30 51 56 69 22 58 59 50 47 0 34 45 40 36 57 43 53 41 54 35 39 55 10 5 26 52 49 37 29 60 28 38 42 95 97 91 93</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\src\app_sensor.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 88</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 101</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 62</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 63 31 32 46 33 48 30 51 56 22 58 59 50 47 0 34 45 40 36 57 43 53 41 54 35 39 55 10 5 26 52 49 37 29 60 28 38 42 69 95 97 91 44 93</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\src\config.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 98</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 81</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 73</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 69 22 63 31 32 46 33 48 30 51 56 58 59 50 47 0 34 45 40 36 57 43 53 41 54 35 39 55 10 5 26 52 49 37 29 60 28 38 42</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\src\ias_zone_server.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 85</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 80</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 71</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 63 31 32 46 33 48 30 51 56 69 22 58 59 50 47 0 34 45 40 36 57 43 53 41 54 35 39 55 10 5 26 52 49 37 29 60 28 38 42 95 97 93</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\build\exe\sdk_route.out</name>
+            <outputs>
+                <tool>
+                    <name>OBJCOPY</name>
+                    <file> 102</file>
+                </tool>
+                <tool>
+                    <name>ILINK</name>
+                    <file> 72</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ILINK</name>
+                    <file> 96 70 87 88 6 2 3 27 16 23 24 98 17 25 1 11 90 4 85 7 9 14 15 18 78 99 75 77 100 83 79 92 76 65 68 67 61</file>
+                </tool>
+            </inputs>
+        </file>
+    </configuration>
+    <configuration>
+        <name>debug</name>
+        <outputs />
+        <forcedrebuild>
+            <name>[MULTI_TOOL]</name>
+            <tool>ILINK</tool>
+        </forcedrebuild>
+    </configuration>
+    <configuration>
+        <name>sleep_poll_always</name>
+        <outputs />
+        <forcedrebuild>
+            <name>[MULTI_TOOL]</name>
+            <tool>ILINK</tool>
+        </forcedrebuild>
+    </configuration>
+</project>

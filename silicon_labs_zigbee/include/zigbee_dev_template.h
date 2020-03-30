@@ -1,27 +1,33 @@
-/*
- * @Author: Leon
- * @email: zhangpeng@tuya.com
- * @LastEditors: Leon
- * @file name: zigbee_dev_template.h
- * @Description: zigbee device cluster and attribute template files
- * @Copyright: HANGZHOU TUYA INFORMATION TECHNOLOGY CO.,LTD
- * @Company: http://www.tuya.com
- * @Date: 2019-03-25 21:41:18
- * @LastEditTime: 2019-04-15 20:24:42
+/**
+ * @author Leon
+ * @par email:
+ *      zhangpeng@tuya.com
+ * @file zigbee_dev_template.h
+ * @brief This file defines part of zigbee's cluster and attributes
+ * @copyright HANGZHOU TUYA INFORMATION TECHNOLOGY CO.,LTD
+ * @par company
+ *      http://www.tuya.com
+ * @date 2020-03-20 17:29:33
  */
 
-#ifndef ZIGBEE_DEV_TEMPLATE__H
-#define ZIGBEE_DEV_TEMPLATE__H
+
+#ifndef __ZIGBEE_DEV_TEMPLATE_H__
+#define __ZIGBEE_DEV_TEMPLATE_H__
+
+#include "type_def.h"
+#include "zigbee_attr.h"
+#include "tuya_zigbee_stack.h"
+#include "tuya_tools.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#include "zigbee_sdk.h"
 
-extern const uint8_t basic_default_value[];
-extern const uint8_t green_power_default_value[];
-//attributes define
+
+extern const uint8_t basic_default_value[];         ///< inner using
+extern const uint8_t green_power_default_value[];   ///< inner using
+
 #define BASE_ATTR_LIST \
     { 0x0000, ATTR_INT8U_ATTRIBUTE_TYPE, 1, (ATTR_MASK_SINGLETON),  (uint8_t*)0x03 }, /* 0 / Basic / ZCL version*/\
     { 0x0001, ATTR_INT8U_ATTRIBUTE_TYPE, 1, (ATTR_MASK_SINGLETON),  (uint8_t*)0x00  }, /* 1 / Basic / application version*/\
@@ -87,7 +93,7 @@ extern const uint8_t green_power_default_value[];
     { 0xFFFD, ATTR_INT16U_ATTRIBUTE_TYPE, 2, (0x00), { (uint8_t*)0x0001 } },
 
 #define TIME_ATTR_LIST \
-    { 0xFFFD, ATTR_INT16U_ATTRIBUTE_TYPE, 2, (ATTR_MASK_SINGLETON), { (uint8_t*)0x0002 } }, /* 20 / Time / cluster revision*/\
+    { 0xFFFD, ATTR_INT16U_ATTRIBUTE_TYPE, 2, (ATTR_MASK_CLIENT), { (uint8_t*)0x0001 } }, /* 20 / Time / cluster revision*/\
 
         
 #define COLOR_CONTROL_ATTR_LIST \
@@ -128,7 +134,7 @@ extern const uint8_t green_power_default_value[];
     { 0x0302, ATTR_INT24U_ATTRIBUTE_TYPE, 3, (0x00), (uint8_t*)0x000064 }, /* 31 / Simple Metering / divisor*/\
     { 0x0303, ATTR_BITMAP8_ATTRIBUTE_TYPE, 1, (0x00), (uint8_t*)0xC2 }, /* 32 / Simple Metering / summation formatting*/\
     { 0x0306, ATTR_BITMAP8_ATTRIBUTE_TYPE, 1, (0x00), (uint8_t*)0x00 }, /* 33 / Simple Metering / metering device type*/\
-    { 0xFFFD, ATTR_INT16U_ATTRIBUTE_TYPE, 2, (0x00), (uint8_t*)0x0002 }, /* 34 / Simple Metering / cluster revision*/\
+    { 0xFFFD, ATTR_INT16U_ATTRIBUTE_TYPE, 2, (0x00), (uint8_t*)0x0001 }, /* 34 / Simple Metering / cluster revision*/\
 
 #define ELECTRICAL_MEASUREMENT_ATTR_LIST \
     { 0x0000, ATTR_BITMAP32_ATTRIBUTE_TYPE, 4, (0x00), (uint8_t*)0x00000105 }, /* 35 / Electrical Measurement / measurement type*/\
@@ -152,7 +158,7 @@ extern const uint8_t green_power_default_value[];
 
    
 #define DIMMER_ZLL_COMMISSIONING_ATTR_LIST \
-    { 0xFFFD, ATTR_INT16U_ATTRIBUTE_TYPE, 2, (0x00), (uint8_t*)0x0002}, /* 1 / ZLL Commissioning / cluster revision*/\
+    { 0xFFFD, ATTR_INT16U_ATTRIBUTE_TYPE, 2, (0x00), (uint8_t*)0x0001}, /* 1 / ZLL Commissioning / cluster revision*/\
 
 
 #define TEMPERATURE_ATTR_LIST \

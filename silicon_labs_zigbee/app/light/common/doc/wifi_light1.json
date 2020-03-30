@@ -1,0 +1,178 @@
+{
+    "light": {
+        "Jsonver": {
+            "type": "fixed",
+            "value": "1.0.2"
+        },
+        "iic": {
+            "iicc": {
+                "type": "fixed",
+                "value": 3
+            },
+            "ctrl": {
+                "type": "fixed",
+                "value": 16
+            },
+            "iicscl": {
+                "type": "fixed",
+                "value": 4
+            },
+            "iicsda": {
+                "type": "fixed",
+                "value": 14
+            }
+        },
+        "other": {
+            "rstnum": {
+                "valueType": "range",
+                "range": [
+                    3,
+                    10
+                ],
+                "index": 3,
+                "step": 1,
+                "value": 3
+            },
+            "lkey": {
+                "pin": {
+                    "list": [
+                        "none",
+                        13,
+                        4,
+                        12,
+                        14
+                    ],
+                    "value": "none"
+                },
+                "index": 1,
+                "lv": {
+                    "list": [
+                        false
+                    ],
+                    "value": false
+                }
+            },
+            "ktime": {
+                "valueType": "range",
+                "range": [
+                    3,
+                    10
+                ],
+                "index": 2,
+                "step": 1,
+                "value": 5
+            }
+        },
+        "color": {
+            "c": {
+                "pin": {
+                    "list": [
+                        5
+                    ],
+                    "value": 5
+                },
+                "index": 1,
+                "lv": {
+                    "list": [
+                        true,
+                        false
+                    ],
+                    "value": true
+                }
+            }
+        },
+        "ProdFunc": {
+            "cmod": {
+                "type": "fixed",
+                "value": "c"
+            },
+            "brightmin": {
+                "valueType": "range",
+                "range": [
+                    1,
+                    100
+                ],
+                "index": 2,
+                "step": 1,
+                "value": 10
+            },
+            "dmod": {
+                "valueType": "bool",
+                "index": 4,
+                "value": false
+            },
+            "brightmax": {
+                "valueType": "range",
+                "range": [
+                    1,
+                    100
+                ],
+                "index": 1,
+                "step": 1,
+                "value": 100
+            },
+            "onoffmode": {
+                "valueType": "bool",
+                "index": 6,
+                "value": false
+            },
+            "module": {
+                "type": "fixed",
+                "value": "E3S-E3L-WE5P"
+            },
+            "wfcfg": {
+                "type": "fixed",
+                "value": "spcl"
+            },
+            "pwmhz": {
+                "valueType": "range",
+                "range": [
+                    100,
+                    20000
+                ],
+                "index": 3,
+                "step": 100,
+                "value": 1000
+            },
+            "pmemory": {
+                "valueType": "bool",
+                "index": 5,
+                "value": true
+            }
+        },
+        "connection": {
+            "rstcor": {
+                "type": "fixed",
+                "value": "c"
+            },
+            "defcolor": {
+                "type": "fixed",
+                "value": "c"
+            },
+            "rstmode": {
+                "type": "fixed",
+                "value": 2
+            },
+            "rstbr": {
+                "valueType": "range",
+                "range": [
+                    10,
+                    100
+                ],
+                "index": 1,
+                "step": 1,
+                "value": 50
+            },
+            "defbright": {
+                "valueType": "range",
+                "range": [
+                    1,
+                    100
+                ],
+                "index": 2,
+                "step": 1,
+                "value": 50
+            }
+        }
+    }
+}

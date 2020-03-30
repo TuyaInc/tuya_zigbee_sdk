@@ -1,13 +1,13 @@
-/*
- * @Author: Leon
- * @email: zhangpeng@tuya.com
- * @LastEditors:   
- * @file name: com_def.h
- * @Description: common micro define files
- * @Copyright: HANGZHOU TUYA INFORMATION TECHNOLOGY CO.,LTD
- * @Company: http://www.tuya.com
- * @Date: 2019-03-25 21:41:17
- * @LastEditTime: 2019-06-10 17:31:13
+/**
+ * @author Leon
+ * @par email:
+ *      zhangpeng@tuya.com
+ * @file type_def.h
+ * @brief common type define files
+ * @copyright HANGZHOU TUYA INFORMATION TECHNOLOGY CO.,LTD
+ * @par company
+ *      http://www.tuya.com
+ * @date 2020-03-20 17:29:33
  */
 
 #ifndef  __TYPE_DEF_H__
@@ -19,6 +19,41 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#if defined (__IAR_SYSTEMS_ICC__) //for IAR
+    #define VIRTUAL_FUNC __weak
+#else //for gcc
+    #define VIRTUAL_FUNC __attribute__((weak))
+#endif
+
+#ifndef IN
+#define IN
+#endif
+
+#ifndef OUT
+#define OUT
+#endif
+
+#ifndef INOUT
+#define INOUT
+#endif
+
+#ifndef STATIC
+#define STATIC static
+#endif
+
+#ifndef CONST
+#define CONST const
+#endif
+
+#ifndef SIZEOF
+#define SIZEOF sizeof
+#endif
+
+#ifndef INLINE
+#define INLINE inline
+#endif
+
 
 #ifndef NULL
     #ifdef __cplusplus
