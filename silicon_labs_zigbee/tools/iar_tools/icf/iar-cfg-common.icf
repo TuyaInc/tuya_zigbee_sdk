@@ -146,14 +146,24 @@ define block APPRO_block with fixed order { ro section .intvec,
                                             ro section .iar.init_table,
                                             ro section __DLIB_PERTHREAD_init };
 "APP ro": place at start of APPRO_region { block APPRO_block };
-"NVM&SIMEE": place at end of APPRO_region {zi section NVM,
-                                           zi section SIMEE,
-                                           zi section INTERNAL_STORAGE,
-                                           zi section PSSTORE};
+"NVM&SIMEE&LOCKBITS": place at end of APPRO_region {zi section NVM,
+                                                    zi section SIMEE,
+                                                    zi section INTERNAL_STORAGE,
+                                                    zi section PSSTORE,
+                                                    zi section LOCKBITS_IN_MAINFLASH};
 
 //NOTE:  Simulated EEPROM size is determined by the sizing of the the
 //       storage variable simulatedEepromStorage which is placed into
 //       SIMEE section (which is placed at the end of the app).
+//NOTE:  Unlike Series1 EFR devices, Series2 devices do not have an
+//       explicit flash space for LockBits.  Series 2 uses the top page
+//       of main flash to store LockBits.  This top page is set aside using
+//       a dedicated byte array that the linker places at the top of flash.
+//       The define LOCKBITS_BASE is then used like all EFR devices to access
+//       the LockBits memory.
+//       In non-Series2 devices the LOCKBITS_IN_MAINFLASH section is not
+//       defined so it is ignored by the linker and therefore the top page
+//       of flash is free for all existing prior uses.
 
 if ( !isdefinedsymbol(NO_FIB) )
 {
@@ -170,8 +180,6 @@ if ( !isdefinedsymbol(NO_FIB) )
 //  | DEBUGCHANNEL |
 //  |--------------| RAM_TOP - UNUSED_RAM_SIZE - 0x00000010
 //  | NOINIT       |
-//  |--------------| 0x2000XXXX
-//  | APP_RAM      |
 //  |--------------| 0x2000XXXX
 //  | BSS          |
 //  |--------------| 0x2000XXXX
@@ -227,7 +235,8 @@ do not initialize  { rw section .noinit,
                      zi section NVM,
                      zi section SIMEE,
                      zi section INTERNAL_STORAGE,
-                     zi section PSSTORE };
+                     zi section PSSTORE,
+                     zi section LOCKBITS_IN_MAINFLASH};
 initialize by copy { readwrite };
 
 // Create blocks for the DLIB_PERTHREAD regions used by IAR's standard libraries
@@ -258,7 +267,6 @@ define block APPRW_block with fixed order { block ALIGN_CSTACK,
                                             block DLIB_PERTHREAD_INITIALIZED_DATA,
                                             block DLIB_PERTHREAD_ZERO_DATA,
                                             rw section .bss,
-                                            rw section APP_RAM,
                                             rw section .noinit,
                                             block HEAP };
 

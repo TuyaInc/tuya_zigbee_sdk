@@ -6,13 +6,13 @@
 
 #include "tuya_zigbee_sdk.h"
 /* firmware information! */
-#define FIRMWARE_INFO                   "light_cw_demo_1.0.0"
+#define FIRMWARE_INFO                   "light_cw_demo_1.0.1"
 #define FIRMWARE_NAME                   "light_cw_demo"
-#define FIRMWARE_VER                    0x40
+#define FIRMWARE_VER                    0x41
 #define PRODUCTOR_ID_PFEFIX             "_TZ3000_"
-#define IC                              "EFR32MG13P732F512"
+#define IC                              "EFR32MG21A020F768"
 #define OTA_IMAGE_TYPE                  0x1602
-#define MODULE_NAME                     TYZS3
+#define MODULE_NAME                     ZS3L
 #define MODEL_ID                        "TS0502A"
 #define PRODUCTOR_ID                    "kdvchfo2"
 
